@@ -1,0 +1,27 @@
+{
+  "name": "famir-demo",
+  "type": "module",
+  "description": "Famir demo project",
+  "author": "Dmitry Krutikov <d.krutikov@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "format": "npm --ws run format",
+    "lint": "npm --ws run lint",
+    "build": "npm --ws run build"
+  },
+  "workspaces": [
+    "packages/reverse-proxy",
+    "packages/shell",
+    "packages/heartbeat"
+  ],
+  "devDependencies": {
+    "@eslint/js": "^9.19.0",
+    "eslint": "^9.19.0",
+    "eslint-config-prettier": "^10.0.1",
+    "prettier": "^3.4.2",
+    "prettier-plugin-organize-imports": "^4.1.0",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.21.0"
+  }
+}

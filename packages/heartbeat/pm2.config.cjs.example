@@ -1,0 +1,27 @@
+const { env } = require('../../env.config.cjs')
+
+module.exports = {
+  apps: [
+    {
+      name: 'famir-demo-heartbeat',
+      script: 'dist/index.js',
+      cwd: __dirname,
+      env: {
+        'NODE_ENV': 'production',
+        'LOGGER_APP_NAME': 'famir-demo-heartbeat',
+        'LOGGER_LOG_LEVEL': 'debug',
+        'LOGGER_TRANSPORT_TARGET': env.LOGGER_TRANSPORT_TARGET,
+        'LOGGER_TRANSPORT_OPTIONS': env.LOGGER_TRANSPORT_OPTIONS,
+        'DATABASE_CONNECTION_URL': env.DATABASE_CONNECTION_URL,
+        'TASK_QUEUE_CONNECTION_URL': env.TASK_QUEUE_CONNECTION_URL,
+        'TASK_WORKER_CONNECTION_URL': env.TASK_WORKER_CONNECTION_URL,
+        //'TASK_WORKER_CONCURRENCY': '2',
+        //'TASK_WORKER_LIMITER_MAX': '1',
+        //'TASK_WORKER_LIMITER_DURATION': '1000',
+      },
+      instances: 1,
+      kill_timeout: 10_000,
+      watch: ['dist']
+    }
+  ]
+}

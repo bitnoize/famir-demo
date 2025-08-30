@@ -1,0 +1,6 @@
+.npmrc
+dist
+node_modules
+tsconfig.tsbuildinfo
+pm2.config.cjs
+

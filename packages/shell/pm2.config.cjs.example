@@ -1,0 +1,28 @@
+const { env } = require('../../env.config.cjs')
+
+module.exports = {
+  apps: [
+    {
+      name: 'famir-demo-shell',
+      script: 'dist/index.js',
+      cwd: __dirname,
+      env: {
+        'NODE_ENV': 'production',
+        'LOGGER_APP_NAME': 'famir-demo-shell',
+        'LOGGER_LOG_LEVEL': 'debug',
+        'LOGGER_TRANSPORT_TARGET': env.LOGGER_TRANSPORT_TARGET,
+        'LOGGER_TRANSPORT_OPTIONS': env.LOGGER_TRANSPORT_OPTIONS,
+        'DATABASE_CONNECTION_URL': env.DATABASE_CONNECTION_URL,
+        'TASK_QUEUE_CONNECTION_URL': env.TASK_QUEUE_CONNECTION_URL,
+        //'REPL_SERVER_ADDRESS': '127.0.0.1',
+        //'REPL_SERVER_PORT': '5000',
+        //'REPL_SERVER_MAX_CONNECTIONS': '10',
+        //'REPL_SERVER_SOCKET_TIMEOUT': '60000',
+        //'REPL_SERVER_PROMPT': 'famir > ',
+        //'REPL_SERVER_USE_COLORS': 'true'
+      },
+      kill_timeout: 10_000,
+      watch: ['dist']
+    }
+  ]
+}
