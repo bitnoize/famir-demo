@@ -22,7 +22,7 @@ module.exports = {
         //'REPL_SERVER_USE_COLORS': 'true'
       },
       kill_timeout: 10_000,
-      watch: ['dist']
+      watch: false
     }
   ]
 }

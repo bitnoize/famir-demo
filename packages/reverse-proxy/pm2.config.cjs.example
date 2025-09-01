@@ -21,7 +21,7 @@ module.exports = {
       },
       instances: 1,
       kill_timeout: 10_000,
-      watch: ['dist']
+      watch: false
     }
   ]
 }

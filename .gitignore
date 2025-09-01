@@ -2,5 +2,6 @@
 dist
 node_modules
 tsconfig.tsbuildinfo
+env.config.cjs
 pm2.config.cjs
 
