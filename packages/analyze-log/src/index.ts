@@ -1,11 +1,9 @@
 import { DIContainer } from '@famir/common'
-import { composeCampaign, composeProxy, composeTarget, bootstrap } from '@famir/shell'
+import { bootstrap, composeDummy } from '@famir/analyze-log'
 
 try {
   await bootstrap((container: DIContainer) => {
-    composeCampaign(container)
-    composeProxy(container)
-    composeTarget(container)
+    composeDummy(container)
   })
 } catch (error) {
   console.error(`Bootstrap error`, { error })

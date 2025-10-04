@@ -1,8 +1,8 @@
 {
-  "name": "@famir-demo/shell",
+  "name": "@famir-demo/persist-log",
   "type": "module",
   "version": "0.0.1",
-  "description": "Shell module",
+  "description": "PersistLog module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -11,7 +11,7 @@
     "build": "tsc -b"
   },
   "dependencies": {
-    "@famir/shell": "*"
+    "@famir/persist-log": "*"
   },
   "devDependencies": {
     "@types/node": "^24.0.1"

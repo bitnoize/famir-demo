@@ -1,9 +1,9 @@
 import { DIContainer } from '@famir/common'
-import { bootstrap, composeHeartbeat } from '@famir/heartbeat'
+import { bootstrap, composeDummy } from '@famir/persist-log'
 
 try {
   await bootstrap((container: DIContainer) => {
-    composeHeartbeat(container)
+    composeDummy(container)
   })
 } catch (error) {
   console.error(`Bootstrap error`, { error })

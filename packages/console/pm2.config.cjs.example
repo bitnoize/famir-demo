@@ -3,25 +3,31 @@ const { env } = require('../../env.config.cjs')
 module.exports = {
   apps: [
     {
-      name: 'famir-demo-reverse-proxy',
+      name: 'famir-demo-console',
       script: 'dist/index.js',
       cwd: __dirname,
       env: {
         'NODE_ENV': 'production',
-        'LOGGER_APP_NAME': 'famir-demo-reverse-proxy',
+        'LOGGER_APP_NAME': 'famir-demo-console',
         'LOGGER_LOG_LEVEL': 'debug',
         'LOGGER_TRANSPORT_TARGET': env.LOGGER_TRANSPORT_TARGET,
         'LOGGER_TRANSPORT_OPTIONS': env.LOGGER_TRANSPORT_OPTIONS,
         'DATABASE_CONNECTION_URL': env.DATABASE_CONNECTION_URL,
         //'DATABASE_PREFIX': 'famir',
+        //'STORAGE_END_POINT': 'localhost',
+        //'STORAGE_PORT': '9000',
+        //'STORAGE_USE_SSL': '0',
+        'STORAGE_ACCESS_KEY': env.STORAGE_ACCESS_KEY,
+        'STORAGE_SECRET_KEY': env.STORAGE_SECRET_KEY,
         'WORKFLOW_CONNECTION_URL': env.WORKFLOW_CONNECTION_URL,
         //'WORKFLOW_PREFIX': 'bull',
-        //'HTTP_CLIENT_BODY_LIMIT': '10485760',
-        //'HTTP_SERVER_ADDRESS': '127.0.0.1',
-        //'HTTP_SERVER_PORT': '3000',
-        //'HTTP_SERVER_BODY_LIMIT': '10485760',
+        //'REPL_SERVER_ADDRESS': '127.0.0.1',
+        //'REPL_SERVER_PORT': '5000',
+        //'REPL_SERVER_MAX_CONNECTIONS': '10',
+        //'REPL_SERVER_SOCKET_TIMEOUT': '60000',
+        //'REPL_SERVER_PROMPT': 'famir > ',
+        //'REPL_SERVER_USE_COLORS': 'true'
       },
-      instances: 1,
       kill_timeout: 10_000,
       watch: false
     }

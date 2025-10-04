@@ -1,8 +1,8 @@
 {
-  "name": "@famir-demo/heartbeat",
+  "name": "@famir-demo/console",
   "type": "module",
   "version": "0.0.1",
-  "description": "Heartbeat module",
+  "description": "Console module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -11,7 +11,7 @@
     "build": "tsc -b"
   },
   "dependencies": {
-    "@famir/heartbeat": "*"
+    "@famir/console": "*"
   },
   "devDependencies": {
     "@types/node": "^24.0.1"

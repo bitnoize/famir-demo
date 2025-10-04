@@ -12,8 +12,9 @@
   },
   "workspaces": [
     "packages/reverse-proxy",
-    "packages/shell",
-    "packages/heartbeat"
+    "packages/console",
+    "packages/persist-log",
+    "packages/analyze-log"
   ],
   "devDependencies": {
     "@eslint/js": "^9.19.0",
