@@ -1,24 +1,24 @@
 import { DIContainer } from '@famir/common'
 import {
-  composeCampaign,
-  composeProxy,
-  composeTarget,
-  composeLure,
-  bootstrap,
-  composeRedirector,
-  composeSession,
-  composeMessage
+  composeCampaignModule,
+  composeProxyModule,
+  composeTargetModule,
+  composeRedirectorModule,
+  composeLureModule,
+  composeSessionModule,
+  composeMessageModule,
+  bootstrap
 } from '@famir/console'
 
 try {
-  await bootstrap((container: DIContainer) => {
-    composeCampaign(container)
-    composeProxy(container)
-    composeTarget(container)
-    composeRedirector(container)
-    composeLure(container)
-    composeSession(container)
-    composeMessage(container)
+  await bootstrap(async (container) => {
+    await composeCampaignModule(container)
+    await composeProxyModule(container)
+    await composeTargetModule(container)
+    await composeRedirectorModule(container)
+    await composeLureModule(container)
+    await composeSessionModule(container)
+    await composeMessageModule(container)
   })
 } catch (error) {
   console.error(`Bootstrap failed`, { error })

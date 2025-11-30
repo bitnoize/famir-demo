@@ -13,7 +13,6 @@
   "workspaces": [
     "packages/reverse-proxy",
     "packages/console",
-    "packages/persist-log",
     "packages/analyze-log"
   ],
   "devDependencies": {

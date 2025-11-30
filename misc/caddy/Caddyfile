@@ -1,0 +1,13 @@
+{
+	auto_https off
+}
+
+http://echo.demo.fake:3080 {
+	bind 127.0.0.1:3080
+
+	reverse_proxy 127.0.0.1:3000 {
+		header_up X-Famir-Campaign-Id "demo"
+		header_up X-Famir-Target-Id "echo"
+		header_up X-Famir-Client-Ip {remote_host}
+	}
+}

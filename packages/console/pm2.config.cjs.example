@@ -23,7 +23,7 @@ module.exports = {
         //'WORKFLOW_PREFIX': 'bull',
         //'REPL_SERVER_ADDRESS': '127.0.0.1',
         //'REPL_SERVER_PORT': '5000',
-        //'REPL_SERVER_MAX_CONNECTIONS': '10',
+        //'REPL_SERVER_MAX_CLIENTS': '10',
         //'REPL_SERVER_SOCKET_TIMEOUT': '60000',
         //'REPL_SERVER_PROMPT': 'famir > ',
         //'REPL_SERVER_USE_COLORS': 'true'
