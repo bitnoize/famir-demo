@@ -8,7 +8,8 @@
   "scripts": {
     "format": "prettier -w \"src/**/*.ts\"",
     "lint": "eslint \"src/**/*.ts\"",
-    "build": "tsc -b"
+    "build": "tsc -b",
+    "start:cli": "node dist/index.js"
   },
   "dependencies": {
     "@famir/console": "*"

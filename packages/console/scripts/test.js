@@ -4,7 +4,7 @@ async function setupTest(campaignId, mirrorDomain) {
     throw new Error(`Missing params`)
   }
 
-  await famir.createCampaign({
+  const lockCode = await famir.createCampaign({
     campaignId,
     mirrorDomain,
   })
@@ -12,74 +12,84 @@ async function setupTest(campaignId, mirrorDomain) {
   await famir.updateCampaign({
     campaignId,
     description: 'Testing mirrors',
+    lockCode,
   })
 
   await famir.createProxy({
     campaignId,
     proxyId: 'default',
     url: 'http://127.0.0.1:8080',
+    lockCode,
   })
 
   await famir.enableProxy({
     campaignId,
     proxyId: 'default',
+    lockCode,
   })
+
+  // httpbin
 
   await famir.createTarget({
     campaignId,
-    targetId: 'echo',
+    targetId: 'httpbin',
     isLanding: false,
     donorSecure: true,
     donorSub: '.',
     donorDomain: 'httpbin.org',
     donorPort: 443,
     mirrorSecure: false,
-    mirrorSub: 'www',
-    mirrorPort: 8000
+    mirrorSub: 'httpbin',
+    mirrorPort: 8000,
+    lockCode,
   })
 
   await famir.appendTargetLabel({
     campaignId,
-    targetId: 'echo',
-    label: 'httpbin'
+    targetId: 'httpbin',
+    label: 'httpbin',
+    lockCode,
   })
 
   await famir.enableTarget({
     campaignId,
-    targetId: 'echo',
+    targetId: 'httpbin',
+    lockCode,
+  })
+
+  // browserleaks
+
+  await famir.createTarget({
+    campaignId,
+    targetId: 'browserleaks',
+    isLanding: false,
+    donorSecure: true,
+    donorSub: '.',
+    donorDomain: 'browserleaks.com',
+    donorPort: 443,
+    mirrorSecure: false,
+    mirrorSub: 'browserleaks',
+    mirrorPort: 8000,
+    lockCode,
+  })
+
+  await famir.appendTargetLabel({
+    campaignId,
+    targetId: 'browserleaks',
+    label: 'browserleaks',
+    lockCode,
+  })
+
+  await famir.enableTarget({
+    campaignId,
+    targetId: 'browserleaks',
+    lockCode
   })
 
   // ...
-}
 
-async function cleanTest(campaignId) {
-  if (!campaignId) {
-    throw new Error(`Missing params`)
-  }
-
-  // ...
-
-  await famir.disableTarget({
+  await famir.unlockCampaign({
     campaignId,
-    targetId: 'echo',
-  })
-
-  await famir.deleteTarget({
-    campaignId,
-    targetId: 'echo',
-  })
-
-  await famir.disableProxy({
-    campaignId,
-    proxyId: 'default',
-  })
-
-  await famir.deleteProxy({
-    campaignId,
-    targetId: 'default',
-  })
-
-  await famir.deleteCampaign({
-    campaignId,
+    lockCode
   })
 }

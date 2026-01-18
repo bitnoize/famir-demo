@@ -1,5 +1,6 @@
 import { DIContainer } from '@famir/common'
 import {
+  composeDatabaseModule,
   composeCampaignModule,
   composeProxyModule,
   composeTargetModule,
@@ -7,11 +8,12 @@ import {
   composeLureModule,
   composeSessionModule,
   composeMessageModule,
-  bootstrap
+  bootstrapCli
 } from '@famir/console'
 
 try {
-  await bootstrap(async (container) => {
+  await bootstrapCli(async (container) => {
+    await composeDatabaseModule(container)
     await composeCampaignModule(container)
     await composeProxyModule(container)
     await composeTargetModule(container)
@@ -21,7 +23,7 @@ try {
     await composeMessageModule(container)
   })
 } catch (error) {
-  console.error(`Bootstrap failed`, { error })
+  console.error(`App bootstrap failed`, { error })
 
   process.exit(1)
 }

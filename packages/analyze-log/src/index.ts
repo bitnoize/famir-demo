@@ -1,12 +1,12 @@
 import { DIContainer } from '@famir/common'
-import { bootstrap, composeDummy } from '@famir/analyze-log'
+import { bootstrapDefault } from '@famir/analyze-log'
 
 try {
-  await bootstrap((container: DIContainer) => {
-    composeDummy(container)
+  await bootstrapDefault((container: DIContainer) => {
+    //composeDummy(container)
   })
 } catch (error) {
-  console.error(`Bootstrap error`, { error })
+  console.error(`App bootstrap failed`, { error })
 
   process.exit(1)
 }

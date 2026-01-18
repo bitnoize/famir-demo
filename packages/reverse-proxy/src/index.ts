@@ -1,25 +1,27 @@
 import { DIContainer } from '@famir/common'
 import {
   composeAuthorizeModule,
-  composeConfigureModule,
+  composeSetupMirrorModule,
   composeBuildRequestModule,
   composeBuildResponseModule,
   composeWellKnownUrlsModule,
-  composeCompleteModule,
-  bootstrap
+  composeCompletionModule,
+  bootstrapDefault
 } from '@famir/reverse-proxy'
+import { composeHttpbinModule } from './controllers/index.js'
 
 try {
-  await bootstrap((container: DIContainer) => {
-    composeConfigureModule(container)
+  await bootstrapDefault((container: DIContainer) => {
+    composeSetupMirrorModule(container)
     composeBuildRequestModule(container)
     composeWellKnownUrlsModule(container)
     composeAuthorizeModule(container)
+    composeHttpbinModule(container)
     composeBuildResponseModule(container)
-    composeCompleteModule(container)
+    composeCompletionModule(container)
   })
 } catch (error) {
-  console.error(`Bootstrap error`, { error })
+  console.error(`App bootstrap failed`, { error })
 
   process.exit(1)
 }
