@@ -1,5 +1,5 @@
-import { DIContainer } from '@famir/common'
 import { bootstrapDefault } from '@famir/analyze-log'
+import { DIContainer } from '@famir/common'
 
 try {
   await bootstrapDefault((container: DIContainer) => {

@@ -4,7 +4,7 @@ module.exports = {
   apps: [
     {
       name: 'famir-demo-console',
-      script: 'dist/index.js',
+      script: 'dist/loaders/net/index.js',
       cwd: __dirname,
       env: {
         'NODE_ENV': 'production',

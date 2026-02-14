@@ -9,12 +9,10 @@
     "format": "prettier -w \"src/**/*.ts\"",
     "lint": "eslint \"src/**/*.ts\"",
     "build": "tsc -b",
-    "start:cli": "node dist/index.js"
+    "start:cli": "node dist/loaders/cli/index.js",
+    "start:net": "node dist/loaders/net/index.js"
   },
   "dependencies": {
     "@famir/console": "*"
-  },
-  "devDependencies": {
-    "@types/node": "^24.0.1"
   }
 }

@@ -8,12 +8,11 @@
   "scripts": {
     "format": "prettier -w \"src/**/*.ts\"",
     "lint": "eslint \"src/**/*.ts\"",
-    "build": "tsc -b"
+    "build": "tsc -b",
+    "start:default": "node dist/loaders/default/index.js"
   },
   "dependencies": {
+    "@famir/http-tools": "*",
     "@famir/reverse-proxy": "*"
-  },
-  "devDependencies": {
-    "@types/node": "^24.0.1"
   }
 }

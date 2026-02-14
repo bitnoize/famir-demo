@@ -10,7 +10,7 @@ http://httpbin.demo.fake:3080 {
 	reverse_proxy 127.0.0.1:3000 {
 		header_up X-Famir-Campaign-Id "demo"
 		header_up X-Famir-Target-Id "httpbin"
-		header_up X-Famir-Client-Ip {remote_host}
+		header_up X-Real-Ip {remote_host}
 	}
 }
 
@@ -20,6 +20,6 @@ http://browserleaks.demo.fake:3080 {
 	reverse_proxy 127.0.0.1:3000 {
 		header_up X-Famir-Campaign-Id "demo"
 		header_up X-Famir-Target-Id "browserleaks"
-		header_up X-Famir-Client-Ip {remote_host}
+		header_up X-Real-Ip {remote_host}
 	}
 }

@@ -1,8 +1,8 @@
 import { DIContainer } from '@famir/common'
 import { HttpbinController } from './httpbin.controller.js'
 
-export const composeHttpbinModule = (container: DIContainer) => {
+export const composeHttpbinModule = (container: DIContainer): HttpbinController => {
   HttpbinController.inject(container)
 
-  HttpbinController.resolve(container)
+  return HttpbinController.resolve(container)
 }

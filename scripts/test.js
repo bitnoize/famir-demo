@@ -4,28 +4,33 @@ async function setupTest(campaignId, mirrorDomain) {
     throw new Error(`Missing params`)
   }
 
-  const lockCode = await famir.createCampaign({
+  await famir.createCampaign({
     campaignId,
     mirrorDomain,
+    //lockTimeout: 60 * 1000
+  })
+
+  const lockSecret = await famir.lockCampaign({
+    campaignId,
   })
 
   await famir.updateCampaign({
     campaignId,
     description: 'Testing mirrors',
-    lockCode,
+    lockSecret,
   })
 
   await famir.createProxy({
     campaignId,
     proxyId: 'default',
     url: 'http://127.0.0.1:8080',
-    lockCode,
+    lockSecret,
   })
 
   await famir.enableProxy({
     campaignId,
     proxyId: 'default',
-    lockCode,
+    lockSecret,
   })
 
   // httpbin
@@ -41,20 +46,20 @@ async function setupTest(campaignId, mirrorDomain) {
     mirrorSecure: false,
     mirrorSub: 'httpbin',
     mirrorPort: 8000,
-    lockCode,
+    lockSecret,
   })
 
   await famir.appendTargetLabel({
     campaignId,
     targetId: 'httpbin',
     label: 'httpbin',
-    lockCode,
+    lockSecret,
   })
 
   await famir.enableTarget({
     campaignId,
     targetId: 'httpbin',
-    lockCode,
+    lockSecret,
   })
 
   // browserleaks
@@ -70,26 +75,26 @@ async function setupTest(campaignId, mirrorDomain) {
     mirrorSecure: false,
     mirrorSub: 'browserleaks',
     mirrorPort: 8000,
-    lockCode,
+    lockSecret,
   })
 
   await famir.appendTargetLabel({
     campaignId,
     targetId: 'browserleaks',
     label: 'browserleaks',
-    lockCode,
+    lockSecret,
   })
 
   await famir.enableTarget({
     campaignId,
     targetId: 'browserleaks',
-    lockCode
+    lockSecret
   })
 
   // ...
 
   await famir.unlockCampaign({
     campaignId,
-    lockCode
+    lockSecret
   })
 }
