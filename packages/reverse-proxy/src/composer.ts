@@ -3,24 +3,27 @@ import {
   composeAuthorizeModule,
   composeRoundTripModule,
   composeSetupMirrorModule,
-  composeWellKnownUrlsModule
+  composeWellKnownUrlsModule,
+  composeTransformModule
 } from '@famir/reverse-proxy'
-import { composeHttpbinModule } from './controllers/index.js'
+import { composeHttpbinModule, composeBrowserleaksModule } from './controllers/index.js'
 
 export const composer: DIComposer = (container) => {
   const setupMirror = composeSetupMirrorModule(container)
   const wellKnownUrls = composeWellKnownUrlsModule(container)
   const authorize = composeAuthorizeModule(container)
   const roundTrip = composeRoundTripModule(container)
+  const transform = composeTransformModule(container)
   const httpbin = composeHttpbinModule(container)
+  const browserleaks = composeBrowserleaksModule(container)
 
   setupMirror.use()
-  wellKnownUrls.useAll()
+  wellKnownUrls.use()
   authorize.use()
-  roundTrip.useInitMessage()
-  roundTrip.useBasicTransforms()
+  roundTrip.useInit()
+  transform.useAll()
   httpbin.use()
-  //browserleaks.use()
-  roundTrip.useForwardMessage()
-  roundTrip.useCreateMessage()
+  browserleaks.use()
+  roundTrip.useForward()
+  roundTrip.useSaveLog()
 }

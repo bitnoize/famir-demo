@@ -8,14 +8,14 @@ import {
 } from '@famir/http-server'
 import { BaseController } from '@famir/reverse-proxy'
 
-export const HTTPBIN_CONTROLLER = Symbol('HttpbinController')
+export const BROWSERLEAKS_CONTROLLER = Symbol('BrowserleaksController')
 
-export class HttpbinController extends BaseController {
+export class BrowserleaksController extends BaseController {
   static inject(container: DIContainer) {
-    container.registerSingleton<HttpbinController>(
-      HTTPBIN_CONTROLLER,
+    container.registerSingleton<BrowserleaksController>(
+      BROWSERLEAKS_CONTROLLER,
       (c) =>
-        new HttpbinController(
+        new BrowserleaksController(
           c.resolve<Validator>(VALIDATOR),
           c.resolve<Logger>(LOGGER),
           c.resolve<HttpServerRouter>(HTTP_SERVER_ROUTER)
@@ -23,25 +23,25 @@ export class HttpbinController extends BaseController {
     )
   }
 
-  static resolve(container: DIContainer): HttpbinController {
-    return container.resolve<HttpbinController>(HTTPBIN_CONTROLLER)
+  static resolve(container: DIContainer): BrowserleaksController {
+    return container.resolve<BrowserleaksController>(BROWSERLEAKS_CONTROLLER)
   }
 
   constructor(validator: Validator, logger: Logger, router: HttpServerRouter) {
     super(validator, logger, router)
 
-    this.logger.debug(`HttpbinController initialized`)
+    this.logger.debug(`BrowserleaksController initialized`)
   }
 
   use() {
-    this.router.register('httpbin', this.httpbinMiddleware)
+    this.router.register('browserleaks', this.browserleaksMiddleware)
   }
 
-  private httpbinMiddleware: HttpServerMiddleware = async (ctx, next) => {
+  private browserleaksMiddleware: HttpServerMiddleware = async (ctx, next) => {
     const target = this.getState(ctx, 'target')
     const message = this.getState(ctx, 'message')
 
-    if (!target.hasLabel('httpbin')) {
+    if (target.hasLabel('browserleaks')) {
       message.addRewriteUrlTypes(
         'text/html',
         'text/css',

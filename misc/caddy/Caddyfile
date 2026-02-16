@@ -17,9 +17,91 @@ http://httpbin.demo.fake:3080 {
 http://browserleaks.demo.fake:3080 {
 	bind 127.0.0.1:3080
 
+	#encode zstd gzip
+
 	reverse_proxy 127.0.0.1:3000 {
-		header_up X-Famir-Campaign-Id "demo"
-		header_up X-Famir-Target-Id "browserleaks"
+		header_up X-Famir-Campaign-Id "browserleaks"
+		header_up X-Famir-Target-Id "root"
+		header_up X-Real-Ip {remote_host}
+	}
+}
+
+http://ipv6.browserleaks.demo.fake:3080 {
+	bind 127.0.0.1:3080
+
+	reverse_proxy 127.0.0.1:3000 {
+		header_up X-Famir-Campaign-Id "browserleaks"
+		header_up X-Famir-Target-Id "ipv6"
+		header_up X-Real-Ip {remote_host}
+	}
+}
+
+http://tls.browserleaks.demo.fake:3080 {
+	bind 127.0.0.1:3080
+
+	reverse_proxy 127.0.0.1:3000 {
+		header_up X-Famir-Campaign-Id "browserleaks"
+		header_up X-Famir-Target-Id "tls"
+		header_up X-Real-Ip {remote_host}
+	}
+}
+
+http://tls10.browserleaks.demo.fake:3080 {
+	bind 127.0.0.1:3080
+
+	reverse_proxy 127.0.0.1:3000 {
+		header_up X-Famir-Campaign-Id "browserleaks"
+		header_up X-Famir-Target-Id "tls10"
+		header_up X-Real-Ip {remote_host}
+	}
+}
+
+http://tls11.browserleaks.demo.fake:3080 {
+	bind 127.0.0.1:3080
+
+	reverse_proxy 127.0.0.1:3000 {
+		header_up X-Famir-Campaign-Id "browserleaks"
+		header_up X-Famir-Target-Id "tls11"
+		header_up X-Real-Ip {remote_host}
+	}
+}
+
+http://tls12.browserleaks.demo.fake:3080 {
+	bind 127.0.0.1:3080
+
+	reverse_proxy 127.0.0.1:3000 {
+		header_up X-Famir-Campaign-Id "browserleaks"
+		header_up X-Famir-Target-Id "tls12"
+		header_up X-Real-Ip {remote_host}
+	}
+}
+
+http://tls13.browserleaks.demo.fake:3080 {
+	bind 127.0.0.1:3080
+
+	reverse_proxy 127.0.0.1:3000 {
+		header_up X-Famir-Campaign-Id "browserleaks"
+		header_up X-Famir-Target-Id "tls13"
+		header_up X-Real-Ip {remote_host}
+	}
+}
+
+http://mixed.browserleaks.demo.fake:3080 {
+	bind 127.0.0.1:3080
+
+	reverse_proxy 127.0.0.1:3000 {
+		header_up X-Famir-Campaign-Id "browserleaks"
+		header_up X-Famir-Target-Id "mixed"
+		header_up X-Real-Ip {remote_host}
+	}
+}
+
+http://permissions.browserleaks.demo.fake:3080 {
+	bind 127.0.0.1:3080
+
+	reverse_proxy 127.0.0.1:3000 {
+		header_up X-Famir-Campaign-Id "browserleaks"
+		header_up X-Famir-Target-Id "permissions"
 		header_up X-Real-Ip {remote_host}
 	}
 }
