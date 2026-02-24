@@ -1,5 +1,0 @@
-Famir
------
-
-Work in progress
-

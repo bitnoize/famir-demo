@@ -4,24 +4,29 @@
   "description": "Famir demo project",
   "author": "Dmitry Krutikov <d.krutikov@gmail.com>",
   "license": "MIT",
-  "private": true,
   "scripts": {
-    "format": "npm --ws run format",
-    "lint": "npm --ws run lint",
-    "build": "npm --ws run build"
+    "format": "prettier -w \"src/**/*.ts\"",
+    "lint": "eslint \"src/**/*.ts\"",
+    "build": "tsc -b",
+    "start:console:cli": "node --env-file=.env dist/console/loaders/cli.js",
+    "start:console:net": "node --env-file=.env dist/console/loaders/net.js",
+    "start:reverse-proxy:std": "node --env-file=.env dist/reverse-proxy/loaders/std.js",
+    "start:analyze-log:std": "node --env-file=.env dist/analyze-log/loaders/std.js"
   },
-  "workspaces": [
-    "packages/*"
-  ],
+  "dependencies": {
+    "@famir/analyze-log": "^0.3.3",
+    "@famir/console": "^0.3.3",
+    "@famir/http-tools": "^0.3.3",
+    "@famir/reverse-proxy": "^0.3.3"
+  },
   "devDependencies": {
-    "@eslint/js": "^9.19.0",
+    "@eslint/js": "^10.0.1",
     "@types/node": "^25.0.0",
-    "eslint": "^9.19.0",
-    "eslint-config-prettier": "^10.0.1",
-    "js-deobfuscator": "^1.1.7",
-    "prettier": "^3.4.2",
-    "prettier-plugin-organize-imports": "^4.1.0",
-    "typescript": "^5.7.3",
-    "typescript-eslint": "^8.21.0"
+    "eslint": "^10.0.0",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.8.1",
+    "prettier-plugin-organize-imports": "^4.3.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.49.0"
   }
 }

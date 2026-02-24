@@ -1,0 +1,113 @@
+{
+	auto_https off
+}
+
+http://httpbin.fake:3080 {
+	bind 127.0.0.1:3080
+
+	encode zstd gzip
+
+	reverse_proxy 127.0.0.1:3000 {
+		header_up X-Real-Ip {remote_host}
+	}
+}
+
+http://ssedev.fake:3080 {
+	bind 127.0.0.1:3080
+
+	encode zstd gzip
+
+	reverse_proxy 127.0.0.1:3000 {
+		header_up X-Real-Ip {remote_host}
+	}
+}
+
+http://browserleaks.fake:3080 {
+	bind 127.0.0.1:3080
+
+	#encode zstd gzip
+
+	reverse_proxy 127.0.0.1:3000 {
+		header_up X-Real-Ip {remote_host}
+	}
+}
+
+http://comments.browserleaks.fake:3080 {
+	bind 127.0.0.1:3080
+
+	reverse_proxy 127.0.0.1:3000 {
+		header_up X-Real-Ip {remote_host}
+	}
+}
+
+http://ipv6.browserleaks.fake:3080 {
+	bind 127.0.0.1:3080
+
+	reverse_proxy 127.0.0.1:3000 {
+		header_up X-Real-Ip {remote_host}
+	}
+}
+
+http://tls.browserleaks.fake:3080 {
+	bind 127.0.0.1:3080
+
+	reverse_proxy 127.0.0.1:3000 {
+		header_up X-Real-Ip {remote_host}
+	}
+}
+
+http://tls10.browserleaks.fake:3080 {
+	bind 127.0.0.1:3080
+
+	reverse_proxy 127.0.0.1:3000 {
+		header_up X-Real-Ip {remote_host}
+	}
+}
+
+http://tls11.browserleaks.fake:3080 {
+	bind 127.0.0.1:3080
+
+	reverse_proxy 127.0.0.1:3000 {
+		header_up X-Real-Ip {remote_host}
+	}
+}
+
+http://tls12.browserleaks.fake:3080 {
+	bind 127.0.0.1:3080
+
+	reverse_proxy 127.0.0.1:3000 {
+		header_up X-Real-Ip {remote_host}
+	}
+}
+
+http://tls13.browserleaks.fake:3080 {
+	bind 127.0.0.1:3080
+
+	reverse_proxy 127.0.0.1:3000 {
+		header_up X-Real-Ip {remote_host}
+	}
+}
+
+http://mixed.browserleaks.fake:3080 {
+	bind 127.0.0.1:3080
+
+	reverse_proxy 127.0.0.1:3000 {
+		header_up X-Real-Ip {remote_host}
+	}
+}
+
+http://permissions.browserleaks.fake:3080 {
+	bind 127.0.0.1:3080
+
+	reverse_proxy 127.0.0.1:3000 {
+		header_up X-Real-Ip {remote_host}
+	}
+}
+
+http://quic.browserleaks.fake:3080 {
+	bind 127.0.0.1:3080
+
+	reverse_proxy 127.0.0.1:3000 {
+		header_up X-Real-Ip {remote_host}
+	}
+}
