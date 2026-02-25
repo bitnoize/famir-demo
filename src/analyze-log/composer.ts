@@ -1,7 +1,8 @@
 import { DIComposer } from '@famir/common'
-//import { composeDefaultModule } from '@famir/analyze-log'
+import { composeDummyModule } from '@famir/analyze-log'
 
 export const composer: DIComposer = (container) => {
-  //const default = composeDefaultModule(container)
-  //default.use()
+  const dummy = composeDummyModule(container)
+
+  dummy.use()
 }
