@@ -1,7 +1,7 @@
 import { DIContainer } from '@famir/common'
 import { HTTP_SERVER_ROUTER, HttpServerRouter } from '@famir/http-server'
 import { Logger, LOGGER } from '@famir/logger'
-import { BaseController } from '@famir/reverse-proxy'
+import { BaseController } from '@famir/reverse'
 import { Validator, VALIDATOR } from '@famir/validator'
 
 export const BROWSERLEAKS_CONTROLLER = Symbol('BrowserleaksController')

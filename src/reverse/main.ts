@@ -5,7 +5,7 @@ import {
   composeSetupMirrorModule,
   composeTransformModule,
   composeWellKnownUrlsModule
-} from '@famir/reverse-proxy'
+} from '@famir/reverse'
 import {
   composeBrowserleaksModule,
   composeHttpbinModule,
@@ -31,5 +31,5 @@ export const composer: DIComposer = (container) => {
   ssedev.use()
   browserleaks.use()
   roundTrip.useForward()
-  roundTrip.useSaveLog()
+  roundTrip.useAnalyze()
 }

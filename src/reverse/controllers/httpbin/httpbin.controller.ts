@@ -1,17 +1,17 @@
 import { DIContainer } from '@famir/common'
 import { HTTP_SERVER_ROUTER, HttpServerRouter } from '@famir/http-server'
 import { Logger, LOGGER } from '@famir/logger'
-import { BaseController } from '@famir/reverse-proxy'
+import { BaseController } from '@famir/reverse'
 import { Validator, VALIDATOR } from '@famir/validator'
 
-export const SSEDEV_CONTROLLER = Symbol('SsedevController')
+export const HTTPBIN_CONTROLLER = Symbol('HttpbinController')
 
-export class SsedevController extends BaseController {
+export class HttpbinController extends BaseController {
   static inject(container: DIContainer) {
-    container.registerSingleton<SsedevController>(
-      SSEDEV_CONTROLLER,
+    container.registerSingleton<HttpbinController>(
+      HTTPBIN_CONTROLLER,
       (c) =>
-        new SsedevController(
+        new HttpbinController(
           c.resolve<Validator>(VALIDATOR),
           c.resolve<Logger>(LOGGER),
           c.resolve<HttpServerRouter>(HTTP_SERVER_ROUTER)
@@ -19,25 +19,29 @@ export class SsedevController extends BaseController {
     )
   }
 
-  static resolve(container: DIContainer): SsedevController {
-    return container.resolve<SsedevController>(SSEDEV_CONTROLLER)
+  static resolve(container: DIContainer): HttpbinController {
+    return container.resolve<HttpbinController>(HTTPBIN_CONTROLLER)
   }
 
   constructor(validator: Validator, logger: Logger, router: HttpServerRouter) {
     super(validator, logger, router)
 
-    this.logger.debug(`SsedevController initialized`)
+    this.logger.debug(`HttpbinController initialized`)
   }
 
   use() {
-    this.router.register('ssedev', async (ctx, next) => {
+    this.router.register('httpbin', async (ctx, next) => {
       const target = this.getState(ctx, 'target')
       const message = this.getState(ctx, 'message')
 
-      if (target.hasLabel('ssedev')) {
+      if (target.hasLabel('httpbin')) {
         message.addRewriteUrlTypes('text/html')
 
-        if (ctx.url.isPathEquals('/test')) {
+        if (ctx.url.isPathEquals('/post')) {
+          message.setKind('stream-request')
+        }
+
+        if (ctx.url.isPathUnder('/stream')) {
           message.setKind('stream-response')
         }
       }
