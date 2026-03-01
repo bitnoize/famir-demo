@@ -3,8 +3,19 @@ import { HTTP_SERVER_ROUTER, HttpServerRouter } from '@famir/http-server'
 import { Logger, LOGGER } from '@famir/logger'
 import { BaseController } from '@famir/reverse'
 import { Validator, VALIDATOR } from '@famir/validator'
+import { Transform, TransformCallback } from 'stream'
 
 export const HTTPBIN_CONTROLLER = Symbol('HttpbinController')
+
+class SimpleTransform extends Transform {
+  override _transform(chunk: Buffer, encoding: BufferEncoding, callback: TransformCallback) {
+    console.log('CHUNK: ' + chunk.toString())
+
+    this.push(chunk)
+
+    callback()
+  }
+}
 
 export class HttpbinController extends BaseController {
   static inject(container: DIContainer) {
@@ -34,11 +45,27 @@ export class HttpbinController extends BaseController {
       const target = this.getState(ctx, 'target')
       const message = this.getState(ctx, 'message')
 
+      message.analyze = 'dummy'
+
       if (target.hasLabel('httpbin')) {
         message.addRewriteUrlTypes('text/html')
 
         if (ctx.url.isPathEquals('/post')) {
           message.setKind('stream-request')
+
+          /*
+          message.addRequestTransform(
+            new Transform({
+              transform(chunk, encoding, callback) {
+                console.log('CHUNK: ' + chunk.toString())
+
+                this.push(chunk)
+
+                callback()
+              }
+            })
+          )
+          */
         }
 
         if (ctx.url.isPathUnder('/stream')) {

@@ -15,4 +15,4 @@ export const specs: ExecutorWorkerSpecs = {
     limiterMax: 1,
     limiterDuration: 1000
   }
-} as const
+}

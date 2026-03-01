@@ -15,8 +15,6 @@ http://httpbin.fake:3080 {
 http://ssedev.fake:3080 {
 	bind 127.0.0.1:3080
 
-	encode zstd gzip
-
 	reverse_proxy 127.0.0.1:3000 {
 		header_up X-Real-Ip {remote_host}
 	}
@@ -24,8 +22,6 @@ http://ssedev.fake:3080 {
 
 http://browserleaks.fake:3080 {
 	bind 127.0.0.1:3080
-
-	#encode zstd gzip
 
 	reverse_proxy 127.0.0.1:3000 {
 		header_up X-Real-Ip {remote_host}
