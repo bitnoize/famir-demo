@@ -35,9 +35,9 @@ export class SsedevController extends BaseController {
       const message = this.getState(ctx, 'message')
 
       if (target.hasLabel('ssedev')) {
-        message.addRewriteUrlTypes('text/html')
+        message.addRewriteUrlTypes(['text/html'])
 
-        if (ctx.url.isPathEquals('/test')) {
+        if (ctx.url.isPath('/test')) {
           message.setKind('stream-response')
         }
       }

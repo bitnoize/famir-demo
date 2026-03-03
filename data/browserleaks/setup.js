@@ -1,4 +1,4 @@
-async function setupBrowserleaks(campaignId, mirrorDomain) {
+async function setup(campaignId, mirrorDomain) {
   if (!campaignId || !mirrorDomain) {
     throw new Error(`Missing params`)
   }
@@ -31,7 +31,7 @@ async function setupBrowserleaks(campaignId, mirrorDomain) {
     lockSecret,
   })
 
-  // browserleaks
+  // root
 
   await famir.createTarget({
     campaignId,
@@ -61,7 +61,7 @@ async function setupBrowserleaks(campaignId, mirrorDomain) {
     lockSecret
   })
 
-  // comments.browserleaks
+  // comments
 
   await famir.createTarget({
     campaignId,
@@ -84,7 +84,7 @@ async function setupBrowserleaks(campaignId, mirrorDomain) {
     lockSecret
   })
 
-  // ipv6.browserleaks
+  // ipv6
 
   await famir.createTarget({
     campaignId,
@@ -107,7 +107,7 @@ async function setupBrowserleaks(campaignId, mirrorDomain) {
     lockSecret
   })
 
-  // tls.browserleaks
+  // tls
 
   await famir.createTarget({
     campaignId,
@@ -130,7 +130,7 @@ async function setupBrowserleaks(campaignId, mirrorDomain) {
     lockSecret
   })
 
-  // tls10.browserleaks
+  // tls10
 
   await famir.createTarget({
     campaignId,
@@ -153,7 +153,7 @@ async function setupBrowserleaks(campaignId, mirrorDomain) {
     lockSecret
   })
 
-  // tls11.browserleaks
+  // tls11
 
   await famir.createTarget({
     campaignId,
@@ -176,7 +176,7 @@ async function setupBrowserleaks(campaignId, mirrorDomain) {
     lockSecret
   })
 
-  // tls12.browserleaks
+  // tls12
 
   await famir.createTarget({
     campaignId,
@@ -199,7 +199,7 @@ async function setupBrowserleaks(campaignId, mirrorDomain) {
     lockSecret
   })
 
-  // tls13.browserleaks
+  // tls13
 
   await famir.createTarget({
     campaignId,
@@ -222,7 +222,7 @@ async function setupBrowserleaks(campaignId, mirrorDomain) {
     lockSecret
   })
 
-  // mixed.browserleaks
+  // mixed
 
   await famir.createTarget({
     campaignId,
@@ -245,7 +245,7 @@ async function setupBrowserleaks(campaignId, mirrorDomain) {
     lockSecret
   })
 
-  // permissions.browserleaks
+  // permissions
 
   await famir.createTarget({
     campaignId,
@@ -268,7 +268,7 @@ async function setupBrowserleaks(campaignId, mirrorDomain) {
     lockSecret
   })
 
-  // quic.browserleaks
+  // quic
 
   await famir.createTarget({
     campaignId,

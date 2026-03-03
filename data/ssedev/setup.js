@@ -1,4 +1,4 @@
-async function setupHttpbin(campaignId, mirrorDomain) {
+async function setup(campaignId, mirrorDomain) {
   if (!campaignId || !mirrorDomain) {
     throw new Error(`Missing params`)
   }
@@ -14,7 +14,7 @@ async function setupHttpbin(campaignId, mirrorDomain) {
 
   await famir.updateCampaign({
     campaignId,
-    description: 'Httpbin mirror',
+    description: 'Ssedev mirror',
     lockSecret,
   })
 
@@ -31,7 +31,7 @@ async function setupHttpbin(campaignId, mirrorDomain) {
     lockSecret,
   })
 
-  // httpbin
+  // root
 
   await famir.createTarget({
     campaignId,
@@ -39,7 +39,7 @@ async function setupHttpbin(campaignId, mirrorDomain) {
     isLanding: false,
     donorSecure: true,
     donorSub: '.',
-    donorDomain: 'httpbin.org',
+    donorDomain: 'sse.dev',
     donorPort: 443,
     mirrorSecure: false,
     mirrorSub: '.',
@@ -50,7 +50,7 @@ async function setupHttpbin(campaignId, mirrorDomain) {
   await famir.appendTargetLabel({
     campaignId,
     targetId: 'root',
-    label: 'httpbin',
+    label: 'ssedev',
     lockSecret,
   })
 
@@ -59,8 +59,6 @@ async function setupHttpbin(campaignId, mirrorDomain) {
     targetId: 'root',
     lockSecret,
   })
-
-  // ...
 
   await famir.unlockCampaign({
     campaignId,

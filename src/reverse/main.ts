@@ -1,35 +1,26 @@
 import { DIComposer } from '@famir/common'
 import {
-  composeAuthorizeModule,
-  composeRoundTripModule,
-  composeSetupMirrorModule,
-  composeTransformModule,
-  composeWellKnownUrlsModule
+  AuthorizeController,
+  CompleteController,
+  RoundTripController,
+  SetupMirrorController,
+  TransformController,
+  WellKnownUrlsController
 } from '@famir/reverse'
-import {
-  composeBrowserleaksModule,
-  composeHttpbinModule,
-  composeSsedevModule
-} from './controllers/index.js'
+import { BrowserleaksController, HttpbinController, SsedevController } from './controllers/index.js'
 
 export const composer: DIComposer = (container) => {
-  const setupMirror = composeSetupMirrorModule(container)
-  const wellKnownUrls = composeWellKnownUrlsModule(container)
-  const authorize = composeAuthorizeModule(container)
-  const roundTrip = composeRoundTripModule(container)
-  const transform = composeTransformModule(container)
-  const httpbin = composeHttpbinModule(container)
-  const ssedev = composeSsedevModule(container)
-  const browserleaks = composeBrowserleaksModule(container)
+  HttpbinController.inject(container)
+  SsedevController.inject(container)
+  BrowserleaksController.inject(container)
 
-  setupMirror.use()
-  wellKnownUrls.use()
-  authorize.use()
-  roundTrip.useInit()
-  transform.useAll()
-  httpbin.use()
-  ssedev.use()
-  browserleaks.use()
-  roundTrip.useForward()
-  roundTrip.useAnalyze()
+  SetupMirrorController.resolve(container).use()
+  WellKnownUrlsController.resolve(container).use()
+  AuthorizeController.resolve(container).use()
+  TransformController.resolve(container).useAll()
+  HttpbinController.resolve(container).use()
+  SsedevController.resolve(container).use()
+  BrowserleaksController.resolve(container).use()
+  RoundTripController.resolve(container).use()
+  CompleteController.resolve(container).use()
 }

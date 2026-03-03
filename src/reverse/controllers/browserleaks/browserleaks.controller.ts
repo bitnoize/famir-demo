@@ -35,7 +35,7 @@ export class BrowserleaksController extends BaseController {
       const message = this.getState(ctx, 'message')
 
       if (target.hasLabel('browserleaks')) {
-        message.addRewriteUrlTypes('text/html', 'text/css', 'application/javascript')
+        message.addRewriteUrlTypes(['text/html', 'text/css', 'application/javascript'])
       }
 
       await next()
