@@ -1,0 +1,18 @@
+
+Famir demo project
+
+First of all, stop panic, this is a simple JavaScript REPL.
+
+Some example commands:
+
+// Drop all data from Redis
+await famir.cleanupDatabase({})
+
+// Load Redis functions
+await famir.loadDatabaseFunctions({})
+
+// Show all campaigns
+await famir.listCampaigns()
+
+Happy hacking! 😎
+

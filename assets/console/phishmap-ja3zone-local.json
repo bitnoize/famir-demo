@@ -1,0 +1,98 @@
+{
+  "campaign": {
+    "campaignId": "ja3zone",
+    "mirrorDomain": "ja3zone.fake",
+    "description": "JA3Zone mirror",
+    "landingUpgradePath": "/fake-auth-4952",
+    "sessionCookieName": "fake-sess-5e71",
+    "sessionExpire": 86400000,
+    "newSessionExpire": 300000,
+    "messageExpire": 3600000
+  },
+  "proxies": [
+    {
+      "proxyId": "default",
+      "url": "socks5://localhost:9050",
+      "isEnabled": true
+    }
+  ],
+  "targets": [
+    {
+      "targetId": "root",
+      "isLanding": false,
+      "donorSecure": true,
+      "donorSub": ".",
+      "donorDomain": "ja3.zone",
+      "donorPort": 443,
+      "mirrorSecure": false,
+      "mirrorSub": ".",
+      "mirrorPort": 3080,
+      "labels": [
+        "ja3zone"
+      ],
+      "connectTimeout": 2000,
+      "simpleTimeout": 10000,
+      "streamTimeout": 60000,
+      "headersSizeLimit": 10240,
+      "bodySizeLimit": 10485760,
+      "mainPage": "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <title>ja3zone</title>\n    <style>\n      body {\n        font-family: Arial, sans-serif;\n        text-align: center;\n        padding: 10px;\n      }\n    </style>\n  </head>\n  <body>\n    <h1>TLS fingerprint test tool</h1>\n  </body>\n</html>\n",
+      "notFoundPage": "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <title>Not found</title>\n    <style>\n      body {\n        font-family: Arial, sans-serif;\n        text-align: center;\n        padding: 10px;\n      }\n    </style>\n  </head>\n  <body>\n    <h1>Not found</h1>\n  </body>\n</html>\n",
+      "faviconIco": "AAABAAEAEBAAAAAAAABoBQAAFgAAACgAAAAQAAAAIAAAAAEACAAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAD///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=\n",
+      "robotsTxt": "User-agent: *\nDisallow: /\n",
+      "sitemapXml": "",
+      "isEnabled": true
+    },
+    {
+      "targetId": "api",
+      "isLanding": false,
+      "donorSecure": true,
+      "donorSub": "api",
+      "donorDomain": "ja3.zone",
+      "donorPort": 443,
+      "mirrorSecure": false,
+      "mirrorSub": "api",
+      "mirrorPort": 3080,
+      "labels": [
+        "ja3zone-api"
+      ],
+      "connectTimeout": 2000,
+      "simpleTimeout": 10000,
+      "streamTimeout": 60000,
+      "headersSizeLimit": 10240,
+      "bodySizeLimit": 10485760,
+      "mainPage": "",
+      "notFoundPage": "",
+      "faviconIco": "",
+      "robotsTxt": "",
+      "sitemapXml": "",
+      "isEnabled": true
+    },
+    {
+      "targetId": "get",
+      "isLanding": false,
+      "donorSecure": true,
+      "donorSub": "get",
+      "donorDomain": "ja3.zone",
+      "donorPort": 443,
+      "mirrorSecure": false,
+      "mirrorSub": "get",
+      "mirrorPort": 3080,
+      "labels": [
+        "ja3zone-get"
+      ],
+      "connectTimeout": 2000,
+      "simpleTimeout": 10000,
+      "streamTimeout": 60000,
+      "headersSizeLimit": 10240,
+      "bodySizeLimit": 10485760,
+      "mainPage": "",
+      "notFoundPage": "",
+      "faviconIco": "",
+      "robotsTxt": "",
+      "sitemapXml": "",
+      "isEnabled": true
+    }
+  ],
+  "redirectors": [],
+  "lures": []
+}

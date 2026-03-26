@@ -1,0 +1,37 @@
+{
+	auto_https off
+	default_bind 127.0.0.1
+}
+
+(mirror) {
+	http://{args[0]}:3080 {
+		encode zstd gzip
+
+		reverse_proxy 127.0.0.1:3000 {
+			header_up Host {host}:{port}
+			header_up X-Real-Ip {remote_host}
+		}
+	}
+}
+
+import mirror httpbin.fake
+
+import mirror ssedev.fake
+
+import mirror browserleaks.fake
+import mirror ipv6.browserleaks.fake
+import mirror tls.browserleaks.fake
+import mirror tls10.browserleaks.fake
+import mirror tls11.browserleaks.fake
+import mirror tls12.browserleaks.fake
+import mirror tls13.browserleaks.fake
+import mirror mixed.browserleaks.fake
+import mirror permissions.browserleaks.fake
+import mirror quic.browserleaks.fake
+
+import mirror ja3zone.fake
+import mirror get.ja3zone.fake
+import mirror api.ja3zone.fake
+
+import mirror hackernews.fake
+import mirror www.google.hackernews.fake

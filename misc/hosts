@@ -1,0 +1,21 @@
+127.0.0.1 httpbin.fake
+
+127.0.0.1 ssedev.fake
+
+127.0.0.1 browserleaks.fake
+127.0.0.1 ipv6.browserleaks.fake
+127.0.0.1 tls.browserleaks.fake
+127.0.0.1 tls10.browserleaks.fake
+127.0.0.1 tls11.browserleaks.fake
+127.0.0.1 tls12.browserleaks.fake
+127.0.0.1 mixed.browserleaks.fake
+127.0.0.1 permissions.browserleaks.fake
+127.0.0.1 quic.browserleaks.fake
+
+127.0.0.1 ja3zone.fake
+127.0.0.1 api.ja3zone.fake
+127.0.0.1 get.ja3zone.fake
+
+127.0.0.1 hackernews.fake
+127.0.0.1 www.google.hackernews.fake
+
