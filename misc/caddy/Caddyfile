@@ -1,37 +1,63 @@
 {
-	auto_https off
-	default_bind 127.0.0.1
+	default_bind {$CADDY_LISTEN:0.0.0.0}
 }
 
 (mirror) {
-	http://{args[0]}:3080 {
-		encode zstd gzip
+	https://{args[0]} {
+		log {
+			output file /var/log/caddy/{args[1]}/access.log {
+				roll_size 10MiB
+				roll_keep 2
+			}
+		}
 
-		reverse_proxy 127.0.0.1:3000 {
-			header_up Host {host}:{port}
-			header_up X-Real-Ip {remote_host}
+		@cloudflare {
+			remote_ip 173.245.48.0/20 103.21.244.0/22 103.22.200.0/22 103.31.4.0/22 141.101.64.0/18 108.162.192.0/18 190.93.240.0/20 188.114.96.0/20 197.234.240.0/22 198.41.128.0/17 162.158.0.0/15 104.16.0.0/13 104.24.0.0/14 172.64.0.0/13 131.0.72.0/22 2400:cb00::/32 2606:4700::/32 2803:f800::/32 2405:b500::/32 2405:8100::/32 2a06:98c0::/29 2c0f:f248::/32
+		}
+
+		handle @cloudflare {
+			encode zstd gzip
+
+			reverse_proxy 127.0.0.1:3000 {
+				header_up -cf-ray
+				header_up -cf-request-id
+				header_up -cf-visitor
+				header_up -cf-worker
+				header_up -cf-cache-status
+				header_up -cf-connecting-ip
+				header_up -cf-ipcountry
+				header_up -cdn-loop
+
+				header_up Host {host}:443
+				header_up X-Real-Ip {http.request.header.cf-connecting-ip}
+			}
+		}
+
+		handle {
+			respond "Access Denied" 403
 		}
 	}
 }
 
-import mirror httpbin.fake
+import mirror httpbin.fake-mirrors.net fake-mirrors/httpbin
 
-import mirror ssedev.fake
+import mirror ssedev.fake-mirrors.net fake-mirrors/ssedev
 
-import mirror browserleaks.fake
-import mirror ipv6.browserleaks.fake
-import mirror tls.browserleaks.fake
-import mirror tls10.browserleaks.fake
-import mirror tls11.browserleaks.fake
-import mirror tls12.browserleaks.fake
-import mirror tls13.browserleaks.fake
-import mirror mixed.browserleaks.fake
-import mirror permissions.browserleaks.fake
-import mirror quic.browserleaks.fake
+import mirror ja3zone.fake-mirrors.net fake-mirrors/ja3zone
+import mirror ja3zone-wmo.fake-mirrors.net fake-mirrors/ja3zone
+import mirror ja3zone-xgh.fake-mirrors.net fake-mirrors/ja3zone
 
-import mirror ja3zone.fake
-import mirror get.ja3zone.fake
-import mirror api.ja3zone.fake
+import mirror browserleaks.fake-mirrors.net fake-mirrors/browserleaks
+import mirror browserleaks-euw.fake-mirrors.net fake-mirrors/browserleaks
+import mirror browserleaks-mek.fake-mirrors.net fake-mirrors/browserleaks
+import mirror browserleaks-cqx.fake-mirrors.net fake-mirrors/browserleaks
+import mirror browserleaks-hwi.fake-mirrors.net fake-mirrors/browserleaks
+import mirror browserleaks-ppm.fake-mirrors.net fake-mirrors/browserleaks
+import mirror browserleaks-dvb.fake-mirrors.net fake-mirrors/browserleaks
+import mirror browserleaks-dku.fake-mirrors.net fake-mirrors/browserleaks
+import mirror browserleaks-cly.fake-mirrors.net fake-mirrors/browserleaks
+import mirror browserleaks-pko.fake-mirrors.net fake-mirrors/browserleaks
 
-import mirror hackernews.fake
-import mirror www.google.hackernews.fake
+import mirror hackernews.fake-mirrors.net fake-mirrors/hackernews
+import mirror hackernews-itc.fake-mirrors.net fake-mirrors/hackernews
+

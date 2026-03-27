@@ -2,9 +2,9 @@
   "campaign": {
     "campaignId": "ja3zone",
     "mirrorDomain": "ja3zone.fake",
-    "description": "JA3Zone mirror",
-    "landingUpgradePath": "/fake-auth-4952",
-    "sessionCookieName": "fake-sess-5e71",
+    "description": "JA3Zone local mirror",
+    "landingUpgradePath": "/fake-auth",
+    "sessionCookieName": "fake-sess",
     "sessionExpire": 86400000,
     "newSessionExpire": 300000,
     "messageExpire": 3600000
@@ -12,7 +12,7 @@
   "proxies": [
     {
       "proxyId": "default",
-      "url": "socks5://localhost:9050",
+      "url": "http://localhost:8080",
       "isEnabled": true
     }
   ],

@@ -3,16 +3,13 @@ Famir demo project
 
 First of all, stop panic, this is a simple JavaScript REPL.
 
-Some example commands:
+Embeded assets:
 
-// Drop all data from Redis
-await famir.cleanupDatabase({})
-
-// Load Redis functions
-await famir.loadDatabaseFunctions({})
-
-// Show all campaigns
-await famir.listCampaigns()
+* phishmap-httpbin.json
+* phishmap-ssedev.json
+* phishmap-ja3zone.json
+* phishmap-browserleaks.json
+* phishmap-hackernews.json
 
 Happy hacking! 😎
 

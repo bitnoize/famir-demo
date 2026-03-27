@@ -52,7 +52,7 @@ export class Ja3zoneController extends BaseController {
                 // ...
               }
 
-              //$('script[src^=https://static.cloudflareinsights.com]').remove()
+              $('script[src^=https://static.cloudflareinsights.com]').remove()
 
               message.responseBody.setText($.html())
             }

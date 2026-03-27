@@ -55,9 +55,14 @@ export class HttpbinController extends BaseController {
           message.setKind('stream-response')
         }
 
-        const intrestedPaths: RegExp[] = [/^\/post/, /^\/cookies/]
+        const notInterestPaths: RegExp[] = [
+          /^\/$/,
+          /^\/flasgger_static\//,
+          /^\/static\//,
+          /^\/spec.json$/
+        ]
 
-        if (intrestedPaths.some((path) => ctx.url.isPath(path))) {
+        if (!notInterestPaths.some((path) => ctx.url.isPath(path))) {
           message.processor ??= 'dummy'
         }
 
@@ -83,7 +88,7 @@ export class HttpbinController extends BaseController {
               if (message.url.isPath('/spec.json') && message.status.isSuccess()) {
                 if (this.checkHttpbinSpec(json)) {
                   json.host = target.mirrorHost
-                  json.info.title = `Fake httpbin!`
+                  json.info.title = `Fake Httpbin!`
                 }
               }
 

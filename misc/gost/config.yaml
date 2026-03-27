@@ -1,0 +1,21 @@
+services:
+  - name: service-default
+    addr: "127.0.0.1:8080"
+    handler:
+      type: http
+      chain: chain-tor
+    listener:
+      type: tcp
+
+chains:
+  - name: chain-tor
+    hops:
+    - name: hop-0
+      nodes:
+      - name: node-0
+        addr: 127.0.0.1:9050
+        connector:
+          type: socks
+        dialer:
+          type: tcp
+

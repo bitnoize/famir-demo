@@ -2,9 +2,9 @@
   "campaign": {
     "campaignId": "hackernews",
     "mirrorDomain": "hackernews.fake",
-    "description": "HackerNews mirror",
-    "landingUpgradePath": "/fake-auth-452f",
-    "sessionCookieName": "fake-sess-4fdd",
+    "description": "HackerNews local mirror",
+    "landingUpgradePath": "/fake-auth",
+    "sessionCookieName": "fake-sess",
     "sessionExpire": 86400000,
     "newSessionExpire": 300000,
     "messageExpire": 3600000
@@ -12,7 +12,7 @@
   "proxies": [
     {
       "proxyId": "default",
-      "url": "socks5://localhost:9050",
+      "url": "http://localhost:8080",
       "isEnabled": true
     }
   ],
