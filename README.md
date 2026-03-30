@@ -4,8 +4,6 @@ An example project to demonstrate [Famir](https://github.com/bitnoize/famir) fra
 
 ## Install
 
-It is assumed that [Caddy](https://caddyserver.com/) and [Redis](https://redis.io/) are already installed and configured.
-
 ```sh
 # Install dependencies and build project
 npm install
@@ -28,48 +26,55 @@ npm run start:analyze:std
 
 ```
 
-## Usage
+## Campaigns
 
-Prepare cluster:
+### httpbin.org
 
-```js
-// Some destructive commands requires confirmSecret attribute.
-// This attribute changes each time you use it, and is necessary to prevent accidental repeats.
+Using this mirror, you can make arbitrary requests to the server and see the result
+from the donor site's perspective.
 
-// Cleanup entire database
-await famir.cleanupDatabase({})
+* Modify spec.json, change title
+* Transparent reverse-proxy
+* Handle streaming responses
+* Capture some endpoints
 
-// Load lua scripts into Redis
-await famir.loadDatabaseFunctions({})
+[Live demo](https://httpbin.fake-mirrors.net/)
 
-```
+### sse.dev
 
-Restore phishmap:
+This mirror is for testing SSE (Server-Sent-Events) operation.
 
-```js
-let campaignId = 'httpbin'
-let phishmap = JSON.parse(getAsset('phishmap-httpbin-local.json'))
+* Handle streaming responses
+* Transparent reverse-proxy
 
-await famir.restorePhishmap({phishmap, campaignId})
+[Live demo](https://ssedev.fake-mirrors.net/)
 
-// Show campaign
-await famir.listCampaigns()
-await famir.readCampaign({ campaignId })
+### ja3.zone
 
-// Show proxies
-await famir.listproxies({ campaignId })
-await famir.readProxy({ campaignId, proxyId: 'default' })
+This mirror shows JA3, JA4, PeetPrint and Akamai fingerprints of your browser.
 
-// Show targets
-await famir.listTargets({ campaignId })
-await famir.readTarget({ campaignId, targetId: 'root' })
+* Transparent reverse-proxy
 
-// Show redirectors
-await famir.listRedirectors({ campaignId })
-await famir.readRedirector({ campaignId, redirectorId: 'simple' })
+[Live demo](https://ja3zone.fake-mirrors.net)
 
-// Show lures
-await famir.listLures({ campaignId })
-await famir.readLure({ campaignId, lureId: 'test' })
-```
+### browserleaks.com
+
+Suite of tools that offers a range of tests to evaluate the security and privacy of
+your web browser.
+
+* Transparent reverse-proxy
+
+[Live demo](https://browserleaks.fake-mirrors.net)
+
+### hackernews
+
+This is an example of a typical website on the Internet with authentication.
+
+* Change site title
+* Capture auth session and login credentials and store to S3
+* Bypass Google re-captcha v2
+* Closed from the outside world via secret links aka 'lures'
+* Block user logout to save captured session
+
+[Live demo](https://hackernews.fake-mirrors.net/foo-bar-baz)
 
