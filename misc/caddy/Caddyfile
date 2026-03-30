@@ -6,6 +6,7 @@
 	https://{args[0]} {
 		log {
 			output file /var/log/caddy/{args[1]}/access.log {
+				mode 640
 				roll_size 10MiB
 				roll_keep 2
 			}
