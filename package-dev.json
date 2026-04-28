@@ -1,0 +1,54 @@
+{
+  "name": "famir-demo",
+  "type": "module",
+  "version": "0.0.1",
+  "description": "Famir demo project",
+  "author": "Dmitry Krutikov <d.krutikov@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "format": "prettier -w \"src/**/*.ts\"",
+    "lint": "eslint \"src/**/*.ts\"",
+    "prebuild": "node generate-assets.js",
+    "build": "tsc -b",
+    "start:console:cli": "node --env-file=.env dist/console/loaders/cli/index.js",
+    "start:console:net": "node --env-file=.env dist/console/loaders/net/index.js",
+    "start:reverse:std": "node --env-file=.env dist/reverse/loaders/std/index.js",
+    "start:actions:std": "node --env-file=.env dist/actions/loaders/std/index.js",
+    "clean": "rm -rf dist *.tsbuildinfo"
+  },
+  "dependencies": {
+    "@famir/actions-app": "^0.0.3",
+    "@famir/console-app": "^0.0.3",
+    "@famir/reverse-app": "^0.0.3",
+    "pino-roll": "^4.0.0"
+  },
+  "overrides": {
+    "@famir/common": "file:../famir/packages/common",
+    "@famir/validator": "file:../famir/packages/validator",
+    "@famir/config": "file:../famir/packages/config",
+    "@famir/logger": "file:../famir/packages/logger",
+    "@famir/templater": "file:../famir/packages/templater",
+    "@famir/database": "file:../famir/packages/database",
+    "@famir/storage": "file:../famir/packages/storage",
+    "@famir/produce": "file:../famir/packages/produce",
+    "@famir/consume": "file:../famir/packages/consume",
+    "@famir/http-proto": "file:../famir/packages/http-proto",
+    "@famir/http-client": "file:../famir/packages/http-client",
+    "@famir/http-server": "file:../famir/packages/http-server",
+    "@famir/http-tools": "file:../famir/packages/http-tools",
+    "@famir/repl-server": "file:../famir/packages/repl-server"
+  },
+  "peerDependencies": {
+    "pino": "^10.3.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^25.6.0",
+    "eslint": "^10.2.0",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.8.2",
+    "prettier-plugin-organize-imports": "^4.3.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.58.1"
+  }
+}

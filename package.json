@@ -1,33 +1,52 @@
 {
   "name": "famir-demo",
   "type": "module",
+  "version": "0.0.1",
   "description": "Famir demo project",
   "author": "Dmitry Krutikov <d.krutikov@gmail.com>",
   "license": "MIT",
   "scripts": {
     "format": "prettier -w \"src/**/*.ts\"",
     "lint": "eslint \"src/**/*.ts\"",
-    "prebuild": "./generate-assets.sh",
+    "prebuild": "node generate-assets.js",
     "build": "tsc -b",
-    "start:console:cli": "node --env-file=.env dist/console/loaders/cli.js",
-    "start:console:net": "node --env-file=.env dist/console/loaders/net.js",
-    "start:reverse:std": "node --env-file=.env dist/reverse/loaders/std.js",
-    "start:analyze:std": "node --env-file=.env dist/analyze/loaders/std.js"
+    "start:console:cli": "node --env-file=.env --import=./dist/console/preload.js dist/console/loaders/cli/index.js",
+    "start:console:net": "node --env-file=.env --import=./dist/console/preload.js dist/console/loaders/net/index.js",
+    "start:reverse:std": "node --env-file=.env --import=./dist/reverse/preload.js dist/reverse/loaders/std/index.js",
+    "start:actions:std": "node --env-file=.env --import=./dist/actions/preload.js dist/actions/loaders/std/index.js",
+    "clean": "rm -rf dist *.tsbuildinfo"
   },
   "dependencies": {
-    "@famir/analyze": "^0.0.1",
-    "@famir/console": "^0.0.1",
-    "@famir/http-tools": "^0.0.1",
-    "@famir/reverse": "^0.0.1"
+    "@famir/actions-app": "^0.0.3",
+    "@famir/console-app": "^0.0.3",
+    "@famir/reverse-app": "^0.0.3",
+    "pino-roll": "^4.0.0"
+  },
+  "peerDependencies": {
+    "@famir/common": "^0.0.3",
+    "@famir/config": "^0.0.3",
+    "@famir/consume": "^0.0.3",
+    "@famir/database": "^0.0.3",
+    "@famir/http-client": "^0.0.5",
+    "@famir/http-proto": "^0.0.1",
+    "@famir/http-server": "^0.0.3",
+    "@famir/http-tools": "^0.0.3",
+    "@famir/logger": "^0.0.3",
+    "@famir/produce": "^0.0.3",
+    "@famir/repl-server": "^0.0.3",
+    "@famir/storage": "^0.0.3",
+    "@famir/templater": "^0.0.3",
+    "@famir/validator": "^0.0.3",
+    "pino": "^10.3.1"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@types/node": "^25.0.0",
-    "eslint": "^10.1.0",
+    "@types/node": "^25.6.0",
+    "eslint": "^10.2.1",
     "eslint-config-prettier": "^10.1.8",
-    "prettier": "^3.8.1",
+    "prettier": "^3.8.3",
     "prettier-plugin-organize-imports": "^4.3.0",
-    "typescript": "^5.9.3",
-    "typescript-eslint": "^8.57.1"
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.59.1"
   }
 }

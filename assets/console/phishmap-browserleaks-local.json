@@ -3,8 +3,8 @@
     "campaignId": "browserleaks",
     "mirrorDomain": "browserleaks.fake",
     "description": "BrowserLeaks local mirror",
-    "landingUpgradePath": "/fake-auth",
-    "sessionCookieName": "fake-sess",
+    "upgradeSessionPath": "/fake-upgrade-session",
+    "sessionCookieName": "fake-sess-browserleaks",
     "sessionExpire": 86400000,
     "newSessionExpire": 300000,
     "messageExpire": 3600000
@@ -19,7 +19,7 @@
   "targets": [
     {
       "targetId": "root",
-      "isLanding": false,
+      "accessLevel": "transparent",
       "donorSecure": true,
       "donorSub": ".",
       "donorDomain": "browserleaks.com",
@@ -40,11 +40,12 @@
       "faviconIco": "AAABAAEAEBAAAAAAAABoBQAAFgAAACgAAAAQAAAAIAAAAAEACAAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAD///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=\n",
       "robotsTxt": "User-agent: *\nDisallow: /\n",
       "sitemapXml": "",
+      "allowWebSockets": false,
       "isEnabled": true
     },
     {
       "targetId": "ipv6",
-      "isLanding": false,
+      "accessLevel": "transparent",
       "donorSecure": true,
       "donorSub": "ipv6",
       "donorDomain": "browserleaks.com",
@@ -63,11 +64,12 @@
       "faviconIco": "",
       "robotsTxt": "",
       "sitemapXml": "",
+      "allowWebSockets": false,
       "isEnabled": true
     },
     {
       "targetId": "tls",
-      "isLanding": false,
+      "accessLevel": "transparent",
       "donorSecure": true,
       "donorSub": "tls",
       "donorDomain": "browserleaks.com",
@@ -86,11 +88,12 @@
       "faviconIco": "",
       "robotsTxt": "",
       "sitemapXml": "",
+      "allowWebSockets": false,
       "isEnabled": true
     },
     {
       "targetId": "tls10",
-      "isLanding": false,
+      "accessLevel": "transparent",
       "donorSecure": true,
       "donorSub": "tls10",
       "donorDomain": "browserleaks.com",
@@ -109,11 +112,12 @@
       "faviconIco": "",
       "robotsTxt": "",
       "sitemapXml": "",
+      "allowWebSockets": false,
       "isEnabled": true
     },
     {
       "targetId": "tls11",
-      "isLanding": false,
+      "accessLevel": "transparent",
       "donorSecure": true,
       "donorSub": "tls11",
       "donorDomain": "browserleaks.com",
@@ -132,11 +136,12 @@
       "faviconIco": "",
       "robotsTxt": "",
       "sitemapXml": "",
+      "allowWebSockets": false,
       "isEnabled": true
     },
     {
       "targetId": "tls12",
-      "isLanding": false,
+      "accessLevel": "transparent",
       "donorSecure": true,
       "donorSub": "tls12",
       "donorDomain": "browserleaks.com",
@@ -155,11 +160,12 @@
       "faviconIco": "",
       "robotsTxt": "",
       "sitemapXml": "",
+      "allowWebSockets": false,
       "isEnabled": true
     },
     {
       "targetId": "tls13",
-      "isLanding": false,
+      "accessLevel": "transparent",
       "donorSecure": true,
       "donorSub": "tls13",
       "donorDomain": "browserleaks.com",
@@ -178,11 +184,12 @@
       "faviconIco": "",
       "robotsTxt": "",
       "sitemapXml": "",
+      "allowWebSockets": false,
       "isEnabled": true
     },
     {
       "targetId": "mixed",
-      "isLanding": false,
+      "accessLevel": "transparent",
       "donorSecure": true,
       "donorSub": "mixed",
       "donorDomain": "browserleaks.org",
@@ -201,11 +208,12 @@
       "faviconIco": "",
       "robotsTxt": "",
       "sitemapXml": "",
+      "allowWebSockets": false,
       "isEnabled": true
     },
     {
       "targetId": "permissions",
-      "isLanding": false,
+      "accessLevel": "transparent",
       "donorSecure": true,
       "donorSub": "permissions",
       "donorDomain": "browserleaks.org",
@@ -224,11 +232,12 @@
       "faviconIco": "",
       "robotsTxt": "",
       "sitemapXml": "",
+      "allowWebSockets": false,
       "isEnabled": true
     },
     {
       "targetId": "quic",
-      "isLanding": false,
+      "accessLevel": "transparent",
       "donorSecure": true,
       "donorSub": "quic",
       "donorDomain": "browserleaks.com",
@@ -247,6 +256,7 @@
       "faviconIco": "",
       "robotsTxt": "",
       "sitemapXml": "",
+      "allowWebSockets": false,
       "isEnabled": true
     }
   ],

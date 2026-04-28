@@ -1,6 +1,7 @@
 .npmrc
-dist
 node_modules
+dist
 tsconfig.tsbuildinfo
 .env
+logs
 

