@@ -23,14 +23,14 @@
     "pino-roll": "^4.0.0"
   },
   "peerDependencies": {
-    "@famir/common": "^0.0.3",
+    "@famir/common": "^0.0.4",
     "@famir/config": "^0.0.3",
     "@famir/consume": "^0.0.3",
     "@famir/database": "^0.0.3",
     "@famir/http-client": "^0.0.5",
     "@famir/http-proto": "^0.0.1",
     "@famir/http-server": "^0.0.3",
-    "@famir/http-tools": "^0.0.3",
+    "@famir/http-tools": "^0.0.4",
     "@famir/logger": "^0.0.3",
     "@famir/produce": "^0.0.3",
     "@famir/repl-server": "^0.0.3",
