@@ -1,7 +1,7 @@
 import { ActionsApp } from '@famir/actions-app'
 import { DIContainer } from '@famir/common'
 import { EnvConfig } from '@famir/config'
-import { BullAnalyzeWorker, ConsumeRouter, RedisConsumeConnector } from '@famir/consume'
+import { BullAnalyzeWorker, ConsumerRouter, RedisConsumerConnector, ConsumerAssets } from '@famir/consumer'
 import {
   RedisCampaignRepository,
   RedisDatabaseConnector,
@@ -11,21 +11,18 @@ import {
   RedisTargetRepository
 } from '@famir/database'
 import { PinoLogger } from '@famir/logger'
-import { RedisProduceConnector } from '@famir/produce'
+import { RedisProducerConnector } from '@famir/producer'
 import { MinioStorage } from '@famir/storage'
 import { AjvValidator } from '@famir/validator'
 import { assets } from '../../assets.js'
 import { main } from '../../main.js'
-import { specs } from '../../specs.js'
-import { ActionsConfig } from './std.js'
-import { actionsConfigSchema } from './std.schemas.js'
 
 export async function bootstrap(): Promise<void> {
   const container = DIContainer.getInstance()
 
   AjvValidator.register(container)
 
-  EnvConfig.register<ActionsConfig>(container, actionsConfigSchema)
+  EnvConfig.register(container)
 
   PinoLogger.register(container)
 
@@ -39,13 +36,19 @@ export async function bootstrap(): Promise<void> {
 
   MinioStorage.register(container)
 
-  RedisProduceConnector.register(container)
+  RedisProducerConnector.register(container)
 
-  RedisConsumeConnector.register(container)
+  RedisConsumerConnector.register(container)
 
-  ConsumeRouter.register(container, specs, assets)
+  ConsumerAssets.register(container, assets)
 
-  BullAnalyzeWorker.register(container)
+  ConsumerRouter.register(container)
+
+  BullAnalyzeWorker.register(container, {
+    concurrency: 2,
+    limiterMax: 1,
+    limiterDuration: 1000
+  })
 
   ActionsApp.register(container)
 

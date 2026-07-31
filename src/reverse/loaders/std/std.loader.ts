@@ -14,24 +14,23 @@ import { CurlHttpClient } from '@famir/http-client'
 import {
   HttpServerRouter,
   NativeHttpServer,
-  NativeHttpServerContextFactory
+  HttpServerContextFactory,
+  HttpServerAssets,
 } from '@famir/http-server'
 import { PinoLogger } from '@famir/logger'
-import { BullAnalyzeQueue, RedisProduceConnector } from '@famir/produce'
+import { BullAnalyzeQueue, RedisProducerConnector } from '@famir/producer'
 import { ReverseApp } from '@famir/reverse-app'
 import { EtaTemplater } from '@famir/templater'
 import { AjvValidator } from '@famir/validator'
 import { assets } from '../../assets.js'
 import { main } from '../../main.js'
-import { ReverseConfig } from './std.js'
-import { reverseConfigSchema } from './std.schemas.js'
 
 export async function bootstrap(): Promise<void> {
   const container = DIContainer.getInstance()
 
   AjvValidator.register(container)
 
-  EnvConfig.register<ReverseConfig>(container, reverseConfigSchema)
+  EnvConfig.register(container)
 
   PinoLogger.register(container)
 
@@ -47,15 +46,17 @@ export async function bootstrap(): Promise<void> {
   RedisSessionRepository.register(container)
   RedisMessageRepository.register(container)
 
-  RedisProduceConnector.register(container)
+  RedisProducerConnector.register(container)
 
   BullAnalyzeQueue.register(container)
 
   CurlHttpClient.register(container)
 
-  HttpServerRouter.register(container, assets)
+  HttpServerAssets.register(container, assets)
 
-  NativeHttpServerContextFactory.register(container)
+  HttpServerRouter.register(container)
+
+  HttpServerContextFactory.register(container)
 
   NativeHttpServer.register(container)
 

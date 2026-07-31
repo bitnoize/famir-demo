@@ -31,8 +31,6 @@ export class BrowserleaksController extends BaseController {
     router: HttpServerRouter
   ) {
     super(validator, logger, templater, router)
-
-    this.logger.debug(`BrowserleaksController initialized`)
   }
 
   use() {

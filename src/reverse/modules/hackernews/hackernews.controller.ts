@@ -32,8 +32,6 @@ export class HackernewsController extends BaseController {
     router: HttpServerRouter
   ) {
     super(validator, logger, templater, router)
-
-    this.logger.debug(`HackernewsController initialized`)
   }
 
   usePre() {

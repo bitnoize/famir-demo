@@ -1,4 +1,4 @@
-import { JSONSchemaType, ValidatorSchemas } from '@famir/validator'
+import { JSONSchemaType } from '@famir/validator'
 import { HttpbinSpec } from './httpbin.js'
 
 export const httpbinSpecSchema: JSONSchemaType<HttpbinSpec> = {
@@ -60,7 +60,3 @@ export const httpbinSpecSchema: JSONSchemaType<HttpbinSpec> = {
   },
   additionalProperties: true
 } as const
-
-export const httpbinSchemas: ValidatorSchemas = {
-  'reverse-httpbin-spec': httpbinSpecSchema
-}

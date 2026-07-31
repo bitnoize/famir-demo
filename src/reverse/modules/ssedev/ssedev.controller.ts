@@ -31,8 +31,6 @@ export class SsedevController extends BaseController {
     router: HttpServerRouter
   ) {
     super(validator, logger, templater, router)
-
-    this.logger.debug(`SsedevController initialized`)
   }
 
   use() {

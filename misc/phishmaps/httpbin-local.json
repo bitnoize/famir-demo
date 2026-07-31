@@ -21,11 +21,11 @@
       "targetId": "root",
       "accessLevel": "transparent",
       "donorSecure": true,
-      "donorSub": ".",
+      "donorSub": "@",
       "donorDomain": "httpbin.org",
       "donorPort": 443,
       "mirrorSecure": false,
-      "mirrorSub": ".",
+      "mirrorSub": "@",
       "mirrorPort": 3080,
       "labels": [
         "httpbin"

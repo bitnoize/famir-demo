@@ -32,8 +32,6 @@ export class Ja3zoneController extends BaseController {
     router: HttpServerRouter
   ) {
     super(validator, logger, templater, router)
-
-    this.logger.debug(`Ja3zoneController initialized`)
   }
 
   use() {

@@ -24,7 +24,7 @@ async function generateAssets(sourceDir, targetFile) {
 
   const targetBody = `// Auto-generated file. Do not edit manually!
 
-export const assets: Map<string, string> = new Map(${JSON.stringify(embedFiles, null, 2)})`
+export const assets: [string, string][] = ${JSON.stringify(embedFiles, null, 2)}`
 
   await writeFile(targetFile, targetBody, 'utf8')
 }

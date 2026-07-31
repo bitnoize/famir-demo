@@ -6,7 +6,7 @@ import { BaseController } from '@famir/reverse-app'
 import { TEMPLATER, Templater } from '@famir/templater'
 import { Validator, VALIDATOR } from '@famir/validator'
 import { HTTPBIN_CONTROLLER, HttpbinSpec } from './httpbin.js'
-import { httpbinSchemas } from './httpbin.schemas.js'
+import { httpbinSpecSchema } from './httpbin.schemas.js'
 
 export class HttpbinController extends BaseController {
   static register(container: DIContainer) {
@@ -34,9 +34,7 @@ export class HttpbinController extends BaseController {
   ) {
     super(validator, logger, templater, router)
 
-    this.validator.addSchemas(httpbinSchemas)
-
-    this.logger.debug(`HttpbinController initialized`)
+    this.validator.addSchema('reverse-httpbin-spec', httpbinSpecSchema)
   }
 
   use() {

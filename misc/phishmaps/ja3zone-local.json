@@ -21,11 +21,11 @@
       "targetId": "root",
       "accessLevel": "transparent",
       "donorSecure": true,
-      "donorSub": ".",
+      "donorSub": "@",
       "donorDomain": "ja3.zone",
       "donorPort": 443,
       "mirrorSecure": false,
-      "mirrorSub": ".",
+      "mirrorSub": "@",
       "mirrorPort": 3080,
       "labels": [
         "ja3zone"

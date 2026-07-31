@@ -5,7 +5,7 @@ import { BaseController } from '@famir/reverse-app'
 import { TEMPLATER, Templater } from '@famir/templater'
 import { Validator, VALIDATOR } from '@famir/validator'
 import { GOOGLE_CONTROLLER, GoogleRecaptchaAnchor } from './google.js'
-import { googleSchemas } from './google.schemas.js'
+import { googleRecaptchaAnchorSchema } from './google.schemas.js'
 
 export class GoogleController extends BaseController {
   static register(container: DIContainer) {
@@ -33,9 +33,7 @@ export class GoogleController extends BaseController {
   ) {
     super(validator, logger, templater, router)
 
-    this.validator.addSchemas(googleSchemas)
-
-    this.logger.debug(`GoogleController initialized`)
+    this.validator.addSchema('reverse-google-recaptcha-anchor', googleRecaptchaAnchorSchema)
   }
 
   use() {

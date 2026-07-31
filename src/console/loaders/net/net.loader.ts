@@ -13,20 +13,18 @@ import {
   RedisTargetRepository
 } from '@famir/database'
 import { PinoLogger } from '@famir/logger'
-import { BullAnalyzeQueue, RedisProduceConnector } from '@famir/produce'
-import { NetReplServer, ReplServerRouter } from '@famir/repl-server'
+import { BullAnalyzeQueue, RedisProducerConnector } from '@famir/producer'
+import { NetReplServer, ReplServerRouter, ReplServerAssets } from '@famir/repl-server'
 import { AjvValidator } from '@famir/validator'
 import { assets } from '../../assets.js'
 import { main } from '../../main.js'
-import { ConsoleConfig } from './net.js'
-import { consoleConfigSchema } from './net.schemas.js'
 
 export async function bootstrap(): Promise<void> {
   const container = DIContainer.getInstance()
 
   AjvValidator.register(container)
 
-  EnvConfig.register<ConsoleConfig>(container, consoleConfigSchema)
+  EnvConfig.register(container)
 
   PinoLogger.register(container)
 
@@ -41,11 +39,13 @@ export async function bootstrap(): Promise<void> {
   RedisSessionRepository.register(container)
   RedisMessageRepository.register(container)
 
-  RedisProduceConnector.register(container)
+  RedisProducerConnector.register(container)
 
   BullAnalyzeQueue.register(container)
 
-  ReplServerRouter.register(container, assets)
+  ReplServerAssets.register(container, assets)
+
+  ReplServerRouter.register(container)
 
   NetReplServer.register(container)
 

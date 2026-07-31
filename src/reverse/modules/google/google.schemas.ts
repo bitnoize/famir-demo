@@ -1,4 +1,4 @@
-import { JSONSchemaType, ValidatorSchemas } from '@famir/validator'
+import { JSONSchemaType } from '@famir/validator'
 import { GoogleRecaptchaAnchor } from './google.js'
 
 export const googleRecaptchaAnchorSchema: JSONSchemaType<GoogleRecaptchaAnchor> = {
@@ -11,7 +11,3 @@ export const googleRecaptchaAnchorSchema: JSONSchemaType<GoogleRecaptchaAnchor> 
   },
   additionalProperties: true
 } as const
-
-export const googleSchemas: ValidatorSchemas = {
-  'reverse-google-recaptcha-anchor': googleRecaptchaAnchorSchema
-}
