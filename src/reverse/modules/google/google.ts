@@ -1,5 +1,7 @@
-export const GOOGLE_CONTROLLER = Symbol('GoogleController')
-
+/**
+ * @category Google
+ * @internal
+ */
 export interface GoogleRecaptchaAnchor {
   co: string
 }

@@ -2,27 +2,33 @@ import { DIComposer } from '@famir/common'
 import {
   CampaignController,
   CampaignService,
-  DatabaseController,
-  DatabaseService,
   LureController,
   LureService,
   MessageController,
   MessageService,
-  PhishmapController,
-  PhishmapService,
   ProxyController,
   ProxyService,
   RedirectorController,
   RedirectorService,
   SessionController,
   SessionService,
+  SystemController,
+  SystemService,
   TargetController,
   TargetService
 } from '@famir/console-app'
 
+export const bannerGreet = `
+Famir demo project
+
+Type ".assets -a intro/01-welcome.md" to get a short course on using the project.
+
+Happy hacking! 😎
+`
+
 export const main: DIComposer = (container) => {
-  DatabaseService.register(container)
-  DatabaseController.register(container)
+  SystemService.register(container)
+  SystemController.register(container)
 
   CampaignService.register(container)
   CampaignController.register(container)
@@ -45,10 +51,7 @@ export const main: DIComposer = (container) => {
   MessageService.register(container)
   MessageController.register(container)
 
-  PhishmapService.register(container)
-  PhishmapController.register(container)
-
-  DatabaseController.resolve(container).use()
+  SystemController.resolve(container).use()
   CampaignController.resolve(container).use()
   ProxyController.resolve(container).use()
   TargetController.resolve(container).use()
@@ -56,5 +59,4 @@ export const main: DIComposer = (container) => {
   LureController.resolve(container).use()
   SessionController.resolve(container).use()
   MessageController.resolve(container).use()
-  PhishmapController.resolve(container).use()
 }

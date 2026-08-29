@@ -1,39 +1,81 @@
 import { DIContainer } from '@famir/common'
-import { HTTP_SERVER_ROUTER, HttpServerRouter } from '@famir/http-server'
+import {
+  HTTP_SERVER_ASSETS,
+  HTTP_SERVER_ROUTER,
+  HttpServerAssets,
+  HttpServerRouter
+} from '@famir/http-server'
 import { cheerioLoad } from '@famir/http-tools'
 import { Logger, LOGGER } from '@famir/logger'
 import { BaseController } from '@famir/reverse-app'
 import { TEMPLATER, Templater } from '@famir/templater'
 import { Validator, VALIDATOR } from '@famir/validator'
-import { HACKERNEWS_CONTROLLER, HackernewsPayloadName } from './hackernews.js'
+import { HackernewsPayloadName } from './hackernews.js'
 
+/**
+ * DI token for the hackernews controller.
+ *
+ * @category Hackernews
+ */
+export const HACKERNEWS_CONTROLLER = Symbol('HackernewsController')
+
+/**
+ * Represents the hackernews controller.
+ *
+ * @category Hackernews
+ */
 export class HackernewsController extends BaseController {
+  /**
+   * Registers the controller as a singleton in the DI container.
+   *
+   * @param container - The DI container to register in.
+   */
   static register(container: DIContainer) {
     container.registerSingleton<HackernewsController>(
       HACKERNEWS_CONTROLLER,
       (c) =>
         new HackernewsController(
-          c.resolve(VALIDATOR),
-          c.resolve(LOGGER),
-          c.resolve(TEMPLATER),
-          c.resolve(HTTP_SERVER_ROUTER)
+          c.resolve<Validator>(VALIDATOR),
+          c.resolve<Logger>(LOGGER),
+          c.resolve<Templater>(TEMPLATER),
+          c.resolve<HttpServerAssets>(HTTP_SERVER_ASSETS),
+          c.resolve<HttpServerRouter>(HTTP_SERVER_ROUTER)
         )
     )
   }
 
+  /**
+   * Resolves the controller from the DI container.
+   *
+   * @param container - The DI container to resolve from.
+   * @returns The controller instance.
+   */
   static resolve(container: DIContainer): HackernewsController {
     return container.resolve(HACKERNEWS_CONTROLLER)
   }
 
+  /**
+   * Creates a new controller instance.
+   *
+   * @param validator - The validator instance.
+   * @param logger - The logger instance.
+   * @param templater - The templater instance.
+   * @param assets - The assets instance.
+   * @param router - The router instance.
+   */
   constructor(
     validator: Validator,
     logger: Logger,
     templater: Templater,
+    assets: HttpServerAssets,
     router: HttpServerRouter
   ) {
-    super(validator, logger, templater, router)
+    super(validator, logger, templater, assets, router)
   }
 
+  /**
+   * Registers used middleware in the router.
+   */
   usePre() {
     this.router.addMiddleware('hackernews-pre', async (ctx, next) => {
       const target = this.getState(ctx, 'target')
@@ -50,6 +92,9 @@ export class HackernewsController extends BaseController {
     })
   }
 
+  /**
+   * Registers used middleware in the router.
+   */
   use() {
     this.router.addMiddleware('hackernews', async (ctx, next) => {
       const target = this.getState(ctx, 'target')
@@ -65,7 +110,7 @@ export class HackernewsController extends BaseController {
           const contentType = message.requestHeaders.getContentType()
 
           if (message.method.is('POST')) {
-            message.analyze ??= 'default'
+            message.analyze ||= 'default'
 
             if (contentType && message.isContentType('urlEncoded', contentType)) {
               const charset = contentType.parameters['charset']

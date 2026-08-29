@@ -1,42 +1,84 @@
 import { DIContainer } from '@famir/common'
-import { HTTP_SERVER_ROUTER, HttpServerRouter } from '@famir/http-server'
+import {
+  HTTP_SERVER_ASSETS,
+  HTTP_SERVER_ROUTER,
+  HttpServerAssets,
+  HttpServerRouter
+} from '@famir/http-server'
 import { cheerioLoad } from '@famir/http-tools'
 import { Logger, LOGGER } from '@famir/logger'
 import { BaseController } from '@famir/reverse-app'
 import { TEMPLATER, Templater } from '@famir/templater'
 import { Validator, VALIDATOR } from '@famir/validator'
-import { HTTPBIN_CONTROLLER, HttpbinSpec } from './httpbin.js'
+import { HttpbinSpec } from './httpbin.js'
 import { httpbinSpecSchema } from './httpbin.schemas.js'
 
+/**
+ * DI token for the httpbin controller.
+ *
+ * @category Httpbin
+ */
+export const HTTPBIN_CONTROLLER = Symbol('HttpbinController')
+
+/**
+ * Represents the httpbin controller.
+ *
+ * @category Httpbin
+ */
 export class HttpbinController extends BaseController {
+  /**
+   * Registers the controller as a singleton in the DI container.
+   *
+   * @param container - The DI container to register in.
+   */
   static register(container: DIContainer) {
     container.registerSingleton<HttpbinController>(
       HTTPBIN_CONTROLLER,
       (c) =>
         new HttpbinController(
-          c.resolve(VALIDATOR),
-          c.resolve(LOGGER),
-          c.resolve(TEMPLATER),
-          c.resolve(HTTP_SERVER_ROUTER)
+          c.resolve<Validator>(VALIDATOR),
+          c.resolve<Logger>(LOGGER),
+          c.resolve<Templater>(TEMPLATER),
+          c.resolve<HttpServerAssets>(HTTP_SERVER_ASSETS),
+          c.resolve<HttpServerRouter>(HTTP_SERVER_ROUTER)
         )
     )
   }
 
+  /**
+   * Resolves the controller from the DI container.
+   *
+   * @param container - The DI container to resolve from.
+   * @returns The controller instance.
+   */
   static resolve(container: DIContainer): HttpbinController {
     return container.resolve(HTTPBIN_CONTROLLER)
   }
 
+  /**
+   * Creates a new controller instance.
+   *
+   * @param validator - The validator instance.
+   * @param logger - The logger instance.
+   * @param templater - The templater instance.
+   * @param assets - The assets instance.
+   * @param router - The router instance.
+   */
   constructor(
     validator: Validator,
     logger: Logger,
     templater: Templater,
+    assets: HttpServerAssets,
     router: HttpServerRouter
   ) {
-    super(validator, logger, templater, router)
+    super(validator, logger, templater, assets, router)
 
     this.validator.addSchema('reverse-httpbin-spec', httpbinSpecSchema)
   }
 
+  /**
+   * Registers used middleware in the router.
+   */
   use() {
     this.router.addMiddleware('httpbin', async (ctx, next) => {
       const target = this.getState(ctx, 'target')
@@ -68,7 +110,7 @@ export class HttpbinController extends BaseController {
         ]
 
         if (!notInterestPaths.some((path) => ctx.url.isPath(path))) {
-          message.analyze ??= 'default'
+          message.analyze ||= 'default'
         }
 
         message.addResponseBodyInterceptor('fancy-look', () => {

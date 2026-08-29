@@ -1,39 +1,80 @@
 import { DIContainer } from '@famir/common'
-import { HTTP_SERVER_ROUTER, HttpServerRouter } from '@famir/http-server'
+import {
+  HTTP_SERVER_ASSETS,
+  HTTP_SERVER_ROUTER,
+  HttpServerAssets,
+  HttpServerRouter
+} from '@famir/http-server'
 import { cheerioLoad } from '@famir/http-tools'
 import { Logger, LOGGER } from '@famir/logger'
 import { BaseController } from '@famir/reverse-app'
 import { TEMPLATER, Templater } from '@famir/templater'
 import { Validator, VALIDATOR } from '@famir/validator'
-import { JA3ZONE_CONTROLLER } from './ja3zone.js'
 
+/**
+ * DI token for the ja3zone controller.
+ *
+ * @category Ja3zone
+ */
+export const JA3ZONE_CONTROLLER = Symbol('Ja3zoneController')
+
+/**
+ * Represents the ja3zone controller.
+ *
+ * @category Ja3zone
+ */
 export class Ja3zoneController extends BaseController {
+  /**
+   * Registers the controller as a singleton in the DI container.
+   *
+   * @param container - The DI container to register in.
+   */
   static register(container: DIContainer) {
     container.registerSingleton<Ja3zoneController>(
       JA3ZONE_CONTROLLER,
       (c) =>
         new Ja3zoneController(
-          c.resolve(VALIDATOR),
-          c.resolve(LOGGER),
-          c.resolve(TEMPLATER),
-          c.resolve(HTTP_SERVER_ROUTER)
+          c.resolve<Validator>(VALIDATOR),
+          c.resolve<Logger>(LOGGER),
+          c.resolve<Templater>(TEMPLATER),
+          c.resolve<HttpServerAssets>(HTTP_SERVER_ASSETS),
+          c.resolve<HttpServerRouter>(HTTP_SERVER_ROUTER)
         )
     )
   }
 
+  /**
+   * Resolves the controller from the DI container.
+   *
+   * @param container - The DI container to resolve from.
+   * @returns The controller instance.
+   */
   static resolve(container: DIContainer): Ja3zoneController {
     return container.resolve(JA3ZONE_CONTROLLER)
   }
 
+  /**
+   * Creates a new controller instance.
+   *
+   * @param validator - The validator instance.
+   * @param logger - The logger instance.
+   * @param templater - The templater instance.
+   * @param assets - The assets instance.
+   * @param router - The router instance.
+   */
   constructor(
     validator: Validator,
     logger: Logger,
     templater: Templater,
+    assets: HttpServerAssets,
     router: HttpServerRouter
   ) {
-    super(validator, logger, templater, router)
+    super(validator, logger, templater, assets, router)
   }
 
+  /**
+   * Registers used middleware in the router.
+   */
   use() {
     this.router.addMiddleware('ja3zone', async (ctx, next) => {
       const target = this.getState(ctx, 'target')

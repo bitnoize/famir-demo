@@ -1,6 +1,10 @@
 import { JSONSchemaType } from '@famir/validator'
 import { HttpbinSpec } from './httpbin.js'
 
+/**
+ * @category Httpbin
+ * @internal
+ */
 export const httpbinSpecSchema: JSONSchemaType<HttpbinSpec> = {
   type: 'object',
   required: ['basePath', 'host', 'info', 'protocol', 'schemes'],

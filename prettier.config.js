@@ -1,11 +1,48 @@
 export default {
-  tabWidth: 2,
   printWidth: 100,
+  tabWidth: 2,
   useTabs: false,
-  singleQuote: true,
-  trailingComma: 'none',
   semi: false,
+  singleQuote: true,
+  quoteProps: 'consistent',
+  trailingComma: 'es5',
   bracketSpacing: true,
+  objectWrap: 'preserve',
+  bracketSameLine: false,
+  arrowParens: 'always',
+  proseWrap: 'preserve',
   endOfLine: 'lf',
-  plugins: ['prettier-plugin-organize-imports']
+  embeddedLanguageFormatting: 'auto',
+
+  overrides: [
+    {
+      files: ['*.md'],
+      options: {
+        parser: 'markdown',
+        printWidth: 150,
+      },
+    },
+    {
+      files: ['*.json', '*.jsonc', '*.json5'],
+      options: {
+        parser: 'json',
+        trailingComma: 'none',
+      },
+    },
+    {
+      files: ['*.css', '*.scss', '*.sass'],
+      options: {
+        parser: 'css',
+        singleQuote: false,
+      },
+    },
+    {
+      files: ['*.yaml', '*.yml'],
+      options: {
+        parser: 'yaml',
+      },
+    },
+  ],
+
+  plugins: ['prettier-plugin-organize-imports'],
 }

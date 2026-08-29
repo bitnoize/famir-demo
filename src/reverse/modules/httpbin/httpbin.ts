@@ -1,5 +1,7 @@
-export const HTTPBIN_CONTROLLER = Symbol('HttpbinController')
-
+/**
+ * @category Httpbin
+ * @internal
+ */
 export interface HttpbinSpec {
   basePath: string
   host: string

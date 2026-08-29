@@ -1,0 +1,29 @@
+#
+# httpbin
+#
+
+campaign:
+  mirrorDomain: typinks.fake
+  description: |
+    Mirror for "tools.typinks.com" site.
+
+    Local deployment, non-secure mirror on domain "typinks.fake" and port 3080
+
+proxies:
+  - proxyId: default
+    url: http://localhost:8080
+    isEnabled: true
+
+targets:
+  - targetId: sse
+    accessLevel: transparent
+    donorSecure: true
+    donorSub: 'sse'
+    donorDomain: tools.typinks.com
+    donorPort: 443
+    mirrorSecure: false
+    mirrorSub: 'sse'
+    mirrorPort: 3080
+    labels: ['typinks-sse']
+    streamTimeout: 60000
+    isEnabled: true

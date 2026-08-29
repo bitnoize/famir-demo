@@ -17,7 +17,7 @@ import {
   HackernewsController,
   HttpbinController,
   Ja3zoneController,
-  SsedevController
+  TypinksController
 } from './modules/index.js'
 
 export const main: DIComposer = (container) => {
@@ -38,19 +38,20 @@ export const main: DIComposer = (container) => {
   CompleteController.register(container)
 
   HttpbinController.register(container)
-  SsedevController.register(container)
+  TypinksController.register(container)
   Ja3zoneController.register(container)
   BrowserleaksController.register(container)
   GoogleController.register(container)
   HackernewsController.register(container)
 
+  // Order is important!
   SetupMirrorController.resolve(container).use()
   WellKnownUrlsController.resolve(container).use()
   HackernewsController.resolve(container).usePre()
   AuthorizeController.resolve(container).use()
   TransformController.resolve(container).use()
   HttpbinController.resolve(container).use()
-  SsedevController.resolve(container).use()
+  TypinksController.resolve(container).use()
   Ja3zoneController.resolve(container).use()
   BrowserleaksController.resolve(container).use()
   GoogleController.resolve(container).use()

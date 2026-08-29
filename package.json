@@ -10,10 +10,10 @@
     "lint": "eslint \"src/**/*.ts\"",
     "prebuild": "node generate-assets.js",
     "build": "tsc -b",
-    "start:console:cli": "node --env-file=.env --import=./dist/console/preload.js dist/console/loaders/cli/index.js",
-    "start:console:net": "node --env-file=.env --import=./dist/console/preload.js dist/console/loaders/net/index.js",
-    "start:reverse:std": "node --env-file=.env --import=./dist/reverse/preload.js dist/reverse/loaders/std/index.js",
-    "start:actions:std": "node --env-file=.env --import=./dist/actions/preload.js dist/actions/loaders/std/index.js",
+    "start:console:cli": "node --env-file=.env --import=./dist/console/preload.js dist/console/loaders/cli.js",
+    "start:console:net": "node --env-file=.env --import=./dist/console/preload.js dist/console/loaders/net.js",
+    "start:reverse:std": "node --env-file=.env --import=./dist/reverse/preload.js dist/reverse/loaders/std.js",
+    "start:actions:std": "node --env-file=.env --import=./dist/actions/preload.js dist/actions/loaders/std.js",
     "clean": "rm -rf dist *.tsbuildinfo"
   },
   "dependencies": {
@@ -23,20 +23,6 @@
     "pino-roll": "^4.0.0"
   },
   "peerDependencies": {
-    "@famir/common": "^0.0.5",
-    "@famir/config": "^0.0.4",
-    "@famir/consumer": "^0.0.4",
-    "@famir/database": "^0.0.5",
-    "@famir/http-client": "^0.0.6",
-    "@famir/http-proto": "^0.0.3",
-    "@famir/http-server": "^0.0.4",
-    "@famir/http-tools": "^0.0.6",
-    "@famir/logger": "^0.0.4",
-    "@famir/producer": "^0.0.4",
-    "@famir/repl-server": "^0.0.4",
-    "@famir/storage": "^0.0.4",
-    "@famir/templater": "^0.0.4",
-    "@famir/validator": "^0.0.5",
     "pino": "^10.3.1"
   },
   "devDependencies": {
@@ -48,5 +34,21 @@
     "prettier-plugin-organize-imports": "^4.3.0",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.59.1"
+  },
+  "overrides": {
+    "@famir/common": "file:../famir/packages/common",
+    "@famir/validator": "file:../famir/packages/validator",
+    "@famir/config": "file:../famir/packages/config",
+    "@famir/logger": "file:../famir/packages/logger",
+    "@famir/templater": "file:../famir/packages/templater",
+    "@famir/database": "file:../famir/packages/database",
+    "@famir/storage": "file:../famir/packages/storage",
+    "@famir/producer": "file:../famir/packages/producer",
+    "@famir/consumer": "file:../famir/packages/consumer",
+    "@famir/http-proto": "file:../famir/packages/http-proto",
+    "@famir/http-client": "file:../famir/packages/http-client",
+    "@famir/http-server": "file:../famir/packages/http-server",
+    "@famir/http-tools": "file:../famir/packages/http-tools",
+    "@famir/repl-server": "file:../famir/packages/repl-server"
   }
 }

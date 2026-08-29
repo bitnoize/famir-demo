@@ -1,41 +1,83 @@
 import { DIContainer, safeBase64Decode, safeBase64Encode } from '@famir/common'
-import { HTTP_SERVER_ROUTER, HttpServerRouter } from '@famir/http-server'
+import {
+  HTTP_SERVER_ASSETS,
+  HTTP_SERVER_ROUTER,
+  HttpServerAssets,
+  HttpServerRouter
+} from '@famir/http-server'
 import { Logger, LOGGER } from '@famir/logger'
 import { BaseController } from '@famir/reverse-app'
 import { TEMPLATER, Templater } from '@famir/templater'
 import { Validator, VALIDATOR } from '@famir/validator'
-import { GOOGLE_CONTROLLER, GoogleRecaptchaAnchor } from './google.js'
+import { GoogleRecaptchaAnchor } from './google.js'
 import { googleRecaptchaAnchorSchema } from './google.schemas.js'
 
+/**
+ * DI token for the google controller.
+ *
+ * @category Google
+ */
+export const GOOGLE_CONTROLLER = Symbol('GoogleController')
+
+/**
+ * Represents the google controller.
+ *
+ * @category Google
+ */
 export class GoogleController extends BaseController {
+  /**
+   * Registers the controller as a singleton in the DI container.
+   *
+   * @param container - The DI container to register in.
+   */
   static register(container: DIContainer) {
     container.registerSingleton<GoogleController>(
       GOOGLE_CONTROLLER,
       (c) =>
         new GoogleController(
-          c.resolve(VALIDATOR),
-          c.resolve(LOGGER),
-          c.resolve(TEMPLATER),
-          c.resolve(HTTP_SERVER_ROUTER)
+          c.resolve<Validator>(VALIDATOR),
+          c.resolve<Logger>(LOGGER),
+          c.resolve<Templater>(TEMPLATER),
+          c.resolve<HttpServerAssets>(HTTP_SERVER_ASSETS),
+          c.resolve<HttpServerRouter>(HTTP_SERVER_ROUTER)
         )
     )
   }
 
+  /**
+   * Resolves the controller from the DI container.
+   *
+   * @param container - The DI container to resolve from.
+   * @returns The controller instance.
+   */
   static resolve(container: DIContainer): GoogleController {
     return container.resolve(GOOGLE_CONTROLLER)
   }
 
+  /**
+   * Creates a new controller instance.
+   *
+   * @param validator - The validator instance.
+   * @param logger - The logger instance.
+   * @param templater - The templater instance.
+   * @param assets - The assets instance.
+   * @param router - The router instance.
+   */
   constructor(
     validator: Validator,
     logger: Logger,
     templater: Templater,
+    assets: HttpServerAssets,
     router: HttpServerRouter
   ) {
-    super(validator, logger, templater, router)
+    super(validator, logger, templater, assets, router)
 
     this.validator.addSchema('reverse-google-recaptcha-anchor', googleRecaptchaAnchorSchema)
   }
 
+  /**
+   * Registers used middleware in the router.
+   */
   use() {
     this.router.addMiddleware('google', async (ctx, next) => {
       const target = this.getState(ctx, 'target')
@@ -43,8 +85,6 @@ export class GoogleController extends BaseController {
       const message = this.getState(ctx, 'message')
 
       if (target.hasLabel('google')) {
-        //message.analyze ??= 'default'
-
         message.addRewriteUrlExtraSchemes()
         message.addRewriteUrlContentTypes(['text/html', 'text/javascript'])
 

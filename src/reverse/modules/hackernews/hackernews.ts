@@ -1,5 +1,7 @@
-export const HACKERNEWS_CONTROLLER = Symbol('HackernewsController')
-
+/**
+ * @category Hackernews
+ * @internal
+ */
 export type HackernewsPayloadName =
   | 'hackernews_login'
   | 'hackernews_comment'

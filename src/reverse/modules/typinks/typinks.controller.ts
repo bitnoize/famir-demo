@@ -11,28 +11,28 @@ import { TEMPLATER, Templater } from '@famir/templater'
 import { Validator, VALIDATOR } from '@famir/validator'
 
 /**
- * DI token for the browserleaks controller.
+ * DI token for the typinks controller.
  *
- * @category Browserleaks
+ * @category Typinks
  */
-export const BROWSERLEAKS_CONTROLLER = Symbol('BrowserleaksController')
+export const TYPINKS_CONTROLLER = Symbol('TypinksController')
 
 /**
- * Represents the browserleaks controller.
+ * Represents the typinks controller.
  *
- * @category Browserleaks
+ * @category Typinks
  */
-export class BrowserleaksController extends BaseController {
+export class TypinksController extends BaseController {
   /**
    * Registers the controller as a singleton in the DI container.
    *
    * @param container - The DI container to register in.
    */
   static register(container: DIContainer) {
-    container.registerSingleton<BrowserleaksController>(
-      BROWSERLEAKS_CONTROLLER,
+    container.registerSingleton<TypinksController>(
+      TYPINKS_CONTROLLER,
       (c) =>
-        new BrowserleaksController(
+        new TypinksController(
           c.resolve<Validator>(VALIDATOR),
           c.resolve<Logger>(LOGGER),
           c.resolve<Templater>(TEMPLATER),
@@ -48,8 +48,8 @@ export class BrowserleaksController extends BaseController {
    * @param container - The DI container to resolve from.
    * @returns The controller instance.
    */
-  static resolve(container: DIContainer): BrowserleaksController {
-    return container.resolve(BROWSERLEAKS_CONTROLLER)
+  static resolve(container: DIContainer): TypinksController {
+    return container.resolve(TYPINKS_CONTROLLER)
   }
 
   /**
@@ -75,12 +75,18 @@ export class BrowserleaksController extends BaseController {
    * Registers used middleware in the router.
    */
   use() {
-    this.router.addMiddleware('browserleaks', async (ctx, next) => {
+    this.router.addMiddleware('typinks', async (ctx, next) => {
       const target = this.getState(ctx, 'target')
       const message = this.getState(ctx, 'message')
 
-      if (target.hasLabel('browserleaks')) {
-        message.addRewriteUrlContentTypes(['text/html', 'text/css', 'application/javascript'])
+      if (target.hasLabel('typinks-sse')) {
+        message.addRewriteUrlContentTypes(['text/html'])
+
+        message.analyze ||= 'default'
+
+        if (ctx.url.isPath('/api/story')) {
+          message.setType('normal-stream-response')
+        }
       }
 
       await next()
