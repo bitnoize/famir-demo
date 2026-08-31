@@ -3,7 +3,7 @@ import {
   HTTP_SERVER_ASSETS,
   HTTP_SERVER_ROUTER,
   HttpServerAssets,
-  HttpServerRouter
+  HttpServerRouter,
 } from '@famir/http-server'
 import { cheerioLoad } from '@famir/http-tools'
 import { Logger, LOGGER } from '@famir/logger'

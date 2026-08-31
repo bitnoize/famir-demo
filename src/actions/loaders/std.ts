@@ -5,7 +5,7 @@ import {
   BullWebhookWorker,
   ConsumerAssets,
   ConsumerRouter,
-  RedisConsumerConnector
+  RedisConsumerConnector,
 } from '@famir/consumer'
 import {
   RedisCampaignRepository,
@@ -13,7 +13,7 @@ import {
   RedisMessageRepository,
   RedisProxyRepository,
   RedisSessionRepository,
-  RedisTargetRepository
+  RedisTargetRepository,
 } from '@famir/database'
 import { PinoLogger } from '@famir/logger'
 import { RedisProducerConnector } from '@famir/producer'
@@ -30,7 +30,7 @@ loader({
     EnvConfig.register(container)
 
     PinoLogger.register(container, {
-      appName: 'actions'
+      appName: 'actions',
     })
 
     EtaTemplater.register(container)
@@ -54,12 +54,12 @@ loader({
     BullAnalyzeWorker.register(container, {
       concurrency: 2,
       limiterMax: 1,
-      limiterDuration: 1000
+      limiterDuration: 1000,
     })
     BullWebhookWorker.register(container, {
       concurrency: 2,
       limiterMax: 1,
-      limiterDuration: 1000
+      limiterDuration: 1000,
     })
 
     ActionsApp.register(container)
@@ -73,5 +73,5 @@ loader({
 
   stop: async (container) => {
     await ActionsApp.resolve(container).stop()
-  }
+  },
 })

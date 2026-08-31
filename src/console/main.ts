@@ -15,13 +15,13 @@ import {
   SystemController,
   SystemService,
   TargetController,
-  TargetService
+  TargetService,
 } from '@famir/console-app'
 
 export const bannerGreet = `
 Famir demo project
 
-Type ".assets -a intro/01-welcome.md" to get a short course on using the project.
+Type ".assets -a intro/1-welcome.md" to take a short course on how to use the product.
 
 Happy hacking! 😎
 `

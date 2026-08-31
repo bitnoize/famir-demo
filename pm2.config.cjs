@@ -5,15 +5,15 @@ module.exports = {
       script: 'dist/console/loaders/net.js',
       instances: 1,
       node_args: "--env-file=.env --import=./dist/console/preload.js",
-      kill_timeout: 10_000,
+      kill_timeout: 2_000,
       watch: false
     },
     {
       name: 'reverse',
       script: 'dist/reverse/loaders/std.js',
-      instances: 1,
+      instances: 2,
       node_args: "--env-file=.env --import=./dist/reverse/preload.js",
-      kill_timeout: 10_000,
+      kill_timeout: 2_000,
       watch: false
     },
     {
@@ -21,7 +21,7 @@ module.exports = {
       script: 'dist/actions/loaders/std.js',
       instances: 1,
       node_args: "--env-file=.env --import=./dist/actions/preload.js",
-      kill_timeout: 10_000,
+      kill_timeout: 2_000,
       watch: false
     }
   ]

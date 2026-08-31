@@ -1,33 +1,26 @@
 campaign:
-  campaignId: httpbin
-  mirrorDomain: httpbin.fake-mirrors.net
+  mirrorDomain: 'ja3zone.fake'
   description: |
-    Simplest mirror for httpbin.org site.
+    Mirror for "ja3.zone" site.
 
-  upgradeSessionPath: /dimoh
-  sessionCookieName: jahla
-  #sessionExpire: 86400000
-  #newSessionExpire: 300000
-  #messageExpire: 3600000
+    Local deployment, non-secure mirror on domain "ja3zone.fake" and port 3080
+
 proxies:
-  - proxyId: default
-    url: http://localhost:8080
+  - proxyId: 'default'
+    url: 'http://localhost:8080'
+    isEnabled: true
+
 targets:
-  - targetId: root
-    accessLevel: transparent
+  - targetId: 'apex'
+    accessLevel: 'transparent'
     donorSecure: true
     donorSub: '@'
-    donorDomain: httpbin.org
+    donorDomain: 'ja3.zone'
     donorPort: 443
     mirrorSecure: false
     mirrorSub: '@'
-    mirrorPort: 443
-    labels: ['httpbin']
-    #connectTimeout: 10000
-    #simpleTimeout: 20000
-    #streamTimeout: 60000
-    #headersSizeLimit: 10240
-    #bodySizeLimit: 10485760
+    mirrorPort: 3080
+    labels: ['ja3zone']
     mainPage: |
       <!doctype html>
       <html lang="en">
@@ -44,7 +37,7 @@ targets:
           </style>
         </head>
         <body>
-          <h1>A simple HTTP Request & Response Service</h1>
+          <p>TLS Fingerprint Database</p>
         </body>
       </html>
 
@@ -100,5 +93,26 @@ targets:
       Disallow: /
 
     sitemapXml: ''
-    #allowWebSockets: false
+    isEnabled: true
+
+  - targetId: 'api'
+    accessLevel: 'transparent'
+    donorSecure: true
+    donorSub: 'api'
+    donorDomain: 'ja3.zone'
+    donorPort: 443
+    mirrorSecure: false
+    mirrorSub: 'api'
+    mirrorPort: 3080
+    isEnabled: true
+
+  - targetId: 'get'
+    accessLevel: 'transparent'
+    donorSecure: true
+    donorSub: 'get'
+    donorDomain: 'ja3.zone'
+    donorPort: 443
+    mirrorSecure: false
+    mirrorSub: 'get'
+    mirrorPort: 3080
     isEnabled: true

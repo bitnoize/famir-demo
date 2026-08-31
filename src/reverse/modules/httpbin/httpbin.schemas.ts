@@ -10,10 +10,10 @@ export const httpbinSpecSchema: JSONSchemaType<HttpbinSpec> = {
   required: ['basePath', 'host', 'info', 'protocol', 'schemes'],
   properties: {
     basePath: {
-      type: 'string'
+      type: 'string',
     },
     host: {
-      type: 'string'
+      type: 'string',
     },
     info: {
       type: 'object',
@@ -25,42 +25,42 @@ export const httpbinSpecSchema: JSONSchemaType<HttpbinSpec> = {
           properties: {
             email: {
               type: 'string',
-              nullable: true
+              nullable: true,
             },
             responsibleDeveloper: {
               type: 'string',
-              nullable: true
+              nullable: true,
             },
             responsibleOrganization: {
               type: 'string',
-              nullable: true
+              nullable: true,
             },
             url: {
               type: 'string',
-              nullable: true
-            }
-          }
+              nullable: true,
+            },
+          },
         },
         description: {
-          type: 'string'
+          type: 'string',
         },
         title: {
-          type: 'string'
+          type: 'string',
         },
         version: {
-          type: 'string'
-        }
-      }
+          type: 'string',
+        },
+      },
     },
     protocol: {
-      type: 'string'
+      type: 'string',
     },
     schemes: {
       type: 'array',
       items: {
-        type: 'string'
-      }
-    }
+        type: 'string',
+      },
+    },
   },
-  additionalProperties: true
+  additionalProperties: true,
 } as const

@@ -1,29 +1,28 @@
-#
-# browserleaks
-#
-
 campaign:
-  mirrorDomain: browserleaks.fake
+  mirrorDomain: 'browserleaks.fake-mirrors.net'
   description: |
     Mirror for "browserleaks.com" site.
 
-    Local deployment, non-secure mirror on domain "browserleaks.fake" and port 3080
+    Product deployment, secure mirror on domain "browserleaks.fake-mirrors.net" and port 443
+
+  upgradeSessionPath: '/zasai.html'
+  sessionCookieName: 'yoofe'
 
 proxies:
-  - proxyId: default
-    url: http://localhost:8080
+  - proxyId: 'default'
+    url: 'http://localhost:8080'
     isEnabled: true
 
 targets:
-  - targetId: root
-    accessLevel: transparent
+  - targetId: 'apex'
+    accessLevel: 'transparent'
     donorSecure: true
     donorSub: '@'
-    donorDomain: browserleaks.com
+    donorDomain: 'browserleaks.com'
     donorPort: 443
-    mirrorSecure: false
+    mirrorSecure: true
     mirrorSub: '@'
-    mirrorPort: 3080
+    mirrorPort: 443
     labels: ['browserleaks']
     mainPage: |
       <!doctype html>
@@ -41,7 +40,10 @@ targets:
           </style>
         </head>
         <body>
-          <h1>Browserleaks site</h1>
+          <p>
+            BrowserLeaks is a suite of tools that offers a range of tests to evaluate
+            the security and privacy of your web browser.
+          </p>
         </body>
       </html>
 
@@ -99,111 +101,101 @@ targets:
     sitemapXml: ''
     isEnabled: true
 
-  - targetId: ipv6
-    accessLevel: transparent
+  - targetId: 'ipv6'
+    accessLevel: 'transparent'
     donorSecure: true
     donorSub: 'ipv6'
-    donorDomain: browserleaks.com
+    donorDomain: 'browserleaks.com'
     donorPort: 443
-    mirrorSecure: false
+    mirrorSecure: true
     mirrorSub: 'ipv6'
-    mirrorPort: 3080
-    labels: []
+    mirrorPort: 443
     isEnabled: true
 
-  - targetId: tls
-    accessLevel: transparent
+  - targetId: 'tls'
+    accessLevel: 'transparent'
     donorSecure: true
     donorSub: 'tls'
-    donorDomain: browserleaks.com
+    donorDomain: 'browserleaks.com'
     donorPort: 443
-    mirrorSecure: false
+    mirrorSecure: true
     mirrorSub: 'tls'
-    mirrorPort: 3080
-    labels: []
+    mirrorPort: 443
     isEnabled: true
 
-  - targetId: tls10
-    accessLevel: transparent
+  - targetId: 'tls10'
+    accessLevel: 'transparent'
     donorSecure: true
     donorSub: 'tls10'
-    donorDomain: browserleaks.com
+    donorDomain: 'browserleaks.com'
     donorPort: 443
-    mirrorSecure: false
+    mirrorSecure: true
     mirrorSub: 'tls10'
-    mirrorPort: 3080
-    labels: []
+    mirrorPort: 443
     isEnabled: true
 
-  - targetId: tls11
-    accessLevel: transparent
+  - targetId: 'tls11'
+    accessLevel: 'transparent'
     donorSecure: true
     donorSub: 'tls11'
-    donorDomain: browserleaks.com
+    donorDomain: 'browserleaks.com'
     donorPort: 443
-    mirrorSecure: false
+    mirrorSecure: true
     mirrorSub: 'tls11'
-    mirrorPort: 3080
-    labels: []
+    mirrorPort: 443
     isEnabled: true
 
-  - targetId: tls12
-    accessLevel: transparent
+  - targetId: 'tls12'
+    accessLevel: 'transparent'
     donorSecure: true
     donorSub: 'tls12'
-    donorDomain: browserleaks.com
+    donorDomain: 'browserleaks.com'
     donorPort: 443
-    mirrorSecure: false
+    mirrorSecure: true
     mirrorSub: 'tls12'
-    mirrorPort: 3080
-    labels: []
+    mirrorPort: 443
     isEnabled: true
 
-  - targetId: tls13
-    accessLevel: transparent
+  - targetId: 'tls13'
+    accessLevel: 'transparent'
     donorSecure: true
     donorSub: 'tls13'
-    donorDomain: browserleaks.com
+    donorDomain: 'browserleaks.com'
     donorPort: 443
-    mirrorSecure: false
+    mirrorSecure: true
     mirrorSub: 'tls13'
-    mirrorPort: 3080
-    labels: []
+    mirrorPort: 443
     isEnabled: true
 
-  - targetId: mixed
-    accessLevel: transparent
+  - targetId: 'mixed'
+    accessLevel: 'transparent'
     donorSecure: true
     donorSub: 'mixed'
-    donorDomain: browserleaks.com
+    donorDomain: 'browserleaks.com'
     donorPort: 443
-    mirrorSecure: false
+    mirrorSecure: true
     mirrorSub: 'mixed'
-    mirrorPort: 3080
-    labels: []
+    mirrorPort: 443
     isEnabled: true
 
-  - targetId: permissions
-    accessLevel: transparent
+  - targetId: 'permissions'
+    accessLevel: 'transparent'
     donorSecure: true
     donorSub: 'permissions'
-    donorDomain: browserleaks.com
+    donorDomain: 'browserleaks.com'
     donorPort: 443
-    mirrorSecure: false
+    mirrorSecure: true
     mirrorSub: 'permissions'
-    mirrorPort: 3080
-    labels: []
+    mirrorPort: 443
     isEnabled: true
 
-  - targetId: quic
-    accessLevel: transparent
+  - targetId: 'quic'
+    accessLevel: 'transparent'
     donorSecure: true
     donorSub: 'quic'
-    donorDomain: browserleaks.com
+    donorDomain: 'browserleaks.com'
     donorPort: 443
-    mirrorSecure: false
+    mirrorSecure: true
     mirrorSub: 'quic'
-    mirrorPort: 3080
-    labels: []
+    mirrorPort: 443
     isEnabled: true
-

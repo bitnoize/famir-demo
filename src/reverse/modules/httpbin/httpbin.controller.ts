@@ -3,7 +3,7 @@ import {
   HTTP_SERVER_ASSETS,
   HTTP_SERVER_ROUTER,
   HttpServerAssets,
-  HttpServerRouter
+  HttpServerRouter,
 } from '@famir/http-server'
 import { cheerioLoad } from '@famir/http-tools'
 import { Logger, LOGGER } from '@famir/logger'
@@ -95,7 +95,7 @@ export class HttpbinController extends BaseController {
           /^\/drip$/,
           /^\/range\//,
           /^\/stream-bytes\//,
-          /^\/stream\//
+          /^\/stream\//,
         ]
 
         if (streamResponsePaths.some((path) => ctx.url.isPath(path))) {
@@ -106,7 +106,7 @@ export class HttpbinController extends BaseController {
           /^\/$/,
           /^\/flasgger_static\//,
           /^\/static\//,
-          /^\/spec.json$/
+          /^\/spec.json$/,
         ]
 
         if (!notInterestPaths.some((path) => ctx.url.isPath(path))) {

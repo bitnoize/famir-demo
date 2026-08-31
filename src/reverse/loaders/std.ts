@@ -7,14 +7,14 @@ import {
   RedisProxyRepository,
   RedisRedirectorRepository,
   RedisSessionRepository,
-  RedisTargetRepository
+  RedisTargetRepository,
 } from '@famir/database'
 import { CurlHttpClient } from '@famir/http-client'
 import {
   HttpServerAssets,
   HttpServerContextFactory,
   HttpServerRouter,
-  NativeHttpServer
+  NativeHttpServer,
 } from '@famir/http-server'
 import { PinoLogger } from '@famir/logger'
 import { BullAnalyzeQueue, RedisProducerConnector } from '@famir/producer'
@@ -31,7 +31,7 @@ loader({
     EnvConfig.register(container)
 
     PinoLogger.register(container, {
-      appName: 'reverse'
+      appName: 'reverse',
     })
 
     EtaTemplater.register(container)
@@ -68,5 +68,5 @@ loader({
 
   stop: async (container) => {
     await ReverseApp.resolve(container).stop()
-  }
+  },
 })

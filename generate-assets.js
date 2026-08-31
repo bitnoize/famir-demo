@@ -34,5 +34,5 @@ try {
   await generateAssets('assets/reverse', 'src/reverse/assets.ts')
   await generateAssets('assets/actions', 'src/actions/assets.ts')
 } catch (error) {
-  console.error(`Generate assets failed`, { error })
+  console.error(error)
 }

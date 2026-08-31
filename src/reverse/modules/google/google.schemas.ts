@@ -7,11 +7,11 @@ import { GoogleRecaptchaAnchor } from './google.js'
  */
 export const googleRecaptchaAnchorSchema: JSONSchemaType<GoogleRecaptchaAnchor> = {
   type: 'object',
-  required: [],
+  required: ['co'],
   properties: {
     co: {
-      type: 'string'
-    }
+      type: 'string',
+    },
   },
-  additionalProperties: true
+  additionalProperties: true,
 } as const

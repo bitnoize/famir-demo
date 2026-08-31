@@ -10,8 +10,8 @@ const loggerTransport = pino.transport({
   options: {
     file: join('logs', 'console', 'log'),
     frequency: 'daily',
-    mkdir: true
-  }
+    mkdir: true,
+  },
 })
 
 container.registerSingleton<LoggerTransport>(LOGGER_TRANSPORT, () => loggerTransport)

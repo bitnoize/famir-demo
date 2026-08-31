@@ -1,3 +1,5 @@
+# Paste this to your /etc/hosts file
+
 127.0.0.1  httpbin.fake
 
 127.0.0.1  sse.typinks.fake

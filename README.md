@@ -1,6 +1,6 @@
 # Famir demo project
 
-An example project to demonstrate [Famir](https://github.com/bitnoize/famir) framework facilities.
+An example project to demonstrate [Famir](https://github.com/bitnoize/famir) ecosystem facilities.
 
 ## Install
 
@@ -39,15 +39,6 @@ from the donor site's perspective.
 * Capture some endpoints
 
 [Live demo](https://httpbin.fake-mirrors.net/)
-
-### sse.dev
-
-This mirror is for testing SSE (Server-Sent-Events) operation.
-
-* Handle streaming responses
-* Transparent reverse-proxy
-
-[Live demo](https://ssedev.fake-mirrors.net/)
 
 ### ja3.zone
 

@@ -3,7 +3,7 @@ import {
   HTTP_SERVER_ASSETS,
   HTTP_SERVER_ROUTER,
   HttpServerAssets,
-  HttpServerRouter
+  HttpServerRouter,
 } from '@famir/http-server'
 import { Logger, LOGGER } from '@famir/logger'
 import { BaseController } from '@famir/reverse-app'

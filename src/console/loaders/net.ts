@@ -9,7 +9,7 @@ import {
   RedisProxyRepository,
   RedisRedirectorRepository,
   RedisSessionRepository,
-  RedisTargetRepository
+  RedisTargetRepository,
 } from '@famir/database'
 import { CaddyEdgeServer } from '@famir/edge-server'
 import { PinoLogger } from '@famir/logger'
@@ -28,7 +28,7 @@ loader({
     EnvConfig.register(container)
 
     PinoLogger.register(container, {
-      appName: 'console'
+      appName: 'console',
     })
 
     EtaTemplater.register(container)
@@ -56,7 +56,7 @@ loader({
     ReplServerAssets.register(container, assets)
     ReplServerRouter.register(container)
     NetReplServer.register(container, {
-      bannerGreet
+      bannerGreet,
     })
 
     ConsoleApp.register(container)
@@ -70,5 +70,5 @@ loader({
 
   stop: async (container) => {
     await ConsoleApp.resolve(container).stop()
-  }
+  },
 })

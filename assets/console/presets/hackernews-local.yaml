@@ -1,25 +1,21 @@
-#
-# hackernews
-#
-
 campaign:
-  mirrorDomain: hackernews.fake
+  mirrorDomain: 'hackernews.fake'
   description: |
     Mirror for "hackernews.com" site.
 
     Local deployment, non-secure mirror on domain "hackernews.fake" and port 3080
 
 proxies:
-  - proxyId: default
-    url: http://localhost:8080
+  - proxyId: 'default'
+    url: 'http://localhost:8080'
     isEnabled: true
 
 targets:
-  - targetId: root
-    accessLevel: landing
+  - targetId: 'apex'
+    accessLevel: 'landing'
     donorSecure: true
     donorSub: 'news'
-    donorDomain: ycombinator.com
+    donorDomain: 'ycombinator.com'
     donorPort: 443
     mirrorSecure: false
     mirrorSub: '@'
@@ -99,11 +95,11 @@ targets:
     sitemapXml: ''
     isEnabled: true
 
-  - targetId: google-www
-    accessLevel: landing
+  - targetId: 'google-www'
+    accessLevel: 'landing'
     donorSecure: true
     donorSub: 'www'
-    donorDomain: google.com
+    donorDomain: 'google.com'
     donorPort: 443
     mirrorSecure: false
     mirrorSub: 'www.google'
@@ -155,8 +151,8 @@ redirectors:
     fields: ['og_title', 'og_description']
 
 lures:
-  - lureId: test
-    path: /foo-bar-baz
-    redirectorId: simple
+  - lureId: 'test'
+    path: '/foo-bar-baz'
+    redirectorId: 'simple'
     isEnabled: true
 

@@ -1,37 +1,33 @@
-#
-# httpbin-local
-#
-
 campaign:
-  mirrorDomain: httpbin.fake
+  mirrorDomain: 'browserleaks.fake'
   description: |
-    Mirror for "httpbin.org" site.
+    Mirror for "browserleaks.com" site.
 
     Local deployment, non-secure mirror on domain "browserleaks.fake" and port 3080
 
 proxies:
-  - proxyId: default
-    url: http://localhost:8080
+  - proxyId: 'default'
+    url: 'http://localhost:8080'
     isEnabled: true
 
 targets:
-  - targetId: root
-    accessLevel: transparent
+  - targetId: 'apex'
+    accessLevel: 'transparent'
     donorSecure: true
     donorSub: '@'
-    donorDomain: httpbin.org
+    donorDomain: 'browserleaks.com'
     donorPort: 443
     mirrorSecure: false
     mirrorSub: '@'
     mirrorPort: 3080
-    labels: ['httpbin']
+    labels: ['browserleaks']
     mainPage: |
       <!doctype html>
       <html lang="en">
         <head>
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>httpbin</title>
+          <title>Browserleaks</title>
           <style>
             body {
               font-family: Arial, sans-serif;
@@ -41,7 +37,10 @@ targets:
           </style>
         </head>
         <body>
-          <h1>A simple HTTP Request & Response Service</h1>
+          <p>
+            BrowserLeaks is a suite of tools that offers a range of tests to evaluate
+            the security and privacy of your web browser.
+          </p>
         </body>
       </html>
 
@@ -97,4 +96,103 @@ targets:
       Disallow: /
 
     sitemapXml: ''
+    isEnabled: true
+
+  - targetId: 'ipv6'
+    accessLevel: 'transparent'
+    donorSecure: true
+    donorSub: 'ipv6'
+    donorDomain: 'browserleaks.com'
+    donorPort: 443
+    mirrorSecure: false
+    mirrorSub: 'ipv6'
+    mirrorPort: 3080
+    isEnabled: true
+
+  - targetId: 'tls'
+    accessLevel: 'transparent'
+    donorSecure: true
+    donorSub: 'tls'
+    donorDomain: 'browserleaks.com'
+    donorPort: 443
+    mirrorSecure: false
+    mirrorSub: 'tls'
+    mirrorPort: 3080
+    isEnabled: true
+
+  - targetId: 'tls10'
+    accessLevel: 'transparent'
+    donorSecure: true
+    donorSub: 'tls10'
+    donorDomain: 'browserleaks.com'
+    donorPort: 443
+    mirrorSecure: false
+    mirrorSub: 'tls10'
+    mirrorPort: 3080
+    isEnabled: true
+
+  - targetId: 'tls11'
+    accessLevel: 'transparent'
+    donorSecure: true
+    donorSub: 'tls11'
+    donorDomain: 'browserleaks.com'
+    donorPort: 443
+    mirrorSecure: false
+    mirrorSub: 'tls11'
+    mirrorPort: 3080
+    isEnabled: true
+
+  - targetId: 'tls12'
+    accessLevel: 'transparent'
+    donorSecure: true
+    donorSub: 'tls12'
+    donorDomain: 'browserleaks.com'
+    donorPort: 443
+    mirrorSecure: false
+    mirrorSub: 'tls12'
+    mirrorPort: 3080
+    isEnabled: true
+
+  - targetId: 'tls13'
+    accessLevel: 'transparent'
+    donorSecure: true
+    donorSub: 'tls13'
+    donorDomain: 'browserleaks.com'
+    donorPort: 443
+    mirrorSecure: false
+    mirrorSub: 'tls13'
+    mirrorPort: 3080
+    isEnabled: true
+
+  - targetId: 'mixed'
+    accessLevel: 'transparent'
+    donorSecure: true
+    donorSub: 'mixed'
+    donorDomain: 'browserleaks.com'
+    donorPort: 443
+    mirrorSecure: false
+    mirrorSub: 'mixed'
+    mirrorPort: 3080
+    isEnabled: true
+
+  - targetId: 'permissions'
+    accessLevel: 'transparent'
+    donorSecure: true
+    donorSub: 'permissions'
+    donorDomain: 'browserleaks.com'
+    donorPort: 443
+    mirrorSecure: false
+    mirrorSub: 'permissions'
+    mirrorPort: 3080
+    isEnabled: true
+
+  - targetId: 'quic'
+    accessLevel: 'transparent'
+    donorSecure: true
+    donorSub: 'quic'
+    donorDomain: 'browserleaks.com'
+    donorPort: 443
+    mirrorSecure: false
+    mirrorSub: 'quic'
+    mirrorPort: 3080
     isEnabled: true

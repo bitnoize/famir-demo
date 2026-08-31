@@ -10,16 +10,16 @@
     "lint": "eslint \"src/**/*.ts\"",
     "prebuild": "node generate-assets.js",
     "build": "tsc -b",
-    "start:console:cli": "node --env-file=.env --import=./dist/console/preload.js dist/console/loaders/cli/index.js",
-    "start:console:net": "node --env-file=.env --import=./dist/console/preload.js dist/console/loaders/net/index.js",
-    "start:reverse:std": "node --env-file=.env --import=./dist/reverse/preload.js dist/reverse/loaders/std/index.js",
-    "start:actions:std": "node --env-file=.env --import=./dist/actions/preload.js dist/actions/loaders/std/index.js",
-    "clean": "rm -rf dist *.tsbuildinfo"
+    "start:console:cli": "node --env-file=.env --import=./dist/console/preload.js dist/console/loaders/cli.js",
+    "start:console:net": "node --env-file=.env --import=./dist/console/preload.js dist/console/loaders/net.js",
+    "start:reverse:std": "node --env-file=.env --import=./dist/reverse/preload.js dist/reverse/loaders/std.js",
+    "start:actions:std": "node --env-file=.env --import=./dist/actions/preload.js dist/actions/loaders/std.js",
+    "clean": "rimraf dist *.tsbuildinfo"
   },
   "dependencies": {
-    "@famir/actions-app": "^0.0.4",
-    "@famir/console-app": "^0.0.5",
-    "@famir/reverse-app": "^0.0.5",
+    "@famir/actions-app": "^0.0.5",
+    "@famir/console-app": "^0.0.6",
+    "@famir/reverse-app": "^0.0.6",
     "pino-roll": "^4.0.0"
   },
   "peerDependencies": {
@@ -27,13 +27,14 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@types/node": "^25.6.0",
+    "@types/node": "^26.1.2",
     "eslint": "^10.2.1",
     "eslint-config-prettier": "^10.1.8",
     "prettier": "^3.8.3",
     "prettier-plugin-organize-imports": "^4.3.0",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.59.1"
+    "typescript-eslint": "^8.59.1",
+    "rimraf": "^6.1.3"
   },
   "overrides": {
     "@famir/common": "file:../famir/packages/common",
@@ -41,6 +42,7 @@
     "@famir/config": "file:../famir/packages/config",
     "@famir/logger": "file:../famir/packages/logger",
     "@famir/templater": "file:../famir/packages/templater",
+    "@famir/edge-server": "file:../famir/packages/edge-server",
     "@famir/database": "file:../famir/packages/database",
     "@famir/storage": "file:../famir/packages/storage",
     "@famir/producer": "file:../famir/packages/producer",

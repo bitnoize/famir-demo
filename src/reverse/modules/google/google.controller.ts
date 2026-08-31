@@ -3,7 +3,7 @@ import {
   HTTP_SERVER_ASSETS,
   HTTP_SERVER_ROUTER,
   HttpServerAssets,
-  HttpServerRouter
+  HttpServerRouter,
 } from '@famir/http-server'
 import { Logger, LOGGER } from '@famir/logger'
 import { BaseController } from '@famir/reverse-app'
@@ -92,7 +92,7 @@ export class GoogleController extends BaseController {
           const urlParams = message.url.getQueryString()
 
           if (message.method.is('GET') && message.url.isPath(/^\/recaptcha\/.+\/anchor$/)) {
-            if (this.checkGoogleRecaptchaAnchor(urlParams)) {
+            if (this.checkRecaptchaAnchor(urlParams)) {
               const oldHost = safeBase64Decode(urlParams.co).toString()
 
               const newHost = message.rewriteUrl(oldHost, true, targets)
@@ -109,7 +109,7 @@ export class GoogleController extends BaseController {
     })
   }
 
-  protected checkGoogleRecaptchaAnchor(value: unknown): value is GoogleRecaptchaAnchor {
+  protected checkRecaptchaAnchor(value: unknown): value is GoogleRecaptchaAnchor {
     return this.validator.guardSchema<GoogleRecaptchaAnchor>(
       'reverse-google-recaptcha-anchor',
       value

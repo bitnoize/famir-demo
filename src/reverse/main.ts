@@ -9,7 +9,7 @@ import {
   SetupMirrorController,
   SetupMirrorService,
   TransformController,
-  WellKnownUrlsController
+  WellKnownUrlsController,
 } from '@famir/reverse-app'
 import {
   BrowserleaksController,
@@ -17,7 +17,7 @@ import {
   HackernewsController,
   HttpbinController,
   Ja3zoneController,
-  TypinksController
+  TypinksController,
 } from './modules/index.js'
 
 export const main: DIComposer = (container) => {
