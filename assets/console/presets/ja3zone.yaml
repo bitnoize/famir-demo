@@ -5,6 +5,9 @@ campaign:
 
     Product deployment, secure mirror on domain "ja3zone.fake-mirrors.net" and port 443
 
+  upgradeSessionPath: '/akien.asp'
+  sessionCookieName: 'baesh'
+
 proxies:
   - proxyId: 'default'
     url: 'http://localhost:8080'
