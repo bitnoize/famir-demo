@@ -102,7 +102,7 @@ targets:
     donorDomain: 'ja3.zone'
     donorPort: 443
     mirrorSecure: true
-    mirrorSub: 'api'
+    mirrorSub: 'wbf'
     mirrorPort: 443
     isEnabled: true
 
@@ -113,6 +113,6 @@ targets:
     donorDomain: 'ja3.zone'
     donorPort: 443
     mirrorSecure: true
-    mirrorSub: 'get'
+    mirrorSub: 'gzg'
     mirrorPort: 443
     isEnabled: true

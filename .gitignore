@@ -3,5 +3,6 @@ node_modules
 dist
 tsconfig.tsbuildinfo
 .env
+pm2.config.cjs
 logs
 

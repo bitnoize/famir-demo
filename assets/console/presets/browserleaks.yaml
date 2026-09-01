@@ -108,7 +108,7 @@ targets:
     donorDomain: 'browserleaks.com'
     donorPort: 443
     mirrorSecure: true
-    mirrorSub: 'ipv6'
+    mirrorSub: 'euw'
     mirrorPort: 443
     isEnabled: true
 
@@ -119,7 +119,7 @@ targets:
     donorDomain: 'browserleaks.com'
     donorPort: 443
     mirrorSecure: true
-    mirrorSub: 'tls'
+    mirrorSub: 'mek'
     mirrorPort: 443
     isEnabled: true
 
@@ -130,7 +130,7 @@ targets:
     donorDomain: 'browserleaks.com'
     donorPort: 443
     mirrorSecure: true
-    mirrorSub: 'tls10'
+    mirrorSub: 'cqx'
     mirrorPort: 443
     isEnabled: true
 
@@ -141,14 +141,14 @@ targets:
     donorDomain: 'browserleaks.com'
     donorPort: 443
     mirrorSecure: true
-    mirrorSub: 'tls11'
+    mirrorSub: 'hwi'
     mirrorPort: 443
     isEnabled: true
 
   - targetId: 'tls12'
     accessLevel: 'transparent'
     donorSecure: true
-    donorSub: 'tls12'
+    donorSub: 'ppm'
     donorDomain: 'browserleaks.com'
     donorPort: 443
     mirrorSecure: true
@@ -163,7 +163,7 @@ targets:
     donorDomain: 'browserleaks.com'
     donorPort: 443
     mirrorSecure: true
-    mirrorSub: 'tls13'
+    mirrorSub: 'dvb'
     mirrorPort: 443
     isEnabled: true
 
@@ -174,7 +174,7 @@ targets:
     donorDomain: 'browserleaks.com'
     donorPort: 443
     mirrorSecure: true
-    mirrorSub: 'mixed'
+    mirrorSub: 'dku'
     mirrorPort: 443
     isEnabled: true
 
@@ -185,7 +185,7 @@ targets:
     donorDomain: 'browserleaks.com'
     donorPort: 443
     mirrorSecure: true
-    mirrorSub: 'permissions'
+    mirrorSub: 'cly'
     mirrorPort: 443
     isEnabled: true
 
@@ -196,6 +196,6 @@ targets:
     donorDomain: 'browserleaks.com'
     donorPort: 443
     mirrorSecure: true
-    mirrorSub: 'quic'
+    mirrorSub: 'pko'
     mirrorPort: 443
     isEnabled: true

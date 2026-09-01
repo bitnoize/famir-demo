@@ -50,5 +50,9 @@
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.59.1",
     "rimraf": "^6.1.3"
+  },
+  "allowScripts": {
+    "msgpackr-extract": true,
+    "node-libcurl": true
   }
 }
