@@ -1,12 +1,6 @@
 {
 	auto_https off
 	default_bind 127.0.0.1
-
-	log default {
-		output stderr
-		format console
-		include http.log.access admin.api
-	}
 }
 
 (mirror) {

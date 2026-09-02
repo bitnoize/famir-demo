@@ -1,17 +1,6 @@
 {
 	default_bind 0.0.0.0
 
-	log default {
-		output file /var/log/caddy/default.log {
-			mode 640
-			roll_size 10MiB
-			roll_keep 1
-		}
-
-		format json
-		include http.log.access admin.api
-	}
-
 	log famir {
 		output file /var/log/caddy/fake-mirrors.log {
 			mode 640
@@ -20,12 +9,13 @@
 		}
 
 		format json
+    include http.log.access
 	}
 }
 
 (mirror) {
 	https://{args[0]}:{args[1]} {
-		log famir
+	  log famir
 
 		encode zstd gzip
 
