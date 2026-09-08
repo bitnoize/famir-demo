@@ -8,4 +8,3 @@
 
 // Show concrete asset content:
 .asset -a deploy/hosts-local
-

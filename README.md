@@ -33,10 +33,10 @@ npm run start:analyze:std
 Using this mirror, you can make arbitrary requests to the server and see the result
 from the donor site's perspective.
 
-* Modify spec.json, change title
-* Transparent reverse-proxy
-* Handle streaming responses
-* Capture some endpoints
+- Modify spec.json, change title
+- Transparent reverse-proxy
+- Handle streaming responses
+- Capture some endpoints
 
 [Live demo](https://httpbin.fake-mirrors.net/)
 
@@ -44,7 +44,7 @@ from the donor site's perspective.
 
 This mirror shows JA3, JA4, PeetPrint and Akamai fingerprints of your browser.
 
-* Transparent reverse-proxy
+- Transparent reverse-proxy
 
 [Live demo](https://ja3zone.fake-mirrors.net)
 
@@ -53,7 +53,7 @@ This mirror shows JA3, JA4, PeetPrint and Akamai fingerprints of your browser.
 Suite of tools that offers a range of tests to evaluate the security and privacy of
 your web browser.
 
-* Transparent reverse-proxy
+- Transparent reverse-proxy
 
 [Live demo](https://browserleaks.fake-mirrors.net)
 
@@ -61,11 +61,10 @@ your web browser.
 
 This is an example of a typical website on the Internet with authentication.
 
-* Change site title
-* Capture auth session and login credentials and store to S3
-* Bypass Google re-captcha v2
-* Closed from the outside world via secret links aka 'lures'
-* Block user logout to save captured session
+- Change site title
+- Capture auth session and login credentials and store to S3
+- Bypass Google re-captcha v2
+- Closed from the outside world via secret links aka 'lures'
+- Block user logout to save captured session
 
 [Live demo](https://hackernews.fake-mirrors.net/foo-bar-baz)
-

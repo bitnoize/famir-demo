@@ -148,11 +148,11 @@ targets:
   - targetId: 'tls12'
     accessLevel: 'transparent'
     donorSecure: true
-    donorSub: 'ppm'
+    donorSub: 'tls12'
     donorDomain: 'browserleaks.com'
     donorPort: 443
     mirrorSecure: true
-    mirrorSub: 'tls12'
+    mirrorSub: 'ppm'
     mirrorPort: 443
     isEnabled: true
 

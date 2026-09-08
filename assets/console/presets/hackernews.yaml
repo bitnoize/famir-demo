@@ -158,4 +158,3 @@ lures:
     path: '/foo-bar-baz'
     redirectorId: 'simple'
     isEnabled: true
-

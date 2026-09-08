@@ -1,4 +1,4 @@
-import { JSONSchemaType } from '@famir/validator'
+import { JSONSchemaType } from '@famir/common'
 import { HttpbinSpec } from './httpbin.js'
 
 /**

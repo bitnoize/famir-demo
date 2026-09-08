@@ -2,27 +2,37 @@ module.exports = {
   apps: [
     {
       name: 'console',
+      env: {
+        //LOGGER_LOG_LEVEL: 'info',
+      },
       script: 'dist/console/loaders/net.js',
       instances: 1,
-      node_args: "--env-file=.env --import=./dist/console/preload.js",
+      node_args: '--env-file=.env --import=./dist/console/preload.js',
       kill_timeout: 2_000,
-      watch: false
+      watch: false,
     },
     {
       name: 'reverse',
+      env: {
+        //LOGGER_LOG_LEVEL: 'info',
+        //HTTP_SERVER_VERBOSE: 'false',
+      },
       script: 'dist/reverse/loaders/std.js',
-      instances: 2,
-      node_args: "--env-file=.env --import=./dist/reverse/preload.js",
+      instances: 1,
+      node_args: '--env-file=.env --import=./dist/reverse/preload.js',
       kill_timeout: 2_000,
-      watch: false
+      watch: false,
     },
     {
       name: 'actions',
+      env: {
+        //LOGGER_LOG_LEVEL: 'info',
+      },
       script: 'dist/actions/loaders/std.js',
       instances: 1,
-      node_args: "--env-file=.env --import=./dist/actions/preload.js",
+      node_args: '--env-file=.env --import=./dist/actions/preload.js',
       kill_timeout: 2_000,
-      watch: false
-    }
-  ]
+      watch: false,
+    },
+  ],
 }
