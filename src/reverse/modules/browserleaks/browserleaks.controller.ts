@@ -79,6 +79,35 @@ export class BrowserleaksController extends BaseController {
 
       if (target.hasLabel('browserleaks')) {
         message.addRewriteUrlContentTypes(['text/html', 'text/css', 'application/javascript'])
+
+        message.addContentTypes('html', ['text/html'])
+        message.addContentTypes('javascript', ['application/javascript'])
+
+        message.addResponseBodyInterceptor('browserleaks-fancy-look', () => {
+          if (
+            message.method.is('GET') &&
+            message.url.isPath('/') &&
+            message.isResponseContentType('html') &&
+            message.status.isSuccess()
+          ) {
+            message.decorateResponseBodyHtml(($) => {
+              $('link[rel=icon]').remove()
+              $('link[rel=apple-touch-icon]').remove()
+            })
+          } else if (
+            message.method.is('GET') &&
+            message.url.isPath('/js/tls.js') &&
+            message.isResponseContentType('javascript') &&
+            message.status.isSuccess()
+          ) {
+            message.decorateResponseBodyText((text) => {
+              return text.replaceAll(
+                `"${target.donorProtocol}//tls1"+e+".${target.donorDomain}"`,
+                `"${target.mirrorProtocol}//tls1"+e+".${target.mirrorDomain}:${target.mirrorPort.toString()}"`
+              )
+            })
+          }
+        })
       }
 
       await next()

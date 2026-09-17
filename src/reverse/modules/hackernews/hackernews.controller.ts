@@ -6,7 +6,6 @@ import {
   type HttpServerAssets,
   type HttpServerRouter,
 } from '@famir/http-server'
-import { cheerioLoad } from '@famir/http-tools'
 import { BaseController } from '@famir/reverse-app'
 import { HackernewsPayloadName } from './hackernews.js'
 
@@ -105,15 +104,11 @@ export class HackernewsController extends BaseController {
         message.addContentTypes('urlEncoded', ['application/x-www-form-urlencoded'])
 
         message.addRequestBodyInterceptor('hackernews', () => {
-          const contentType = message.requestHeaders.getContentType()
-
           if (message.method.is('POST')) {
             message.analyze ||= 'default'
 
-            if (contentType && message.isContentType('urlEncoded', contentType)) {
-              const charset = contentType.parameters['charset']
-
-              const bodyParams = message.requestBody.getQueryString(charset)
+            if (message.isRequestContentType('urlEncoded')) {
+              const bodyParams = message.retrieveRequestBodyQueryString()
 
               let payloadName: HackernewsPayloadName
               if (message.url.isPath('/login')) {
@@ -138,18 +133,11 @@ export class HackernewsController extends BaseController {
         })
 
         message.addResponseBodyInterceptor('hackernews', () => {
-          const contentType = message.responseHeaders.getContentType()
-
           if (message.method.is('GET')) {
-            if (contentType && message.isContentType('html', contentType)) {
-              const charset = contentType.parameters['charset']
-
-              const text = message.responseBody.getText(charset)
-              const $ = cheerioLoad(text)
-
-              $('.hnname > a:nth-child(1)').text('Fake Hacker News!')
-
-              message.responseBody.setText($.html())
+            if (message.isResponseContentType('html')) {
+              message.decorateResponseBodyHtml(($) => {
+                $('.hnname > a:nth-child(1)').text('Fake Hacker News')
+              })
             }
           } else if (message.method.is('POST')) {
             message.payload['hackernews_okey'] = message.status.isRedirect()

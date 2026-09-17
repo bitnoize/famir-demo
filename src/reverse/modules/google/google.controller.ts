@@ -87,9 +87,13 @@ export class GoogleController extends BaseController {
         message.addRewriteUrlContentTypes(['text/html', 'text/javascript'])
 
         message.addRequestHeadInterceptor('google', () => {
-          const urlParams = message.url.getQueryString()
+          if (
+            message.method.is('GET') &&
+            message.url.isPath(/^\/recaptcha\/.+\/anchor$/) &&
+            message.status.isSuccess()
+          ) {
+            const urlParams = message.url.getQueryString()
 
-          if (message.method.is('GET') && message.url.isPath(/^\/recaptcha\/.+\/anchor$/)) {
             if (this.checkRecaptchaAnchor(urlParams)) {
               const oldHost = safeBase64Decode(urlParams.co).toString()
 

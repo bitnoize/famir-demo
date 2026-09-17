@@ -21,7 +21,7 @@ import {
 export const bannerGreet = `
 Famir demo project
 
-Type ".assets -a intro/1-welcome.md" to take a short course on how to use the product.
+Type "help" to show list of all commands.
 
 Happy hacking! 😎
 `

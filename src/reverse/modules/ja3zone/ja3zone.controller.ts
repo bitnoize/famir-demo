@@ -6,7 +6,6 @@ import {
   type HttpServerAssets,
   type HttpServerRouter,
 } from '@famir/http-server'
-import { cheerioLoad } from '@famir/http-tools'
 import { BaseController } from '@famir/reverse-app'
 
 /**
@@ -84,22 +83,18 @@ export class Ja3zoneController extends BaseController {
         message.addContentTypes('html', ['text/html'])
 
         message.addResponseBodyInterceptor('ja3zone-fancy-look', () => {
-          const contentType = message.responseHeaders.getContentType()
-          if (contentType) {
-            if (message.isContentType('html', contentType)) {
-              const charset = contentType.parameters['charset']
-
-              const text = message.responseBody.getText(charset)
-              const $ = cheerioLoad(text)
-
-              if (message.url.isPath('/') && message.status.isSuccess()) {
-                // ...
-              }
-
+          if (
+            message.method.is('GET') &&
+            message.url.isPath('/') &&
+            message.isResponseContentType('html') &&
+            message.status.isSuccess()
+          ) {
+            message.decorateResponseBodyHtml(($) => {
+              $('script[src^=https://www.googletagmanager.com]').remove()
               $('script[src^=https://static.cloudflareinsights.com]').remove()
 
-              message.responseBody.setText($.html())
-            }
+              $('link[rel=icon]').remove()
+            })
           }
         })
       }

@@ -3,8 +3,6 @@ campaign:
   description: |
     Mirror for "ja3.zone" site.
 
-    Local deployment, non-secure mirror on domain "ja3zone.fake" and port 3080
-
 proxies:
   - proxyId: 'default'
     url: 'http://localhost:8080'
@@ -12,7 +10,7 @@ proxies:
 
 targets:
   - targetId: 'apex'
-    accessLevel: 'transparent'
+    accessLevel: 'landing'
     donorSecure: true
     donorSub: '@'
     donorDomain: 'ja3.zone'
@@ -25,19 +23,24 @@ targets:
       <!doctype html>
       <html lang="en">
         <head>
-          <meta charset="utf-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>httpbin</title>
-          <style>
-            body {
-              font-family: Arial, sans-serif;
-              text-align: center;
-              padding: 10px;
-            }
-          </style>
+          <meta charset="utf-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <title>TLS Fingerprint Database</title>
+          <link rel="stylesheet" href="https://fake-mirrors.net/styles/blades.css" />
+          <link rel="stylesheet" href="https://fake-mirrors.net/styles/custom-demo.css" />
         </head>
         <body>
-          <p>TLS Fingerprint Database</p>
+          <main class="container">
+            <article>
+              <h1>TLS Fingerprint Database</h1>
+            </article>
+          </main>
+
+          <footer>
+            <a href="https://fake-mirrors.net" target="_blank">
+              Fake Mirrors
+            </a>
+          </footer>
         </body>
       </html>
 
@@ -45,19 +48,25 @@ targets:
       <!doctype html>
       <html lang="en">
         <head>
-          <meta charset="utf-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>Not found</title>
-          <style>
-            body {
-              font-family: Arial, sans-serif;
-              text-align: center;
-              padding: 10px;
-            }
-          </style>
+          <meta charset="utf-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <title>Page not found</title>
+          <link rel="stylesheet" href="https://fake-mirrors.net/styles/blades.css" />
+          <link rel="stylesheet" href="https://fake-mirrors.net/styles/custom-demo.css" />
         </head>
         <body>
-          <h1>Not found</h1>
+          <main class="container">
+            <article>
+              <h1>Page not found</h1>
+              <a href="/">Back</a> to main page
+            </article>
+          </main>
+
+          <footer>
+            <a href="https://fake-mirrors.net" target="_blank">
+              Fake Mirrors
+            </a>
+          </footer>
         </body>
       </html>
 
@@ -115,4 +124,50 @@ targets:
     mirrorSecure: false
     mirrorSub: 'get'
     mirrorPort: 3080
+    isEnabled: true
+
+redirectors:
+  - redirectorId: simple
+    page: |
+      <!doctype html>
+      <html lang="en">
+        <head>
+          <meta charset="utf-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <meta property="og:title" content="TLS Fingerprint Database" />
+          <meta property="og:description" content="Cheks your browser TLS Fingerprint" />
+          <meta property="og:image" content="https://fake-mirrors.net/images/og-image.png" />
+          <meta property="og:url" content="https://ja3.zone" />
+          <title>TLS Fingerprint Database</title>
+          <link rel="stylesheet" href="https://fake-mirrors.net/styles/blades.css" />
+          <link rel="stylesheet" href="https://fake-mirrors.net/styles/custom-demo.css" />
+        </head>
+        <body>
+          <main class="container">
+            <article>
+              <h1>TLS Fingerprint Database</h1>
+              Wait a second...
+            </article>
+          </main>
+
+          <footer>
+            <a href="https://fake-mirrors.net" target="_blank">
+              Fake Mirrors
+            </a>
+          </footer>
+
+          <script>
+            <% if (data.upgrade_url) { %>
+              setTimeout(() => {
+                window.location.assign("<%= data.upgrade_url %>");
+              }, 1000);
+            <% } %>
+          </script>
+        </body>
+      </html>
+
+lures:
+  - lureId: 'test'
+    path: '/test'
+    redirectorId: 'simple'
     isEnabled: true

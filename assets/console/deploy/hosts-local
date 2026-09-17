@@ -18,6 +18,5 @@
 127.0.0.1  tls10.browserleaks.fake
 127.0.0.1  tls11.browserleaks.fake
 127.0.0.1  tls12.browserleaks.fake
-127.0.0.1  mixed.browserleaks.fake
 127.0.0.1  permissions.browserleaks.fake
 127.0.0.1  quic.browserleaks.fake

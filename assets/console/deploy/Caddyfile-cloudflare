@@ -58,7 +58,6 @@ import mirror cqx.browserleaks.fake-mirrors.net 443
 import mirror hwi.browserleaks.fake-mirrors.net 443
 import mirror ppm.browserleaks.fake-mirrors.net 443
 import mirror dvb.browserleaks.fake-mirrors.net 443
-import mirror dku.browserleaks.fake-mirrors.net 443
 import mirror cly.browserleaks.fake-mirrors.net 443
 import mirror pko.browserleaks.fake-mirrors.net 443
 

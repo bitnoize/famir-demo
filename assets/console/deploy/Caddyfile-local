@@ -29,7 +29,6 @@ import mirror tls10.browserleaks.fake 3080
 import mirror tls11.browserleaks.fake 3080
 import mirror tls12.browserleaks.fake 3080
 import mirror tls13.browserleaks.fake 3080
-import mirror mixed.browserleaks.fake 3080
 import mirror permissions.browserleaks.fake 3080
 import mirror quic.browserleaks.fake 3080
 

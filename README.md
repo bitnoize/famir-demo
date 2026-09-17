@@ -1,6 +1,6 @@
 # Famir demo project
 
-An example project to demonstrate [Famir](https://github.com/bitnoize/famir) ecosystem facilities.
+An example project to demonstrate [Famir](https://github.com/bitnoize/famir) toolset facilities.
 
 ## Install
 
@@ -9,9 +9,10 @@ An example project to demonstrate [Famir](https://github.com/bitnoize/famir) eco
 npm install
 npm build
 
+cp pm2.config.cjs.example pm2.config.cjs
 cp .env.example .env
 
-# Modify credentials in .env file
+# Edit the .env file for your requirements
 
 # Start reverse app
 npm run start:reverse:std
@@ -21,9 +22,11 @@ npm run start:console:cli
 # Or you can use console server app
 npm run start:console:net
 
-# Start analyze app
-npm run start:analyze:std
+# Start actions app
+npm run start:actions:std
 
+# Use PM2 to run all backends
+pm2 start pm2.config.cjs
 ```
 
 ## Campaigns
