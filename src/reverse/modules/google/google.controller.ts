@@ -3,6 +3,7 @@ import { Logger, LOGGER, TEMPLATER, Templater, Validator, VALIDATOR } from '@fam
 import {
   HTTP_SERVER_ASSETS,
   HTTP_SERVER_ROUTER,
+  HttpServerMiddleware,
   type HttpServerAssets,
   type HttpServerRouter,
 } from '@famir/http-server'
@@ -10,24 +11,9 @@ import { BaseController } from '@famir/reverse-app'
 import { GoogleRecaptchaAnchor } from './google.js'
 import { googleRecaptchaAnchorSchema } from './google.schemas.js'
 
-/**
- * DI token for the google controller.
- *
- * @category Google
- */
 export const GOOGLE_CONTROLLER = Symbol('GoogleController')
 
-/**
- * Represents the google controller.
- *
- * @category Google
- */
 export class GoogleController extends BaseController {
-  /**
-   * Registers the controller as a singleton in the DI container.
-   *
-   * @param container - The DI container to register in.
-   */
   static register(container: DIContainer) {
     container.registerSingleton<GoogleController>(
       GOOGLE_CONTROLLER,
@@ -42,25 +28,10 @@ export class GoogleController extends BaseController {
     )
   }
 
-  /**
-   * Resolves the controller from the DI container.
-   *
-   * @param container - The DI container to resolve from.
-   * @returns The controller instance.
-   */
   static resolve(container: DIContainer): GoogleController {
     return container.resolve(GOOGLE_CONTROLLER)
   }
 
-  /**
-   * Creates a new controller instance.
-   *
-   * @param validator - The validator instance.
-   * @param logger - The logger instance.
-   * @param templater - The templater instance.
-   * @param assets - The assets instance.
-   * @param router - The router instance.
-   */
   constructor(
     validator: Validator,
     logger: Logger,
@@ -73,42 +44,71 @@ export class GoogleController extends BaseController {
     this.validator.addSchema('reverse-google-recaptcha-anchor', googleRecaptchaAnchorSchema)
   }
 
-  /**
-   * Registers used middleware in the router.
-   */
-  use() {
-    this.router.addMiddleware('google', async (ctx, next) => {
+  pre() {
+    this.router.addMiddleware('google-pre', async (ctx, next) => {
       const target = this.getState(ctx, 'target')
+
+      const handler = this.dispatchPre[target.label]
+
+      if (handler) {
+        await handler(ctx, next)
+      } else {
+        await next()
+      }
+    })
+  }
+
+  private dispatchPre: Record<string, HttpServerMiddleware> = {
+    'google-www': async (ctx, next) => {
+      await next()
+    },
+  }
+
+  act() {
+    this.router.addMiddleware('google-act', async (ctx, next) => {
+      const target = this.getState(ctx, 'target')
+
+      const handler = this.dispatchAct[target.label]
+
+      if (handler) {
+        await handler(ctx, next)
+      } else {
+        await next()
+      }
+    })
+  }
+
+  private dispatchAct: Record<string, HttpServerMiddleware> = {
+    'google-www': async (ctx, next) => {
       const targets = this.getState(ctx, 'targets')
       const message = this.getState(ctx, 'message')
 
-      if (target.hasLabel('google')) {
-        message.addRewriteUrlExtraSchemes()
-        message.addRewriteUrlContentTypes(['text/html', 'text/javascript'])
+      message
+        .addRewriteUrlExtraSchemes()
+        .addRewriteUrlContentTypes(['text/html', 'text/javascript'])
+        .addRequestHeadInterceptor('google', () => {
+          if (message.method.is('GET')) {
+            if (message.url.isPath(/^\/recaptcha\/.+\/anchor$/)) {
+              if (!message.status.isSuccess()) {
+                throw new Error(`Unexpected response status`)
+              }
 
-        message.addRequestHeadInterceptor('google', () => {
-          if (
-            message.method.is('GET') &&
-            message.url.isPath(/^\/recaptcha\/.+\/anchor$/) &&
-            message.status.isSuccess()
-          ) {
-            const urlParams = message.url.getQueryString()
+              const urlParams = message.url.getQueryString()
 
-            if (this.checkRecaptchaAnchor(urlParams)) {
-              const oldHost = safeBase64Decode(urlParams.co).toString()
+              if (this.checkRecaptchaAnchor(urlParams)) {
+                const oldHost = safeBase64Decode(urlParams.co).toString()
+                const newHost = message.rewriteUrl(oldHost, true, targets)
 
-              const newHost = message.rewriteUrl(oldHost, true, targets)
+                urlParams.co = safeBase64Encode(Buffer.from(newHost))
 
-              urlParams.co = safeBase64Encode(Buffer.from(newHost))
-
-              message.url.setQueryString(urlParams)
+                message.url.setQueryString(urlParams)
+              }
             }
           }
         })
-      }
 
       await next()
-    })
+    },
   }
 
   protected checkRecaptchaAnchor(value: unknown): value is GoogleRecaptchaAnchor {

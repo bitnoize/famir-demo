@@ -1,0 +1,25 @@
+campaign:
+  mirrorDomain: 'impersonate.fake'
+  description: |
+    Mirror for impersonate.pro site.
+
+  upgradeSessionPath: '/faeku.jsp'
+  sessionCookieName: 'phing'
+
+proxies:
+  - proxyId: 'default'
+    url: 'http://localhost:8080'
+    isEnabled: true
+
+targets:
+  - targetId: 'fp'
+    accessLevel: 'transparent'
+    donorSecure: true
+    donorSub: 'fp'
+    donorDomain: 'impersonate.pro'
+    donorPort: 443
+    mirrorSecure: true
+    mirrorSub: 'fp'
+    mirrorPort: 443
+    label: 'impersonate-fp'
+    isEnabled: true

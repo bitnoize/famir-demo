@@ -1,10 +1,6 @@
 import { JSONSchemaType } from '@famir/common'
 import { GoogleRecaptchaAnchor } from './google.js'
 
-/**
- * @category Google
- * @internal
- */
 export const googleRecaptchaAnchorSchema: JSONSchemaType<GoogleRecaptchaAnchor> = {
   type: 'object',
   required: ['co'],

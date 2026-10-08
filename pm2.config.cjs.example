@@ -15,7 +15,6 @@ module.exports = {
       name: 'reverse',
       env: {
         //LOGGER_LOG_LEVEL: 'info',
-        //HTTP_SERVER_VERBOSE: 'false',
       },
       script: 'dist/reverse/loaders/std.js',
       instances: 1,

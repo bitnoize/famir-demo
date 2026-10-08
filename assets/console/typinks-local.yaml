@@ -3,12 +3,6 @@ campaign:
   description: |
     Mirror for testing SSE connections.
 
-    ```sh
-    # Testing with curl:
-    curl http://sse.typinks.fake:3080/api/story \
-      -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0"
-    ```
-
 proxies:
   - proxyId: 'default'
     url: 'http://localhost:8080'
@@ -24,6 +18,6 @@ targets:
     mirrorSecure: false
     mirrorSub: 'sse'
     mirrorPort: 3080
-    labels: ['typinks-sse']
+    label: 'typinks-sse'
     streamTimeout: 60000
     isEnabled: true

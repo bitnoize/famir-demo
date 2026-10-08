@@ -16,24 +16,27 @@ export default {
 
   overrides: [
     {
+      files: ['*.html'],
+      options: {
+        parser: 'html',
+        singleQuote: false,
+        htmlWhitespaceSensitivity: 'strict',
+        singleAttributePerLine: false,
+        bracketSameLine: true
+      },
+    },
+    {
       files: ['*.md'],
       options: {
         parser: 'markdown',
-        printWidth: 150,
+        proseWrap: 'always',
       },
     },
     {
-      files: ['*.json', '*.jsonc', '*.json5'],
+      files: ['*.json'],
       options: {
         parser: 'json',
         trailingComma: 'none',
-      },
-    },
-    {
-      files: ['*.css', '*.scss', '*.sass'],
-      options: {
-        parser: 'css',
-        singleQuote: false,
       },
     },
     {

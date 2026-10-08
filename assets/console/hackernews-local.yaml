@@ -1,0 +1,48 @@
+campaign:
+  mirrorDomain: 'hackernews.fake'
+  description: |
+    Mirror for "hackernews.com" site.
+
+proxies:
+  - proxyId: 'default'
+    url: 'http://localhost:8080'
+    isEnabled: true
+
+targets:
+  - targetId: 'apex'
+    accessLevel: 'landing'
+    donorSecure: true
+    donorSub: 'news'
+    donorDomain: 'ycombinator.com'
+    donorPort: 443
+    mirrorSecure: false
+    mirrorSub: '@'
+    mirrorPort: 3080
+    label: 'hackernews'
+    mainPage: 'hackernews/main-page.html'
+    notFoundPage: 'not-found-page.html'
+    faviconIco: 'favicon.ico'
+    robotsTxt: 'robots.txt'
+    isEnabled: true
+
+  - targetId: 'google-www'
+    accessLevel: 'landing'
+    donorSecure: true
+    donorSub: 'www'
+    donorDomain: 'google.com'
+    donorPort: 443
+    mirrorSecure: false
+    mirrorSub: 'www.google'
+    mirrorPort: 3080
+    label: 'google'
+    isEnabled: true
+
+redirectors:
+  - redirectorId: 'simple'
+    page: 'hackernews/simple.html'
+
+lures:
+  - lureId: 'test'
+    path: '/test.cgi'
+    redirectorId: 'simple'
+    isEnabled: true

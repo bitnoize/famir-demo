@@ -18,15 +18,13 @@ import {
   TargetService,
 } from '@famir/console-app'
 
-export const bannerGreet = `
-Famir demo project
-
-Type "help" to show list of all commands.
-
-Happy hacking! 😎
-`
-
 export const main: DIComposer = (container) => {
+  loadControllers(container)
+
+  useMiddleware(container)
+}
+
+const loadControllers: DIComposer = (container) => {
   SystemService.register(container)
   SystemController.register(container)
 
@@ -50,7 +48,9 @@ export const main: DIComposer = (container) => {
 
   MessageService.register(container)
   MessageController.register(container)
+}
 
+const useMiddleware: DIComposer = (container) => {
   SystemController.resolve(container).use()
   CampaignController.resolve(container).use()
   ProxyController.resolve(container).use()

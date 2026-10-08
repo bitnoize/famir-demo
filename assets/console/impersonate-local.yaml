@@ -1,0 +1,22 @@
+campaign:
+  mirrorDomain: 'impersonate.fake'
+  description: |
+    Mirror for impersonate.pro site.
+
+proxies:
+  - proxyId: 'default'
+    url: 'http://localhost:8080'
+    isEnabled: true
+
+targets:
+  - targetId: 'fp'
+    accessLevel: 'transparent'
+    donorSecure: true
+    donorSub: 'fp'
+    donorDomain: 'impersonate.pro'
+    donorPort: 443
+    mirrorSecure: false
+    mirrorSub: 'fp'
+    mirrorPort: 3080
+    label: 'impersonate-fp'
+    isEnabled: true

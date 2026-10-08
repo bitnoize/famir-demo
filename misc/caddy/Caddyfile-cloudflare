@@ -33,9 +33,6 @@
 				header_up -cf-connecting-ip
 				header_up -cf-ipcountry
 				header_up -cdn-loop
-
-				header_up Host {args[0]}:{args[1]}
-				header_up X-Real-Ip {http.request.header.cf-connecting-ip}
 			}
 		}
 
@@ -63,3 +60,5 @@ import mirror pko.browserleaks.fake-mirrors.net 443
 
 import mirror hackernews.fake-mirrors.net 443
 import mirror itc.hackernews.fake-mirrors.net 443
+
+import mirror fp.impersonate.fake-mirrors.net 443

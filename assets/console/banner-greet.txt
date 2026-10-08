@@ -1,0 +1,6 @@
+Famir Demo Project
+------------------
+
+Type "help" to show list of all commands.
+
+Happy hacking! 😎

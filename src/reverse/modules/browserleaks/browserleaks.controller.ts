@@ -3,29 +3,15 @@ import { Logger, LOGGER, TEMPLATER, Templater, Validator, VALIDATOR } from '@fam
 import {
   HTTP_SERVER_ASSETS,
   HTTP_SERVER_ROUTER,
+  HttpServerMiddleware,
   type HttpServerAssets,
   type HttpServerRouter,
 } from '@famir/http-server'
 import { BaseController } from '@famir/reverse-app'
 
-/**
- * DI token for the browserleaks controller.
- *
- * @category Browserleaks
- */
 export const BROWSERLEAKS_CONTROLLER = Symbol('BrowserleaksController')
 
-/**
- * Represents the browserleaks controller.
- *
- * @category Browserleaks
- */
 export class BrowserleaksController extends BaseController {
-  /**
-   * Registers the controller as a singleton in the DI container.
-   *
-   * @param container - The DI container to register in.
-   */
   static register(container: DIContainer) {
     container.registerSingleton<BrowserleaksController>(
       BROWSERLEAKS_CONTROLLER,
@@ -40,77 +26,88 @@ export class BrowserleaksController extends BaseController {
     )
   }
 
-  /**
-   * Resolves the controller from the DI container.
-   *
-   * @param container - The DI container to resolve from.
-   * @returns The controller instance.
-   */
   static resolve(container: DIContainer): BrowserleaksController {
     return container.resolve(BROWSERLEAKS_CONTROLLER)
   }
 
-  /**
-   * Creates a new controller instance.
-   *
-   * @param validator - The validator instance.
-   * @param logger - The logger instance.
-   * @param templater - The templater instance.
-   * @param assets - The assets instance.
-   * @param router - The router instance.
-   */
-  constructor(
-    validator: Validator,
-    logger: Logger,
-    templater: Templater,
-    assets: HttpServerAssets,
-    router: HttpServerRouter
-  ) {
-    super(validator, logger, templater, assets, router)
+  pre() {
+    this.router.addMiddleware('browserleaks-pre', async (ctx, next) => {
+      const target = this.getState(ctx, 'target')
+
+      const handler = this.dispatchPre[target.label]
+
+      if (handler) {
+        await handler(ctx, next)
+      } else {
+        await next()
+      }
+    })
   }
 
-  /**
-   * Registers used middleware in the router.
-   */
-  use() {
-    this.router.addMiddleware('browserleaks', async (ctx, next) => {
+  private dispatchPre: Record<string, HttpServerMiddleware> = {
+    browserleaks: async (ctx, next) => {
+      await next()
+    },
+  }
+
+  act() {
+    this.router.addMiddleware('browserleaks-act', async (ctx, next) => {
+      const target = this.getState(ctx, 'target')
+
+      const handler = this.dispatchAct[target.label]
+
+      if (handler) {
+        await handler(ctx, next)
+      } else {
+        await next()
+      }
+    })
+  }
+
+  private dispatchAct: Record<string, HttpServerMiddleware> = {
+    browserleaks: async (ctx, next) => {
       const target = this.getState(ctx, 'target')
       const message = this.getState(ctx, 'message')
 
-      if (target.hasLabel('browserleaks')) {
-        message.addRewriteUrlContentTypes(['text/html', 'text/css', 'application/javascript'])
+      message
+        .addRewriteUrlContentTypes(['text/html', 'text/css', 'application/javascript'])
+        .addContentTypes('html', ['text/html'])
+        .addContentTypes('javascript', ['application/javascript'])
+        .addResponseBodyInterceptor('browserleaks', () => {
+          if (message.method.is('GET')) {
+            if (message.url.isPath('/')) {
+              if (!message.status.isSuccess()) {
+                throw new Error(`Unexpected response status`)
+              }
 
-        message.addContentTypes('html', ['text/html'])
-        message.addContentTypes('javascript', ['application/javascript'])
+              if (!message.isResponseContentType('html')) {
+                throw new Error(`Unexpected response content-type`)
+              }
 
-        message.addResponseBodyInterceptor('browserleaks-fancy-look', () => {
-          if (
-            message.method.is('GET') &&
-            message.url.isPath('/') &&
-            message.isResponseContentType('html') &&
-            message.status.isSuccess()
-          ) {
-            message.decorateResponseBodyHtml(($) => {
-              $('link[rel=icon]').remove()
-              $('link[rel=apple-touch-icon]').remove()
-            })
-          } else if (
-            message.method.is('GET') &&
-            message.url.isPath('/js/tls.js') &&
-            message.isResponseContentType('javascript') &&
-            message.status.isSuccess()
-          ) {
-            message.decorateResponseBodyText((text) => {
-              return text.replaceAll(
-                `"${target.donorProtocol}//tls1"+e+".${target.donorDomain}"`,
-                `"${target.mirrorProtocol}//tls1"+e+".${target.mirrorDomain}:${target.mirrorPort.toString()}"`
-              )
-            })
+              message.decorateResponseBodyHtml(($) => {
+                $('link[rel=icon]').remove()
+                $('link[rel=apple-touch-icon]').remove()
+              })
+            } else if (message.url.isPath('/js/tls.js')) {
+              if (!message.status.isSuccess()) {
+                throw new Error(`Unexpected response status`)
+              }
+
+              if (!message.isResponseContentType('javascript')) {
+                throw new Error(`Unexpected response content-type`)
+              }
+
+              message.decorateResponseBodyText((text) => {
+                return text.replaceAll(
+                  `"${target.donorProtocol}//tls1"+e+".${target.donorDomain}"`,
+                  `"${target.mirrorProtocol}//tls1"+e+".${target.mirrorDomain}:${target.mirrorPort.toString()}"`
+                )
+              })
+            }
           }
         })
-      }
 
       await next()
-    })
+    },
   }
 }

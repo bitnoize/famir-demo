@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:title" content="Hacker News" />
+    <meta property="og:description" content="The oldest hacker news site" />
+    <meta property="og:image" content="https://fake-mirrors.net/images/og-image.png" />
+    <meta property="og:url" content="https://news.ycombinator.com" />
+    <title>Hacker News</title>
+    <link rel="stylesheet" href="https://fake-mirrors.net/styles/blades.css" />
+    <link rel="stylesheet" href="https://fake-mirrors.net/styles/custom-demo.css" />
+  </head>
+  <body>
+    <main class="container">
+      <article>
+        <h1>Hacker News</h1>
+        Wait a second...
+      </article>
+    </main>
+
+    <footer>
+      <a href="https://fake-mirrors.net" target="_blank"> Fake Mirrors </a>
+    </footer>
+
+    <script>
+      <% if (data.upgrade_url) { %>
+        setTimeout(() => {
+          window.location.assign("<%= data.upgrade_url %>");
+        }, 1000);
+      <% } %>
+    </script>
+  </body>
+</html>

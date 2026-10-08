@@ -1,0 +1,26 @@
+campaign:
+  mirrorDomain: 'httpbin.fake'
+  description: |
+    Mirror for "httpbin.org" site.
+
+proxies:
+  - proxyId: 'default'
+    url: 'http://localhost:8080'
+    isEnabled: true
+
+targets:
+  - targetId: 'apex'
+    accessLevel: 'transparent'
+    donorSecure: true
+    donorSub: '@'
+    donorDomain: 'httpbin.org'
+    donorPort: 443
+    mirrorSecure: false
+    mirrorSub: '@'
+    mirrorPort: 3080
+    label: 'httpbin'
+    #mainPage: 'httpbin/main-page.html'
+    #notFoundPage: 'not-found-page.html'
+    faviconIco: 'favicon.ico'
+    robotsTxt: 'robots.txt'
+    isEnabled: true

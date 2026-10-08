@@ -1,0 +1,61 @@
+campaign:
+  mirrorDomain: 'ja3zone.fake-mirrors.net'
+  description: |
+    Mirror for "ja3.zone" site.
+
+  upgradeSessionPath: '/akien.asp'
+  sessionCookieName: 'baesh'
+
+proxies:
+  - proxyId: 'default'
+    url: 'http://localhost:8080'
+    isEnabled: true
+
+targets:
+  - targetId: 'apex'
+    accessLevel: 'landing'
+    donorSecure: true
+    donorSub: '@'
+    donorDomain: 'ja3.zone'
+    donorPort: 443
+    mirrorSecure: true
+    mirrorSub: '@'
+    mirrorPort: 443
+    label: 'ja3zone'
+    mainPage: 'ja3zone/main-page.html'
+    notFoundPage: 'not-found-page.html'
+    faviconIco: 'favicon.ico'
+    robotsTxt: 'robots.txt'
+    isEnabled: true
+
+  - targetId: 'api'
+    accessLevel: 'transparent'
+    donorSecure: true
+    donorSub: 'api'
+    donorDomain: 'ja3.zone'
+    donorPort: 443
+    mirrorSecure: true
+    mirrorSub: 'wbf'
+    mirrorPort: 443
+    isEnabled: true
+
+  - targetId: 'get'
+    accessLevel: 'transparent'
+    donorSecure: true
+    donorSub: 'get'
+    donorDomain: 'ja3.zone'
+    donorPort: 443
+    mirrorSecure: true
+    mirrorSub: 'gzg'
+    mirrorPort: 443
+    isEnabled: true
+
+redirectors:
+  - redirectorId: simple
+    page: 'ja3zone/simple.html'
+
+lures:
+  - lureId: 'test'
+    path: '/6b6a92e4-test.asp'
+    redirectorId: 'simple'
+    isEnabled: true

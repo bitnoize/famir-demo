@@ -4,5 +4,5 @@ dist
 tsconfig.tsbuildinfo
 .env
 pm2.config.cjs
-logs
-
+logs/*
+!logs/.gitkeep

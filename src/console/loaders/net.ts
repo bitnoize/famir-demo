@@ -11,7 +11,6 @@ import {
   RedisSessionRepository,
   RedisTargetRepository,
 } from '@famir/database'
-import { CaddyEdgeServer } from '@famir/edge-server'
 import { PinoLogger } from '@famir/logger'
 import { BullAnalyzeQueue, BullWebhookQueue, RedisProducerConnector } from '@famir/producer'
 import { NetReplServer, ReplServerAssets, ReplServerRouter } from '@famir/repl-server'
@@ -19,7 +18,7 @@ import { MinioStorage } from '@famir/storage'
 import { EtaTemplater } from '@famir/templater'
 import { AjvValidator } from '@famir/validator'
 import { assets } from '../assets.js'
-import { bannerGreet, main } from '../main.js'
+import { main } from '../main.js'
 
 loader({
   infra: (container) => {
@@ -51,13 +50,9 @@ loader({
     BullAnalyzeQueue.register(container)
     BullWebhookQueue.register(container)
 
-    CaddyEdgeServer.register(container)
-
     ReplServerAssets.register(container, assets)
     ReplServerRouter.register(container)
-    NetReplServer.register(container, {
-      bannerGreet,
-    })
+    NetReplServer.register(container)
 
     ConsoleApp.register(container)
 

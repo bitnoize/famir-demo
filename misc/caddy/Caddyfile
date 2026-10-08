@@ -19,10 +19,7 @@
 
 		encode zstd gzip
 
-		reverse_proxy 127.0.0.1:3000 {
-			header_up Host {args[0]}:{args[1]}
-			header_up X-Real-Ip {remote_host}
-		}
+		reverse_proxy 127.0.0.1:3000
 	}
 }
 
@@ -44,3 +41,6 @@ import mirror pko.browserleaks.fake-mirrors.net 443
 
 import mirror hackernews.fake-mirrors.net 443
 import mirror itc.hackernews.fake-mirrors.net 443
+
+import mirror fp.impersonate.fake-mirrors.net 443
+

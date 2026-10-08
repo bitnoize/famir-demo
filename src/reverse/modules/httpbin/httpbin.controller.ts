@@ -3,32 +3,18 @@ import { Logger, LOGGER, TEMPLATER, Templater, Validator, VALIDATOR } from '@fam
 import {
   HTTP_SERVER_ASSETS,
   HTTP_SERVER_ROUTER,
+  HttpServerMiddleware,
   type HttpServerAssets,
   type HttpServerRouter,
 } from '@famir/http-server'
 import { BaseController } from '@famir/reverse-app'
-import { HttpbinSpec } from './httpbin.js'
+import { HttpbinCustom, HttpbinSettings, HttpbinSpec } from './httpbin.js'
 import { httpbinSpecSchema } from './httpbin.schemas.js'
 
-/**
- * DI token for the httpbin controller.
- *
- * @category Httpbin
- */
 export const HTTPBIN_CONTROLLER = Symbol('HttpbinController')
 
-/**
- * Represents the httpbin controller.
- *
- * @category Httpbin
- */
 export class HttpbinController extends BaseController {
-  /**
-   * Registers the controller as a singleton in the DI container.
-   *
-   * @param container - The DI container to register in.
-   */
-  static register(container: DIContainer) {
+  static register(container: DIContainer, settings?: Partial<HttpbinSettings>) {
     container.registerSingleton<HttpbinController>(
       HTTPBIN_CONTROLLER,
       (c) =>
@@ -37,96 +23,131 @@ export class HttpbinController extends BaseController {
           c.resolve<Logger>(LOGGER),
           c.resolve<Templater>(TEMPLATER),
           c.resolve<HttpServerAssets>(HTTP_SERVER_ASSETS),
-          c.resolve<HttpServerRouter>(HTTP_SERVER_ROUTER)
+          c.resolve<HttpServerRouter>(HTTP_SERVER_ROUTER),
+          settings
         )
     )
   }
 
-  /**
-   * Resolves the controller from the DI container.
-   *
-   * @param container - The DI container to resolve from.
-   * @returns The controller instance.
-   */
   static resolve(container: DIContainer): HttpbinController {
     return container.resolve(HTTPBIN_CONTROLLER)
   }
 
-  /**
-   * Creates a new controller instance.
-   *
-   * @param validator - The validator instance.
-   * @param logger - The logger instance.
-   * @param templater - The templater instance.
-   * @param assets - The assets instance.
-   * @param router - The router instance.
-   */
+  protected readonly custom: HttpbinCustom
+
   constructor(
     validator: Validator,
     logger: Logger,
     templater: Templater,
     assets: HttpServerAssets,
-    router: HttpServerRouter
+    router: HttpServerRouter,
+    settings: Partial<HttpbinSettings> = {}
   ) {
     super(validator, logger, templater, assets, router)
 
     this.validator.addSchema('reverse-httpbin-spec', httpbinSpecSchema)
+
+    this.custom = settings.custom ?? {}
   }
 
-  /**
-   * Registers used middleware in the router.
-   */
-  use() {
-    this.router.addMiddleware('httpbin', async (ctx, next) => {
+  pre() {
+    this.router.addMiddleware('httpbin-pre', async (ctx, next) => {
+      const target = this.getState(ctx, 'target')
+
+      const handler = this.dispatchPre[target.label]
+
+      if (handler) {
+        await handler(ctx, next)
+      } else {
+        await next()
+      }
+    })
+  }
+
+  private dispatchPre: Record<string, HttpServerMiddleware> = {
+    httpbin: async (ctx, next) => {
       const target = this.getState(ctx, 'target')
       const message = this.getState(ctx, 'message')
 
-      if (target.hasLabel('httpbin')) {
-        message.addRewriteUrlContentTypes(['text/html'])
-
-        message.addContentTypes('html', ['text/html'])
-        message.addContentTypes('json', ['application/json'])
-
-        if (this.streamRequestPaths.some((path) => ctx.url.isPath(path))) {
-          message.setType('normal-stream-request')
-        }
-
-        if (this.streamResponsePaths.some((path) => ctx.url.isPath(path))) {
-          message.setType('normal-stream-response')
-        }
-
-        if (this.interestPaths.some((path) => ctx.url.isPath(path))) {
-          message.analyze ||= 'default'
-        }
-
-        message.addResponseBodyInterceptor('httpbin-fancy-look', () => {
-          if (
-            message.method.is('GET') &&
-            message.url.isPath('/') &&
-            message.isResponseContentType('html') &&
-            message.status.isSuccess()
-          ) {
-            message.decorateResponseBodyHtml(($) => {
-              $('a.github-corner').attr('href', 'https://github.com/bitnoize/famir-demo')
-            })
-          } else if (
-            message.method.is('GET') &&
-            message.url.isPath('/spec.json') &&
-            message.isResponseContentType('json') &&
-            message.status.isSuccess()
-          ) {
-            message.decorateResponseBodyJson((json) => {
-              if (this.checkHttpbinSpec(json)) {
-                json.host = target.mirrorHost
-                json.info.title = `Fake Httpbin`
-              }
-            })
-          }
-        })
+      if (ctx.url.isPath(this.streamRequestPaths)) {
+        message.setType('normal-stream-request')
+      } else if (ctx.url.isPath(this.streamResponsePaths)) {
+        message.setType('normal-stream-response')
       }
 
+      if (ctx.url.isPath(this.interestPaths)) {
+        target.appendFlag('analyze')
+      }
+
+      target.appendFlag('no-cloaking-site')
+
       await next()
+    },
+  }
+
+  act() {
+    this.router.addMiddleware('httpbin-act', async (ctx, next) => {
+      const target = this.getState(ctx, 'target')
+
+      const handler = this.dispatchAct[target.label]
+
+      if (handler) {
+        await handler(ctx, next)
+      } else {
+        await next()
+      }
     })
+  }
+
+  private dispatchAct: Record<string, HttpServerMiddleware> = {
+    httpbin: async (ctx, next) => {
+      const target = this.getState(ctx, 'target')
+      const message = this.getState(ctx, 'message')
+
+      message
+        .addRewriteUrlContentTypes(['text/html'])
+        .addContentTypes('html', ['text/html'])
+        .addContentTypes('json', ['application/json'])
+        .addResponseBodyInterceptor('httpbin', () => {
+          if (message.method.is('GET')) {
+            if (message.url.isPath('/')) {
+              if (!message.status.isSuccess()) {
+                throw new Error(`Unexpected response status`)
+              }
+
+              if (!message.isResponseContentType('html')) {
+                throw new Error(`Unexpected response content-type`)
+              }
+
+              message.decorateResponseBodyHtml(($) => {
+                if (this.custom.github) {
+                  $('a.github-corner').attr('href', this.custom.github)
+                }
+              })
+            } else if (message.url.isPath('/spec.json')) {
+              if (!message.status.isSuccess()) {
+                throw new Error(`Unexpected response status`)
+              }
+
+              if (!message.isResponseContentType('json')) {
+                throw new Error(`Unexpected response content-type`)
+              }
+
+              message.decorateResponseBodyJson((json) => {
+                if (this.checkHttpbinSpec(json)) {
+                  json.host = target.mirrorHost
+
+                  if (this.custom.title) {
+                    json.info.title = this.custom.title
+                  }
+                }
+              })
+            }
+          }
+        })
+
+      await next()
+    },
   }
 
   private streamRequestPaths: (string | RegExp)[] = []
@@ -183,7 +204,7 @@ export class HttpbinController extends BaseController {
     /^\/redirect\//,
     /^\/relative-redirect\//,
     /^\/response-headers\//,
-    '/robots.txt',
+    //'/robots.txt',
     /^\/status\//,
     /^\/stream-bytes\//,
     /^\/stream\//,

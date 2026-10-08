@@ -33,8 +33,8 @@ pm2 start pm2.config.cjs
 
 ### httpbin.org
 
-Using this mirror, you can make arbitrary requests to the server and see the result
-from the donor site's perspective.
+Using this mirror, you can make arbitrary requests to the server and see the result from the donor
+site's perspective.
 
 - Modify spec.json, change title
 - Transparent reverse-proxy
@@ -53,8 +53,8 @@ This mirror shows JA3, JA4, PeetPrint and Akamai fingerprints of your browser.
 
 ### browserleaks.com
 
-Suite of tools that offers a range of tests to evaluate the security and privacy of
-your web browser.
+Suite of tools that offers a range of tests to evaluate the security and privacy of your web
+browser.
 
 - Transparent reverse-proxy
 

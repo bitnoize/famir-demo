@@ -1,0 +1,29 @@
+campaign:
+  mirrorDomain: 'httpbin.fake-mirrors.net'
+  description: |
+    Mirror for "httpbin.org" site.
+
+  upgradeSessionPath: '/dimoh.php'
+  sessionCookieName: 'jahla'
+
+proxies:
+  - proxyId: 'default'
+    url: 'http://localhost:8080'
+    isEnabled: true
+
+targets:
+  - targetId: 'apex'
+    accessLevel: 'transparent'
+    donorSecure: true
+    donorSub: '@'
+    donorDomain: 'httpbin.org'
+    donorPort: 443
+    mirrorSecure: true
+    mirrorSub: '@'
+    mirrorPort: 443
+    label: 'httpbin'
+    #mainPage: 'httpbin/main-page.html'
+    #notFoundPage: 'not-found-page.html'
+    faviconIco: 'favicon.ico'
+    robotsTxt: 'robots.txt'
+    isEnabled: true

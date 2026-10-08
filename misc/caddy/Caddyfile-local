@@ -7,15 +7,11 @@
 	http://{args[0]}:{args[1]} {
 		encode zstd gzip
 
-		reverse_proxy 127.0.0.1:3000 {
-			header_up Host {args[0]}:{args[1]}
-			header_up X-Real-Ip {remote_host}
-		}
+		reverse_proxy 127.0.0.1:3000
 	}
 }
 
 import mirror httpbin.fake 3080
-
 import mirror sse.typinks.fake 3080
 
 import mirror ja3zone.fake 3080
@@ -34,3 +30,5 @@ import mirror quic.browserleaks.fake 3080
 
 import mirror hackernews.fake 3080
 import mirror www.google.hackernews.fake 3080
+
+import mirror fp.impersonate.fake 3080

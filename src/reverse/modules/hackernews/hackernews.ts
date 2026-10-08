@@ -1,7 +1,3 @@
-/**
- * @category Hackernews
- * @internal
- */
 export type HackernewsPayloadName =
   | 'hackernews_login'
   | 'hackernews_comment'

@@ -1,7 +1,3 @@
-/**
- * @category Httpbin
- * @internal
- */
 export interface HttpbinSpec {
   basePath: string
   host: string
@@ -18,4 +14,13 @@ export interface HttpbinSpec {
   }
   protocol: string
   schemes: string[]
+}
+
+export interface HttpbinCustom {
+  title?: string
+  github?: string
+}
+
+export interface HttpbinSettings {
+  custom: HttpbinCustom
 }

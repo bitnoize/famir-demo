@@ -1,0 +1,127 @@
+campaign:
+  mirrorDomain: 'browserleaks.fake-mirrors.net'
+  description: |
+    Mirror for "browserleaks.com" site.
+
+  upgradeSessionPath: '/zasai.html'
+  sessionCookieName: 'yoofe'
+
+proxies:
+  - proxyId: 'default'
+    url: 'http://localhost:8080'
+    isEnabled: true
+
+targets:
+  - targetId: 'apex'
+    accessLevel: 'landing'
+    donorSecure: true
+    donorSub: '@'
+    donorDomain: 'browserleaks.com'
+    donorPort: 443
+    mirrorSecure: true
+    mirrorSub: '@'
+    mirrorPort: 443
+    label: 'browserleaks'
+    mainPage: 'browserleaks/main-page.html'
+    notFoundPage: 'not-found-page.html'
+    faviconIco: 'favicon.ico'
+    robotsTxt: 'robots.txt'
+    isEnabled: true
+
+  - targetId: 'ipv6'
+    accessLevel: 'transparent'
+    donorSecure: true
+    donorSub: 'ipv6'
+    donorDomain: 'browserleaks.com'
+    donorPort: 443
+    mirrorSecure: true
+    mirrorSub: 'euw'
+    mirrorPort: 443
+    isEnabled: true
+
+  - targetId: 'tls'
+    accessLevel: 'transparent'
+    donorSecure: true
+    donorSub: 'tls'
+    donorDomain: 'browserleaks.com'
+    donorPort: 443
+    mirrorSecure: true
+    mirrorSub: 'mek'
+    mirrorPort: 443
+    isEnabled: true
+
+  - targetId: 'tls10'
+    accessLevel: 'transparent'
+    donorSecure: true
+    donorSub: 'tls10'
+    donorDomain: 'browserleaks.com'
+    donorPort: 443
+    mirrorSecure: true
+    mirrorSub: 'cqx'
+    mirrorPort: 443
+    isEnabled: true
+
+  - targetId: 'tls11'
+    accessLevel: 'transparent'
+    donorSecure: true
+    donorSub: 'tls11'
+    donorDomain: 'browserleaks.com'
+    donorPort: 443
+    mirrorSecure: true
+    mirrorSub: 'hwi'
+    mirrorPort: 443
+    isEnabled: true
+
+  - targetId: 'tls12'
+    accessLevel: 'transparent'
+    donorSecure: true
+    donorSub: 'tls12'
+    donorDomain: 'browserleaks.com'
+    donorPort: 443
+    mirrorSecure: true
+    mirrorSub: 'ppm'
+    mirrorPort: 443
+    isEnabled: true
+
+  - targetId: 'tls13'
+    accessLevel: 'transparent'
+    donorSecure: true
+    donorSub: 'tls13'
+    donorDomain: 'browserleaks.com'
+    donorPort: 443
+    mirrorSecure: true
+    mirrorSub: 'dvb'
+    mirrorPort: 443
+    isEnabled: true
+
+  - targetId: 'permissions'
+    accessLevel: 'transparent'
+    donorSecure: true
+    donorSub: 'permissions'
+    donorDomain: 'browserleaks.com'
+    donorPort: 443
+    mirrorSecure: true
+    mirrorSub: 'cly'
+    mirrorPort: 443
+    isEnabled: true
+
+  - targetId: 'quic'
+    accessLevel: 'transparent'
+    donorSecure: true
+    donorSub: 'quic'
+    donorDomain: 'browserleaks.com'
+    donorPort: 443
+    mirrorSecure: true
+    mirrorSub: 'pko'
+    mirrorPort: 443
+    isEnabled: true
+
+redirectors:
+  - redirectorId: simple
+    page: 'browserleaks/simple.html'
+
+lures:
+  - lureId: 'test'
+    path: '/d056ff93e7a6-test.html'
+    redirectorId: 'simple'
+    isEnabled: true

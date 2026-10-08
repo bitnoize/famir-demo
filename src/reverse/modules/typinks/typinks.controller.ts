@@ -3,29 +3,15 @@ import { Logger, LOGGER, TEMPLATER, Templater, Validator, VALIDATOR } from '@fam
 import {
   HTTP_SERVER_ASSETS,
   HTTP_SERVER_ROUTER,
+  HttpServerMiddleware,
   type HttpServerAssets,
   type HttpServerRouter,
 } from '@famir/http-server'
 import { BaseController } from '@famir/reverse-app'
 
-/**
- * DI token for the typinks controller.
- *
- * @category Typinks
- */
 export const TYPINKS_CONTROLLER = Symbol('TypinksController')
 
-/**
- * Represents the typinks controller.
- *
- * @category Typinks
- */
 export class TypinksController extends BaseController {
-  /**
-   * Registers the controller as a singleton in the DI container.
-   *
-   * @param container - The DI container to register in.
-   */
   static register(container: DIContainer) {
     container.registerSingleton<TypinksController>(
       TYPINKS_CONTROLLER,
@@ -40,54 +26,62 @@ export class TypinksController extends BaseController {
     )
   }
 
-  /**
-   * Resolves the controller from the DI container.
-   *
-   * @param container - The DI container to resolve from.
-   * @returns The controller instance.
-   */
   static resolve(container: DIContainer): TypinksController {
     return container.resolve(TYPINKS_CONTROLLER)
   }
 
-  /**
-   * Creates a new controller instance.
-   *
-   * @param validator - The validator instance.
-   * @param logger - The logger instance.
-   * @param templater - The templater instance.
-   * @param assets - The assets instance.
-   * @param router - The router instance.
-   */
-  constructor(
-    validator: Validator,
-    logger: Logger,
-    templater: Templater,
-    assets: HttpServerAssets,
-    router: HttpServerRouter
-  ) {
-    super(validator, logger, templater, assets, router)
+  pre() {
+    this.router.addMiddleware('typinks-pre', async (ctx, next) => {
+      const target = this.getState(ctx, 'target')
+
+      const handler = this.dispatchPre[target.label]
+
+      if (handler) {
+        await handler(ctx, next)
+      } else {
+        await next()
+      }
+    })
   }
 
-  /**
-   * Registers used middleware in the router.
-   */
-  use() {
-    this.router.addMiddleware('typinks', async (ctx, next) => {
+  private dispatchPre: Record<string, HttpServerMiddleware> = {
+    'typinks-sse': async (ctx, next) => {
       const target = this.getState(ctx, 'target')
       const message = this.getState(ctx, 'message')
 
-      if (target.hasLabel('typinks-sse')) {
-        message.addRewriteUrlContentTypes(['text/html'])
-
-        message.analyze ||= 'default'
-
+      if (ctx.method.is('GET')) {
         if (ctx.url.isPath('/api/story')) {
           message.setType('normal-stream-response')
         }
       }
 
+      target.appendFlag('no-cloaking-site')
+
       await next()
+    },
+  }
+
+  act() {
+    this.router.addMiddleware('typinks-act', async (ctx, next) => {
+      const target = this.getState(ctx, 'target')
+
+      const handler = this.dispatchAct[target.label]
+
+      if (handler) {
+        await handler(ctx, next)
+      } else {
+        await next()
+      }
     })
+  }
+
+  private dispatchAct: Record<string, HttpServerMiddleware> = {
+    'typinks-sse': async (ctx, next) => {
+      const message = this.getState(ctx, 'message')
+
+      message.addRewriteUrlContentTypes(['text/html'])
+
+      await next()
+    },
   }
 }

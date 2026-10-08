@@ -3,29 +3,15 @@ import { Logger, LOGGER, TEMPLATER, Templater, Validator, VALIDATOR } from '@fam
 import {
   HTTP_SERVER_ASSETS,
   HTTP_SERVER_ROUTER,
+  HttpServerMiddleware,
   type HttpServerAssets,
   type HttpServerRouter,
 } from '@famir/http-server'
 import { BaseController } from '@famir/reverse-app'
 
-/**
- * DI token for the ja3zone controller.
- *
- * @category Ja3zone
- */
 export const JA3ZONE_CONTROLLER = Symbol('Ja3zoneController')
 
-/**
- * Represents the ja3zone controller.
- *
- * @category Ja3zone
- */
 export class Ja3zoneController extends BaseController {
-  /**
-   * Registers the controller as a singleton in the DI container.
-   *
-   * @param container - The DI container to register in.
-   */
   static register(container: DIContainer) {
     container.registerSingleton<Ja3zoneController>(
       JA3ZONE_CONTROLLER,
@@ -40,25 +26,10 @@ export class Ja3zoneController extends BaseController {
     )
   }
 
-  /**
-   * Resolves the controller from the DI container.
-   *
-   * @param container - The DI container to resolve from.
-   * @returns The controller instance.
-   */
   static resolve(container: DIContainer): Ja3zoneController {
     return container.resolve(JA3ZONE_CONTROLLER)
   }
 
-  /**
-   * Creates a new controller instance.
-   *
-   * @param validator - The validator instance.
-   * @param logger - The logger instance.
-   * @param templater - The templater instance.
-   * @param assets - The assets instance.
-   * @param router - The router instance.
-   */
   constructor(
     validator: Validator,
     logger: Logger,
@@ -69,37 +40,69 @@ export class Ja3zoneController extends BaseController {
     super(validator, logger, templater, assets, router)
   }
 
-  /**
-   * Registers used middleware in the router.
-   */
-  use() {
-    this.router.addMiddleware('ja3zone', async (ctx, next) => {
+  pre() {
+    this.router.addMiddleware('ja3zone-pre', async (ctx, next) => {
       const target = this.getState(ctx, 'target')
+
+      const handler = this.dispatchPre[target.label]
+
+      if (handler) {
+        await handler(ctx, next)
+      } else {
+        await next()
+      }
+    })
+  }
+
+  private dispatchPre: Record<string, HttpServerMiddleware> = {
+    ja3zone: async (ctx, next) => {
+      await next()
+    },
+  }
+
+  act() {
+    this.router.addMiddleware('ja3zone-act', async (ctx, next) => {
+      const target = this.getState(ctx, 'target')
+
+      const handler = this.dispatchAct[target.label]
+
+      if (handler) {
+        await handler(ctx, next)
+      } else {
+        await next()
+      }
+    })
+  }
+
+  private dispatchAct: Record<string, HttpServerMiddleware> = {
+    ja3zone: async (ctx, next) => {
       const message = this.getState(ctx, 'message')
 
-      if (target.hasLabel('ja3zone')) {
-        message.addRewriteUrlContentTypes(['text/html', 'application/javascript'])
+      message
+        .addRewriteUrlContentTypes(['text/html', 'application/javascript'])
+        .addContentTypes('html', ['text/html'])
+        .addResponseBodyInterceptor('ja3zone', () => {
+          if (message.method.is('GET')) {
+            if (message.url.isPath(['/', '/check', '/info'])) {
+              if (!message.status.isSuccess()) {
+                throw new Error(`Unexpected response status`)
+              }
 
-        message.addContentTypes('html', ['text/html'])
+              if (!message.isResponseContentType('html')) {
+                throw new Error(`Unexpected response content-type`)
+              }
 
-        message.addResponseBodyInterceptor('ja3zone-fancy-look', () => {
-          if (
-            message.method.is('GET') &&
-            message.url.isPath('/') &&
-            message.isResponseContentType('html') &&
-            message.status.isSuccess()
-          ) {
-            message.decorateResponseBodyHtml(($) => {
-              $('script[src^=https://www.googletagmanager.com]').remove()
-              $('script[src^=https://static.cloudflareinsights.com]').remove()
+              message.decorateResponseBodyHtml(($) => {
+                $('script[src^=https://www.googletagmanager.com]').remove()
+                $('script[src^=https://static.cloudflareinsights.com]').remove()
 
-              $('link[rel=icon]').remove()
-            })
+                $('link[rel=icon]').remove()
+              })
+            }
           }
         })
-      }
 
       await next()
-    })
+    },
   }
 }

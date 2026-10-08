@@ -16,11 +16,18 @@ import {
   GoogleController,
   HackernewsController,
   HttpbinController,
+  ImpersonateController,
   Ja3zoneController,
   TypinksController,
 } from './modules/index.js'
 
 export const main: DIComposer = (container) => {
+  loadControllers(container)
+
+  useMiddleware(container)
+}
+
+const loadControllers: DIComposer = (container) => {
   SetupMirrorService.register(container)
   SetupMirrorController.register(container)
 
@@ -37,25 +44,49 @@ export const main: DIComposer = (container) => {
   CompleteService.register(container)
   CompleteController.register(container)
 
-  HttpbinController.register(container)
+  HttpbinController.register(container, {
+    custom: {
+      title: 'Fake Httpbin',
+      github: 'https://github.com/bitnoize/famir-demo',
+    },
+  })
+
   TypinksController.register(container)
+
   Ja3zoneController.register(container)
+
   BrowserleaksController.register(container)
-  GoogleController.register(container)
+
   HackernewsController.register(container)
 
-  // Order is important!
+  ImpersonateController.register(container)
+
+  GoogleController.register(container)
+}
+
+const useMiddleware: DIComposer = (container) => {
   SetupMirrorController.resolve(container).use()
+
+  HttpbinController.resolve(container).pre()
+  TypinksController.resolve(container).pre()
+  Ja3zoneController.resolve(container).pre()
+  BrowserleaksController.resolve(container).pre()
+  HackernewsController.resolve(container).pre()
+  ImpersonateController.resolve(container).pre()
+  GoogleController.resolve(container).pre()
+
   WellKnownUrlsController.resolve(container).use()
-  HackernewsController.resolve(container).usePre()
   AuthorizeController.resolve(container).use()
   TransformController.resolve(container).use()
-  HttpbinController.resolve(container).use()
-  TypinksController.resolve(container).use()
-  Ja3zoneController.resolve(container).use()
-  BrowserleaksController.resolve(container).use()
-  GoogleController.resolve(container).use()
-  HackernewsController.resolve(container).use()
+
+  HttpbinController.resolve(container).act()
+  TypinksController.resolve(container).act()
+  Ja3zoneController.resolve(container).act()
+  BrowserleaksController.resolve(container).act()
+  HackernewsController.resolve(container).act()
+  ImpersonateController.resolve(container).act()
+  GoogleController.resolve(container).act()
+
   ForwardController.resolve(container).use()
   CompleteController.resolve(container).use()
 }
