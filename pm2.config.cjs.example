@@ -15,6 +15,7 @@ module.exports = {
       name: 'reverse',
       env: {
         //LOGGER_LOG_LEVEL: 'info',
+        //CURL_IMPERSONATE: 'firefox147'
       },
       script: 'dist/reverse/loaders/std.js',
       instances: 1,
