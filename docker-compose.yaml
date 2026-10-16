@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.9'
 
 services:
   console:
@@ -8,8 +8,8 @@ services:
       - LOGGER_LOG_LEVEL=debug
       - DATABASE_CONNECTION_URL=redis://default:$ecret@redis:6379/0
       - PRODUCER_CONNECTION_URL=redis://default:$ecret@redis:6379/1
-      - REPL_SERVER_ADDRESS=0.0.0.0
-      - REPL_SERVER_PORT=5000
+    ports:
+      - "127.0.0.1:3000:3000"
     command: ["node", "dist/console/loaders/net.js"]
     depends_on:
       - redis
@@ -22,8 +22,6 @@ services:
       - LOGGER_LOG_LEVEL=debug
       - DATABASE_CONNECTION_URL=redis://default:$ecret@redis:6379/0
       - PRODUCER_CONNECTION_URL=redis://default:$ecret@redis:6379/1
-      - HTTP_SERVER_ADDRESS=0.0.0.0
-      - HTTP_SERVER_PORT=3000
     command: ["node", "dist/reverse/loaders/std.js"]
     depends_on:
       - redis
@@ -59,9 +57,11 @@ services:
   caddy:
     image: caddy:2
     ports:
-      - "127.0.0.1:80:80"
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
     volumes:
-      - "./misc/caddy/Caddyfile-local:/etc/caddy/Caddyfile:ro"
+      - "./misc/caddy/Caddyfile:/etc/caddy/Caddyfile:ro"
       - "caddy-data:/data"
       - "caddy-config:/config"
     restart: unless-stopped
@@ -72,11 +72,10 @@ services:
       - MINIO_ROOT_USER=admin
       - MINIO_ROOT_PASSWORD=$secret
     ports:
-      - "9000:9000"
-      - "9001:9001"
+      - "127.0.0.1:9000:9000"
     volumes:
       - "silo-data:/data"
-    command: ["server", "/data", "--console-address", ":9001"]
+    command: ["server", "/data"]
     restart: unless-stopped
 
 volumes:

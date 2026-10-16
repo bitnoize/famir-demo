@@ -46,13 +46,7 @@ RUN set -eux; \
         /usr/share/doc/* \
         /usr/share/info/* \
         /usr/share/man/* \
-        /var/lib/apt/lists/*; \
-    # Unprivileged user
-    groupadd -g 1000 node; \
-    useradd -M -d /var/lib/node -s /bin/bash -g 1000 -u 1000 node; \
-    usermod -a -G tty,staff node; \
-    mkdir -m 0750 /var/lib/node; \
-    chown node:node /var/lib/node
+        /var/lib/apt/lists/*
 
 COPY --from=builder /opt/famir-demo/package*.json /opt/famir-demo/
 COPY --from=builder /opt/famir-demo/node_modules /opt/famir-demo/node_modules
@@ -62,9 +56,11 @@ WORKDIR /opt/famir-demo
 
 ENV NODE_ENV=production \
     HTTP_SERVER_ADDRESS=0.0.0.0 \
-    HTTP_SERVER_PORT=3000
+    HTTP_SERVER_PORT=3000 \
+    REPL_SERVER_ADDRESS=0.0.0.0 \
+    REPL_SERVER_PORT=5000
 
-EXPOSE 3000
+EXPOSE 3000 5000
 
 USER node
 
