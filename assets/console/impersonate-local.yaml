@@ -17,6 +17,6 @@ targets:
     donorPort: 443
     mirrorSecure: false
     mirrorSub: 'fp'
-    mirrorPort: 3080
+    mirrorPort: 8000
     label: 'impersonate-fp'
     isEnabled: true

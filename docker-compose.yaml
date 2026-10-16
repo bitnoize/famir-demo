@@ -1,16 +1,24 @@
-version: '3.9'
+networks:
+  famir-net:
+    driver: bridge
 
 services:
   console:
     image: famir-demo:latest
     environment:
-      - NODE_ENV=production
-      - LOGGER_LOG_LEVEL=debug
-      - DATABASE_CONNECTION_URL=redis://default:$ecret@redis:6379/0
-      - PRODUCER_CONNECTION_URL=redis://default:$ecret@redis:6379/1
+      - "NODE_ENV=production"
+      - "LOGGER_LOG_LEVEL=info"
+      - "DATABASE_CONNECTION_URL=redis://:strongpass@redis:6379/0"
+      - "PRODUCER_CONNECTION_URL=redis://:strongpass@redis:6379/1"
+      - "STORAGE_END_POINT=silo"
+      - "STORAGE_PORT=9000"
+      - "STORAGE_ACCESS_KEY=root"
+      - "STORAGE_SECRET_KEY=strongpass"
     ports:
-      - "127.0.0.1:3000:3000"
+      - "127.0.0.1:5000:5000"
     command: ["node", "dist/console/loaders/net.js"]
+    networks:
+      - famir-net
     depends_on:
       - redis
     restart: unless-stopped
@@ -18,11 +26,15 @@ services:
   reverse:
     image: famir-demo:latest
     environment:
-      - NODE_ENV=production
-      - LOGGER_LOG_LEVEL=debug
-      - DATABASE_CONNECTION_URL=redis://default:$ecret@redis:6379/0
-      - PRODUCER_CONNECTION_URL=redis://default:$ecret@redis:6379/1
+      - "NODE_ENV=production"
+      - "LOGGER_LOG_LEVEL=info"
+      - "DATABASE_CONNECTION_URL=redis://:strongpass@redis:6379/0"
+      - "PRODUCER_CONNECTION_URL=redis://:strongpass@redis:6379/1"
+    ports:
+      - "127.0.0.1:3000:3000"
     command: ["node", "dist/reverse/loaders/std.js"]
+    networks:
+      - famir-net
     depends_on:
       - redis
     restart: unless-stopped
@@ -30,15 +42,18 @@ services:
   actions:
     image: famir-demo:latest
     environment:
-      - NODE_ENV=production
-      - LOGGER_LOG_LEVEL=debug
-      - DATABASE_CONNECTION_URL=redis://default:$ecret@redis:6379/0
-      - PRODUCER_CONNECTION_URL=redis://default:$ecret@redis:6379/1
-      - STORAGE_END_POINT=silo
-      - STORAGE_PORT=9000
-      - STORAGE_ACCESS_KEY=admin
-      - STORAGE_SECRET_KEY=$ecret
+      - "NODE_ENV=production"
+      - "LOGGER_LOG_LEVEL=info"
+      - "DATABASE_CONNECTION_URL=redis://:strongpass@redis:6379/0"
+      - "PRODUCER_CONNECTION_URL=redis://:strongpass@redis:6379/1"
+      - "CONSUMER_CONNECTION_URL=redis://:strongpass@redis:6379/1"
+      - "STORAGE_END_POINT=silo"
+      - "STORAGE_PORT=9000"
+      - "STORAGE_ACCESS_KEY=root"
+      - "STORAGE_SECRET_KEY=strongpass"
     command: ["node", "dist/actions/loaders/std.js"]
+    networks:
+      - famir-net
     depends_on:
       - redis
       - silo
@@ -47,35 +62,46 @@ services:
   redis:
     image: redis:7-alpine
     environment:
-      - REDIS_ARGS=--requirepass $ecret --appendonly yes
+      - "REDIS_ARGS=--requirepass strongpass --appendonly yes"
     ports:
       - "127.0.0.1:6379:6379"
     volumes:
       - "redis-data:/data"
+    networks:
+      - famir-net
     restart: unless-stopped
 
   caddy:
     image: caddy:2
     ports:
-      - "80:80"
-      - "443:443"
-      - "443:443/udp"
+      - "127.0.0.1:8000:8000"
     volumes:
-      - "./misc/caddy/Caddyfile:/etc/caddy/Caddyfile:ro"
+      - "./conf/caddy/Caddyfile-docker:/etc/caddy/Caddyfile:ro"
       - "caddy-data:/data"
       - "caddy-config:/config"
+    networks:
+      - famir-net
     restart: unless-stopped
 
   silo:
     image: pgsty/silo:latest
     environment:
-      - MINIO_ROOT_USER=admin
-      - MINIO_ROOT_PASSWORD=$secret
+      - "MINIO_ROOT_USER=root"
+      - "MINIO_ROOT_PASSWORD=strongpass"
     ports:
       - "127.0.0.1:9000:9000"
     volumes:
       - "silo-data:/data"
     command: ["server", "/data"]
+    networks:
+      - famir-net
+    restart: unless-stopped
+
+  tunnel:
+    image: gogost/gost
+    command: ["-L", "http://0.0.0.0:8080"]
+    networks:
+      - famir-net
     restart: unless-stopped
 
 volumes:

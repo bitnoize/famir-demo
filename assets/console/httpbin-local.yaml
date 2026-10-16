@@ -6,7 +6,7 @@ campaign:
 proxies:
   - proxyId: 'default'
     url: 'http://localhost:8080'
-    isEnabled: true
+    isEnabled: false
 
 targets:
   - targetId: 'apex'
@@ -17,7 +17,7 @@ targets:
     donorPort: 443
     mirrorSecure: false
     mirrorSub: '@'
-    mirrorPort: 3080
+    mirrorPort: 8000
     label: 'httpbin'
     #mainPage: 'httpbin/main-page.html'
     #notFoundPage: 'not-found-page.html'

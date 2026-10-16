@@ -17,7 +17,7 @@ targets:
     donorPort: 443
     mirrorSecure: false
     mirrorSub: '@'
-    mirrorPort: 3080
+    mirrorPort: 8000
     label: 'hackernews'
     mainPage: 'hackernews/main-page.html'
     notFoundPage: 'not-found-page.html'
@@ -33,7 +33,7 @@ targets:
     donorPort: 443
     mirrorSecure: false
     mirrorSub: 'www.google'
-    mirrorPort: 3080
+    mirrorPort: 8000
     label: 'google'
     isEnabled: true
 

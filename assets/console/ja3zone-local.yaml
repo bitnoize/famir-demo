@@ -17,7 +17,7 @@ targets:
     donorPort: 443
     mirrorSecure: false
     mirrorSub: '@'
-    mirrorPort: 3080
+    mirrorPort: 8000
     label: 'ja3zone'
     mainPage: 'ja3zone/main-page.html'
     notFoundPage: 'not-found-page.html'
@@ -33,7 +33,7 @@ targets:
     donorPort: 443
     mirrorSecure: false
     mirrorSub: 'api'
-    mirrorPort: 3080
+    mirrorPort: 8000
     isEnabled: true
 
   - targetId: 'get'
@@ -44,7 +44,7 @@ targets:
     donorPort: 443
     mirrorSecure: false
     mirrorSub: 'get'
-    mirrorPort: 3080
+    mirrorPort: 8000
     isEnabled: true
 
 redirectors:

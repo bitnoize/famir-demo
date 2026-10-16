@@ -17,7 +17,7 @@ targets:
     donorPort: 443
     mirrorSecure: false
     mirrorSub: 'sse'
-    mirrorPort: 3080
+    mirrorPort: 8000
     label: 'typinks-sse'
     streamTimeout: 60000
     isEnabled: true
