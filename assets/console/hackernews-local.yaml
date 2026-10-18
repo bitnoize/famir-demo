@@ -6,7 +6,9 @@ campaign:
 proxies:
   - proxyId: 'default'
     url: 'http://localhost:8080'
-    isEnabled: true
+
+  - proxyId: 'docker-default'
+    url: 'http://tunnel:8080'
 
 targets:
   - targetId: 'apex'
@@ -17,7 +19,7 @@ targets:
     donorPort: 443
     mirrorSecure: false
     mirrorSub: '@'
-    mirrorPort: 8000
+    mirrorPort: 80
     label: 'hackernews'
     mainPage: 'hackernews/main-page.html'
     notFoundPage: 'not-found-page.html'
@@ -33,7 +35,7 @@ targets:
     donorPort: 443
     mirrorSecure: false
     mirrorSub: 'www.google'
-    mirrorPort: 8000
+    mirrorPort: 80
     label: 'google'
     isEnabled: true
 

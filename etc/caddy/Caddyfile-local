@@ -1,0 +1,10 @@
+{
+	auto_https off
+	default_bind {$CADDY_BIND:0.0.0.0}
+}
+
+:80 {
+	encode zstd gzip
+
+	reverse_proxy {$REVERSE_HOST:localhost}:{$REVERSE_PORT:3000}
+}

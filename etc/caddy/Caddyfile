@@ -1,0 +1,32 @@
+{
+	default_bind {$CADDY_BIND:0.0.0.0}
+}
+
+(mirror) {
+	https://{args[0]}:443 {
+		encode zstd gzip
+
+		reverse_proxy {$REVERSE_HOST:localhost}:{$REVERSE_PORT:3000}
+	}
+}
+
+import mirror httpbin.fake-mirrors.net
+
+import mirror ja3zone.fake-mirrors.net
+import mirror wbf.ja3zone.fake-mirrors.net
+import mirror gzg.ja3zone.fake-mirrors.net
+
+import mirror browserleaks.fake-mirrors.net
+import mirror euw.browserleaks.fake-mirrors.net
+import mirror mek.browserleaks.fake-mirrors.net
+import mirror cqx.browserleaks.fake-mirrors.net
+import mirror hwi.browserleaks.fake-mirrors.net
+import mirror ppm.browserleaks.fake-mirrors.net
+import mirror dvb.browserleaks.fake-mirrors.net
+import mirror cly.browserleaks.fake-mirrors.net
+import mirror pko.browserleaks.fake-mirrors.net
+
+import mirror hackernews.fake-mirrors.net
+import mirror itc.hackernews.fake-mirrors.net
+
+import mirror fp.impersonate.fake-mirrors.net

@@ -1,12 +1,14 @@
 campaign:
   mirrorDomain: 'impersonate.fake'
   description: |
-    Mirror for impersonate.pro site.
+    Mirror for "impersonate.pro" site.
 
 proxies:
   - proxyId: 'default'
     url: 'http://localhost:8080'
-    isEnabled: true
+
+  - proxyId: 'docker-default'
+    url: 'http://tunnel:8080'
 
 targets:
   - targetId: 'fp'
@@ -17,6 +19,6 @@ targets:
     donorPort: 443
     mirrorSecure: false
     mirrorSub: 'fp'
-    mirrorPort: 8000
+    mirrorPort: 80
     label: 'impersonate-fp'
     isEnabled: true

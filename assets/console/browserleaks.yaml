@@ -9,7 +9,9 @@ campaign:
 proxies:
   - proxyId: 'default'
     url: 'http://localhost:8080'
-    isEnabled: true
+
+  - proxyId: 'docker-default'
+    url: 'http://tunnel:8080'
 
 targets:
   - targetId: 'apex'

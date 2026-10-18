@@ -1,12 +1,14 @@
 campaign:
   mirrorDomain: 'typinks.fake'
   description: |
-    Mirror for testing SSE connections.
+    Mirror for "typinks.com" site.
 
 proxies:
   - proxyId: 'default'
     url: 'http://localhost:8080'
-    isEnabled: true
+
+  - proxyId: 'docker-default'
+    url: 'http://tunnel:8080'
 
 targets:
   - targetId: 'sse'
@@ -17,7 +19,7 @@ targets:
     donorPort: 443
     mirrorSecure: false
     mirrorSub: 'sse'
-    mirrorPort: 8000
+    mirrorPort: 80
     label: 'typinks-sse'
     streamTimeout: 60000
     isEnabled: true

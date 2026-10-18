@@ -1,7 +1,7 @@
 campaign:
-  mirrorDomain: 'impersonate.fake'
+  mirrorDomain: 'impersonate.fake-mirrors.net'
   description: |
-    Mirror for impersonate.pro site.
+    Mirror for "impersonate.pro" site.
 
   upgradeSessionPath: '/faeku.jsp'
   sessionCookieName: 'phing'
@@ -9,7 +9,9 @@ campaign:
 proxies:
   - proxyId: 'default'
     url: 'http://localhost:8080'
-    isEnabled: true
+
+  - proxyId: 'docker-default'
+    url: 'http://tunnel:8080'
 
 targets:
   - targetId: 'fp'

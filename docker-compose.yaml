@@ -6,7 +6,6 @@ services:
   console:
     image: famir-demo:latest
     environment:
-      - "NODE_ENV=production"
       - "LOGGER_LOG_LEVEL=info"
       - "DATABASE_CONNECTION_URL=redis://redis:6379/0"
       - "PRODUCER_CONNECTION_URL=redis://redis:6379/1"
@@ -22,14 +21,13 @@ services:
       - famir-net
     depends_on:
       - redis
+      - silo
       - tunnel
-      - silo-prep
     restart: unless-stopped
 
   reverse:
     image: famir-demo:latest
     environment:
-      - "NODE_ENV=production"
       - "LOGGER_LOG_LEVEL=info"
       - "DATABASE_CONNECTION_URL=redis://redis:6379/0"
       - "PRODUCER_CONNECTION_URL=redis://redis:6379/1"
@@ -46,7 +44,6 @@ services:
   actions:
     image: famir-demo:latest
     environment:
-      - "NODE_ENV=production"
       - "LOGGER_LOG_LEVEL=info"
       - "DATABASE_CONNECTION_URL=redis://redis:6379/0"
       - "PRODUCER_CONNECTION_URL=redis://redis:6379/1"
@@ -61,8 +58,8 @@ services:
       - famir-net
     depends_on:
       - redis
+      - silo
       - tunnel
-      - silo-prep
     restart: unless-stopped
 
   redis:
@@ -79,10 +76,15 @@ services:
 
   caddy:
     image: caddy:2
+    environment:
+      - "$REVERSE_HOST=reverse"
+      - "$REVERSE_PORT=3000"
     ports:
-      - "127.0.0.1:8000:8000"
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
     volumes:
-      - "./conf/caddy/Caddyfile-docker:/etc/caddy/Caddyfile:ro"
+      - "./etc/caddy/Caddyfile:/etc/caddy/Caddyfile:ro"
       - "caddy-data:/data"
       - "caddy-config:/config"
     networks:
@@ -103,10 +105,11 @@ services:
       - famir-net
     restart: unless-stopped
 
-  silo-prep:
+  silo-create-bucket:
     image: pgsty/mc:latest
     entrypoint: >
       /bin/sh -c "
+      sleep 2;
       mc alias set silo http://silo:9000 root strongpass;
       mc mb --ignore-existing silo/famir;
       exit 0;
@@ -117,7 +120,7 @@ services:
       - silo
 
   tunnel:
-    image: gogost/gost
+    image: gogost/gost:latest
     command: ["-L", "http://0.0.0.0:8080"]
     networks:
       - famir-net
