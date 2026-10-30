@@ -1,12 +1,11 @@
 import { DIContainer } from '@famir/common'
-import { LOGGER_TRANSPORT, LoggerTransport } from '@famir/logger'
+import { LOGGER_TRANSPORT, LoggerTransport, PinoLogger } from '@famir/logger'
 import { join } from 'path'
-import pino from 'pino'
 
 export function loadPinoRoll(appName: string) {
   const basePath = process.env['LOGGER_BASE_PATH'] ?? './logs'
 
-  const loggerTransport = pino.transport({
+  const loggerTransport = PinoLogger.createTransport({
     target: 'pino-roll',
     options: {
       file: join(basePath, appName + '/'),
